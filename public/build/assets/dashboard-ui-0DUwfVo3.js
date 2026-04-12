@@ -1,0 +1,1 @@
+(function(){if(!(document.body&&document.body.dataset.page==="dashboard"))return;const e=document.getElementById("dashboardLiveTime");if(!e)return;const t=e.querySelector("span"),o=()=>{const n=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",hour12:!0});t?t.textContent=n:e.append(document.createTextNode(n))};o(),window.setInterval(o,15e3)})();

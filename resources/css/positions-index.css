@@ -1,0 +1,301 @@
+/* Positions index */
+:is([data-page="positions.index"]) .positions-card {
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+:is([data-page="positions.index"]) .positions-card .ui-table-card__heading.table-card-header {
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+[data-page="positions.index"] .positions-table thead th {
+  border-top: 0;
+  border-bottom: 2px solid #edf2f9;
+  letter-spacing: 0.6px;
+}
+[data-page="positions.index"] .position-row {
+  transition: all 0.2s;
+}
+[data-page="positions.index"] .positions-table tbody tr:hover {
+  background-color: #f7f9fc !important;
+}
+[data-page="positions.index"] .position-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.25rem 0.35rem;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  color: #1f2d3d;
+  font-weight: 600;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+[data-page="positions.index"] .position-pill:hover {
+  background: #f3f7fd;
+  transform: translateY(-1px);
+}
+[data-page="positions.index"] .icon-shape {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+[data-page="positions.index"] .form-group label {
+  font-weight: 600;
+}
+[data-page="positions.index"] #positionCreateModal .form-control,
+[data-page="positions.index"] #positionEditModal .form-control {
+  border-radius: 10px;
+  border: 1px solid #cfd8e3;
+  height: 42px;
+  padding: 0 0.85rem;
+  line-height: 40px;
+}
+[data-page="positions.index"] #positionCreateModal .input-group-text,
+[data-page="positions.index"] #positionEditModal .input-group-text {
+  border-radius: 10px 0 0 10px;
+  border: 1px solid #cfd8e3;
+  border-right: 0;
+  background: #f3f5f8;
+  color: #495766;
+}
+[data-page="positions.index"] #positionCreateModal .input-group > .form-control,
+[data-page="positions.index"] #positionEditModal .input-group > .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[data-page="positions.index"] .position-members-modal .modal-dialog {
+  max-width: 760px;
+}
+[data-page="positions.index"] .position-members-list {
+  display: grid;
+  gap: 0.72rem;
+}
+[data-page="positions.index"] .position-member-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid #e8edf4;
+  background: #f9fbfe;
+}
+[data-page="positions.index"] .position-member-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9eff7;
+  border: 1px solid #d7e1ed;
+  flex: 0 0 auto;
+}
+[data-page="positions.index"] .position-member-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+[data-page="positions.index"] .position-member-avatar-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  color: #1f4f8a;
+  font-size: 1rem;
+}
+[data-page="positions.index"] .position-member-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+[data-page="positions.index"] .position-member-name {
+  font-weight: 700;
+  color: #1f2d3d;
+  line-height: 1.25;
+}
+[data-page="positions.index"] .position-member-department {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+[data-page="positions.index"] #positionMembersModal.fade .modal-dialog {
+  transform: scale(0.97) translateY(8px);
+  transition: transform 0.18s ease-out;
+}
+[data-page="positions.index"] #positionMembersModal.show .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Positions UI refactor - modern green accent */
+:is([data-page="positions.index"]) .positions-card {
+  border-radius: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-page="positions.index"] .positions-table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: transparent;
+}
+
+[data-page="positions.index"] .positions-table thead {
+  background: #f8fafc !important;
+}
+
+[data-page="positions.index"] .positions-table thead th {
+  border-bottom: 1px solid #e5e7eb;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 700;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+[data-page="positions.index"] .positions-table tbody tr {
+  border-bottom: 1px solid #edf2f7;
+  transition: all 0.2s ease;
+}
+
+[data-page="positions.index"] .positions-table tbody tr:hover {
+  background-color: rgba(34, 197, 94, 0.04) !important;
+}
+
+[data-page="positions.index"] .position-pill {
+  min-height: 40px;
+  gap: 0.55rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  padding: 0.35rem 0.7rem;
+}
+
+[data-page="positions.index"] .position-pill:hover {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.24);
+  box-shadow: 0 8px 16px rgba(22, 163, 74, 0.12);
+  transform: translateY(-1px);
+}
+
+[data-page="positions.index"] .badge-readonly {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 0.38rem 0.7rem !important;
+  font-size: 0.74rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+[data-page="positions.index"] #positionCreateModal .form-control,
+[data-page="positions.index"] #positionCreateModal .input-group-text,
+[data-page="positions.index"] #positionEditModal .form-control,
+[data-page="positions.index"] #positionEditModal .input-group-text {
+  min-height: 44px;
+  border: 1px solid #e5e7eb;
+}
+
+[data-page="positions.index"] #positionCreateModal .form-control:focus,
+[data-page="positions.index"] #positionEditModal .form-control:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+[data-page="positions.index"] #positionCreateModal .select2-container--bootstrap4 .select2-selection--multiple,
+[data-page="positions.index"] #positionEditModal .select2-container--bootstrap4 .select2-selection--multiple {
+  min-height: 44px;
+  height: auto;
+  padding: 0.28rem 0.5rem 0.22rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.3rem;
+  background: #fff;
+}
+
+[data-page="positions.index"] #positionCreateModal .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__rendered,
+[data-page="positions.index"] #positionEditModal .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__rendered {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-page="positions.index"] #positionCreateModal .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice,
+[data-page="positions.index"] #positionEditModal .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.22rem 0.6rem;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #334155;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+[data-page="positions.index"] #positionCreateModal .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove,
+[data-page="positions.index"] #positionEditModal .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove {
+  position: static;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+[data-page="positions.index"] #positionCreateModal .select2-container--bootstrap4 .select2-selection--multiple .select2-search,
+[data-page="positions.index"] #positionEditModal .select2-container--bootstrap4 .select2-selection--multiple .select2-search {
+  margin: 0;
+  flex: 1 1 8rem;
+  min-width: 8rem;
+}
+
+[data-page="positions.index"] #positionCreateModal .select2-container--bootstrap4 .select2-selection--multiple .select2-search__field,
+[data-page="positions.index"] #positionEditModal .select2-container--bootstrap4 .select2-selection--multiple .select2-search__field {
+  width: 100% !important;
+  min-width: 100%;
+  min-height: 30px;
+  margin: 0;
+  padding: 0.18rem 0.35rem;
+  line-height: 1.4;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: text;
+}
+
+[data-page="positions.index"] .position-members-list > .text-center {
+  border: 1px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 1.1rem 0.8rem !important;
+  opacity: 0.85;
+}
+
+[data-page="positions.index"] #positionMembersModal.fade .modal-dialog {
+  transform: scale(0.97) translateY(8px);
+  transition: transform 0.2s ease-out;
+}
+
+[data-page="positions.index"] #positionMembersModal.show .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+

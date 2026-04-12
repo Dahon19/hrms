@@ -1,0 +1,693 @@
+.offboarding-card {
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.offboarding-toolbar-wrap {
+    border-bottom: 1px solid rgba(226, 232, 240, 0.92);
+    background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 24%),
+        linear-gradient(180deg, rgba(251, 253, 255, 0.98), rgba(244, 247, 251, 0.98));
+}
+
+.offboarding-toolbar-wrap--borderless {
+    border-bottom: 0;
+}
+
+[data-page="offboarding.index"] .offboarding-toolbar .ui-toolbar__grid {
+    display: grid;
+    grid-template-columns: minmax(15rem, 18rem) repeat(2, minmax(10rem, 11rem)) auto;
+    align-items: end;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+[data-page="offboarding.index"] .offboarding-toolbar .ui-toolbar__field {
+    min-width: 0;
+    width: 100%;
+}
+
+[data-page="offboarding.index"] .offboarding-toolbar .ui-table-toolbar-field--search {
+    min-width: 0;
+}
+
+[data-page="offboarding.index"] .offboarding-toolbar .ui-toolbar__field--action {
+    width: auto;
+}
+
+.offboarding-search-input {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+}
+
+.offboarding-search-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.offboarding-create-modal .modal-body {
+    display: grid;
+    gap: 1rem;
+}
+
+.offboarding-action-modal .modal-body {
+    padding-top: 1rem;
+}
+
+.offboarding-form-surface {
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
+    background:
+        linear-gradient(180deg, rgba(248, 250, 252, 0.98), rgba(255, 255, 255, 0.98));
+    padding: 1rem 1.05rem;
+}
+
+.offboarding-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(11rem, 14rem);
+    gap: 1rem;
+}
+
+.offboarding-form-field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.offboarding-form-field--full {
+    grid-column: 1 / -1;
+}
+
+.offboarding-form-field--compact {
+    align-content: start;
+}
+
+.offboarding-form-field label {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+.offboarding-form-surface .form-control {
+    min-height: 44px;
+    border-radius: 0.9rem;
+    border-color: rgba(148, 163, 184, 0.36);
+    box-shadow: none;
+}
+
+.offboarding-form-surface textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.offboarding-form-static .form-control[readonly] {
+    background: #f8fafc;
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.offboarding-form-help {
+    display: block;
+    margin-top: 0.05rem;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: #64748b;
+}
+
+.offboarding-modal-section {
+    padding: 1rem 1.05rem;
+}
+
+.offboarding-modal-section__header {
+    margin-bottom: 0.8rem;
+}
+
+.offboarding-modal-section__eyebrow {
+    margin-bottom: 0.22rem;
+}
+
+.offboarding-modal-section__title {
+    font-size: 0.92rem;
+    color: #0f172a;
+}
+
+.offboarding-modal-section__text {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin-top: 0.24rem;
+}
+
+.offboarding-table {
+    table-layout: fixed;
+}
+
+[data-page="offboarding.index"] .ui-table-card__table-wrap > .table,
+[data-page="offboarding.index"] .ui-table-card__body > .table,
+[data-page="offboarding.index"] .hrms-table.offboarding-table {
+    min-width: 0 !important;
+    width: 100% !important;
+}
+
+[data-page="offboarding.index"] .offboarding-table thead th,
+[data-page="offboarding.index"] .offboarding-table tbody td {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+}
+
+[data-page="offboarding.index"] .offboarding-table th:nth-child(1),
+[data-page="offboarding.index"] .offboarding-table td:nth-child(1) {
+    width: 27%;
+}
+
+[data-page="offboarding.index"] .offboarding-table th:nth-child(2),
+[data-page="offboarding.index"] .offboarding-table td:nth-child(2) {
+    width: 27%;
+}
+
+[data-page="offboarding.index"] .offboarding-table th:nth-child(3),
+[data-page="offboarding.index"] .offboarding-table td:nth-child(3) {
+    width: 13%;
+}
+
+[data-page="offboarding.index"] .offboarding-table th:nth-child(4),
+[data-page="offboarding.index"] .offboarding-table td:nth-child(4) {
+    width: 21%;
+}
+
+[data-page="offboarding.index"] .offboarding-table th:nth-child(5),
+[data-page="offboarding.index"] .offboarding-table td:nth-child(5) {
+    width: 12%;
+}
+
+[data-page="offboarding.index"] .offboarding-table td:nth-child(5) .crud-actions {
+    gap: 0.25rem;
+}
+
+[data-page="offboarding.index"] .offboarding-table td:nth-child(5) .action-btn {
+    min-width: 2rem;
+    min-height: 2rem;
+    padding-inline: 0.4rem;
+}
+
+[data-page^="offboarding."] .offboarding-table tbody td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    vertical-align: middle;
+}
+
+[data-page^="offboarding."] .offboarding-table tbody tr {
+    border-bottom: 1px solid #edf2f7;
+}
+
+[data-page^="offboarding."] .offboarding-table .badge {
+    white-space: nowrap;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+}
+
+[data-page^="offboarding."] .offboarding-table td:nth-child(1),
+[data-page^="offboarding."] .offboarding-table td:nth-child(2),
+[data-page^="offboarding."] .offboarding-table td:nth-child(4) {
+    white-space: normal;
+}
+
+.offboarding-primary-text {
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.35;
+}
+
+.offboarding-secondary-text {
+    font-size: 0.83rem;
+    color: #64748b;
+    line-height: 1.45;
+    margin-top: 0.15rem;
+}
+
+.offboarding-checklist-metrics {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.offboarding-checklist-metrics span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-weight: 600;
+}
+
+.offboarding-overview-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.offboarding-detail-stack {
+    display: grid;
+    gap: 0;
+}
+
+.offboarding-summary-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.offboarding-notes-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.offboarding-owner-summary-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.offboarding-stage-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.offboarding-stage-card {
+    padding: 1rem 1.05rem;
+}
+
+.offboarding-stage-step {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 0.35rem;
+}
+
+.offboarding-stage-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.35;
+}
+
+.offboarding-stage-description {
+    font-size: 0.86rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+}
+
+.offboarding-owner-summary-card {
+    padding: 0.95rem 1rem;
+}
+
+.offboarding-owner-summary-line {
+    font-size: 0.86rem;
+    color: #334155;
+    line-height: 1.45;
+}
+
+.offboarding-detail-toolbar {
+    padding: 0;
+}
+
+[data-page="offboarding.show"] .offboarding-card .ui-table-card__controls {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.9rem !important;
+    border-top: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+[data-page="offboarding.show"] .offboarding-detail-toolbar {
+    width: min(100%, 58rem);
+    max-width: 100%;
+    margin-left: auto;
+}
+
+[data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid {
+    display: grid;
+    grid-template-columns: minmax(14rem, 16rem) minmax(9.5rem, 10.5rem) minmax(9.5rem, 10.5rem) max-content;
+    align-items: end;
+    justify-content: end;
+    gap: 0.65rem;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+[data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid > div {
+    min-width: 0;
+    width: 100%;
+}
+
+[data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid > div:first-child {
+    min-width: 0;
+}
+
+[data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid > div:last-child {
+    width: auto;
+    min-width: auto;
+}
+
+[data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid > div:last-child .btn,
+[data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid > div:last-child .btn.btn-sm {
+    width: auto;
+    min-width: 8.5rem;
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+}
+
+.offboarding-detail-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.35;
+}
+
+.offboarding-detail-card-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.45;
+    margin-top: 0.2rem;
+}
+
+.offboarding-stat-card {
+    padding: 1rem 1.05rem;
+}
+
+.offboarding-stat-card--plain {
+    box-shadow: none;
+    background: #f8fafc;
+}
+
+.offboarding-stage-trigger-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.offboarding-stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 0.35rem;
+}
+
+.offboarding-stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.offboarding-stat-value .ui-table-status-badge {
+    margin-top: 0.15rem;
+}
+
+.offboarding-stat-note {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #334155;
+}
+
+.offboarding-reference-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.offboarding-reference-card {
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 1rem;
+    background: #fff;
+    overflow: hidden;
+}
+
+.offboarding-reference-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+}
+
+.offboarding-reference-body {
+    display: none;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    background: #f8fafc;
+}
+
+.offboarding-reference-body.show,
+.offboarding-reference-body.collapse.show {
+    display: block;
+}
+
+.offboarding-reference-frame {
+    width: 100%;
+    min-height: 420px;
+    border: 0;
+    background: #fff;
+}
+
+[data-page^="offboarding."] .offboarding-detail-table th:nth-child(3),
+[data-page^="offboarding."] .offboarding-detail-table td:nth-child(3) {
+    width: 132px;
+}
+
+[data-page^="offboarding."] .offboarding-detail-table th:nth-child(4),
+[data-page^="offboarding."] .offboarding-detail-table td:nth-child(4) {
+    width: 190px;
+}
+
+[data-page^="offboarding."] .offboarding-detail-table th:nth-child(5),
+[data-page^="offboarding."] .offboarding-detail-table td:nth-child(5) {
+    width: 150px;
+}
+
+[data-page^="offboarding."] .offboarding-detail-table td:nth-child(5) .btn {
+    white-space: nowrap;
+}
+
+
+
+[data-page^="offboarding."] .pagination {
+    margin-bottom: 0;
+}
+
+@media (max-width: 991.98px) {
+    [data-page="offboarding.index"] .offboarding-toolbar .ui-toolbar__grid {
+        flex-wrap: wrap;
+        justify-content: stretch;
+    }
+
+    [data-page="offboarding.index"] .offboarding-toolbar .ui-toolbar__field,
+    [data-page="offboarding.index"] .offboarding-toolbar .ui-table-toolbar-field--search {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
+
+    [data-page="offboarding.show"] .offboarding-card .ui-table-card__controls {
+        padding-top: 0.75rem;
+    }
+
+    [data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    [data-page="offboarding.show"] .offboarding-detail-toolbar .ui-table-toolbar-grid > div:last-child {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .offboarding-toolbar-wrap {
+        padding: 1rem;
+    }
+
+    .offboarding-reference-head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .offboarding-checklist-metrics {
+        gap: 0.35rem;
+    }
+
+    .offboarding-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.offboarding-progress-text {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.offboarding-progress-text span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-weight: 600;
+}
+
+.offboarding-timeline {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.offboarding-timeline-step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0.9rem;
+    align-items: start;
+}
+
+.offboarding-timeline-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    background: #f8fafc;
+    color: #64748b;
+}
+
+.offboarding-timeline-step--completed .offboarding-timeline-marker {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #15803d;
+}
+
+.offboarding-timeline-step--in_progress .offboarding-timeline-marker {
+    background: #dbeafe;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+}
+
+.offboarding-instruction-list {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.offboarding-instruction-item {
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 1rem;
+    background: #fff;
+}
+
+.offboarding-notes-grid--single {
+    grid-template-columns: 1fr;
+}
+
+.offboarding-create-modal .form-group label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 0.45rem;
+}
+
+.offboarding-create-modal .form-control {
+    min-height: 44px;
+    border-radius: 0.9rem;
+}
+
+.offboarding-create-modal .form-control-file {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px dashed rgba(148, 163, 184, 0.45);
+    border-radius: 0.9rem;
+    background: rgba(248, 250, 252, 0.85);
+}
+
+.offboarding-inline-note {
+    margin-top: 0.35rem;
+}
+
+[data-page^="offboarding."] .offboarding-detail-table th:nth-child(2),
+[data-page^="offboarding."] .offboarding-detail-table td:nth-child(2) {
+    width: 220px;
+}
+
+[data-page^="offboarding."] .offboarding-detail-table th:nth-child(3),
+[data-page^="offboarding."] .offboarding-detail-table td:nth-child(3) {
+    width: 180px;
+}
+.offboarding-stage-section {
+    position: relative;
+    margin: 0.9rem 1rem 1.1rem;
+    overflow: hidden;
+}
+
+.offboarding-stage-section::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+}
+
+.offboarding-stage-section + .offboarding-stage-section {
+    margin-top: 1.1rem;
+}
+
+.offboarding-stage-section-head {
+    padding: 0.95rem 1.05rem 0.8rem;
+}
+
+.offboarding-stage-head-grid {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.offboarding-stage-meta {
+    flex-shrink: 0;
+}
+
+.offboarding-stage-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(37, 99, 235, 0.14);
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.08);
+    color: #1d4ed8;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.offboarding-stage-eyebrow {
+    margin-bottom: 0.22rem;
+}
+
+@media (max-width: 767.98px) {
+    .offboarding-stage-head-grid {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

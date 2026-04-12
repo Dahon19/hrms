@@ -1,0 +1,642 @@
+/* Departments index */
+:is([data-page="departments.index"]) .hrms-page-header {
+    position: relative;
+    display: block !important;
+    min-height: 0;
+    padding: 0;
+}
+:is([data-page="departments.index"]) .hrms-page-header .card-body {
+    display: block !important;
+    min-height: 0;
+    padding: 1rem 1.25rem 1.25rem;
+}
+:is([data-page="departments.index"]) .hrms-page-header__content {
+    min-width: 0;
+    max-width: 640px;
+}
+:is([data-page="departments.index"]) .hrms-page-header__actions {
+    position: absolute;
+    top: 1rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    width: auto;
+    display: flex;
+    justify-content: stretch;
+    align-items: flex-start;
+}
+:is([data-page="departments.index"]) .hrms-page-header p.text-uppercase {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    opacity: 0.82;
+}
+:is([data-page="departments.index"]) .hrms-page-header h4 {
+    font-size: 1.6rem;
+}
+:is([data-page="departments.index"]) .hrms-page-header h4 + p,
+:is([data-page="departments.index"]) .hrms-page-header .text-medium-emphasis.mb-0 {
+    margin-top: 6px !important;
+}
+:is([data-page="departments.index"]) .dept-header-actions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+:is([data-page="departments.index"]) .dept-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 0 0 auto;
+}
+
+:is([data-page="departments.index"]) .dept-header-right {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+    align-self: flex-start;
+}
+
+:is([data-page="departments.index"]) .dept-nav-tabs {
+    display: flex;
+    gap: 8px;
+}
+
+:is([data-page="departments.index"]) .dept-nav-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 2rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+:is([data-page="departments.index"]) .dept-nav-tab i {
+    font-size: 0.9rem;
+    color: currentColor;
+}
+
+:is([data-page="departments.index"]) .dept-nav-tab:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.92);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+:is([data-page="departments.index"]) .dept-nav-tab.is-active {
+    background: #ffffff;
+    color: #0d6efd;
+    border-color: #ffffff;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+}
+
+:is([data-page="departments.index"]) .dept-create-btn {
+    font-weight: 500;
+    gap: 6px;
+}
+:is([data-page="departments.index"]) .dept-card .card-header {
+    align-items: center;
+    gap: 1rem;
+}
+:is([data-page="departments.index"]) .dept-card .card-header > div:first-child {
+    align-items: baseline !important;
+}
+:is([data-page="departments.index"]) .dept-card .ui-table-card__heading.table-card-header {
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+:is([data-page="departments.index"]) .dept-card {
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+[data-page="departments.index"] .department-row { transition: all 0.2s; }
+[data-page="departments.index"] .position-row { cursor: pointer; }
+[data-page="departments.index"] .position-row:hover { background-color: #f0f4f8; }
+[data-page="departments.index"] .position-row .position-caret {
+  color: #94a3b8;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+[data-page="departments.index"] .position-row.is-open .position-caret {
+  transform: rotate(90deg);
+  color: #3b82f6;
+}
+[data-page="departments.index"] .position-employees-panel { background: #f9fbff; border-top: 1px solid #e9eef7; }
+[data-page="departments.index"] .icon-shape { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex: 0 0 40px; }
+[data-page="departments.index"] .department-logo-sm { width: 28px; height: 28px; max-width: 28px; max-height: 28px; object-fit: contain; border-radius: 4px; }
+[data-page="departments.index"] .department-logo-lg { width: 88px; height: 88px; object-fit: cover; border-radius: 50%; border: 1px solid #e6ebf5; background: #fff; padding: 6px; }
+[data-page="departments.index"] .department-logo-preview { width: 120px; height: 120px; object-fit: contain; border-radius: 12px; border: 1px solid #e6ebf5; background: #fff; padding: 8px; }
+[data-page="departments.index"] .department-logo-btn {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+[data-page="departments.index"] .department-logo-btn .department-logo-lg {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+[data-page="departments.index"] .department-logo-btn:hover .department-logo-lg {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(31, 45, 61, 0.18);
+    border-color: #c9d9f2;
+}
+[data-page="departments.index"] .department-logo-btn .logo-edit-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    font-size: 0.7rem;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+[data-page="departments.index"] .org-chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    text-align: left;
+}
+[data-page="departments.index"] .org-chart-header-copy {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+}
+[data-page="departments.index"] .org-dept-title { font-size: 1.35rem; font-weight: 700; color: #1f2d3d; }
+[data-page="departments.index"] .org-chart-meta-line {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+[data-page="departments.index"] .org-chart-meta-line span {
+    color: #1f2d3d;
+    font-weight: 600;
+}
+[data-page="departments.index"] .org-chart-header-bar {
+    border-bottom: 1px solid #eef2f7;
+}
+[data-page="departments.index"] .org-chart-back {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e6ebf5;
+    background: #fff;
+    color: #1f2d3d;
+    box-shadow: 0 4px 10px rgba(31, 45, 61, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+[data-page="departments.index"] .org-chart-back:hover {
+    transform: translateY(-1px);
+    border-color: #cbd5f5;
+    box-shadow: 0 8px 16px rgba(31, 45, 61, 0.12);
+    color: #1d4ed8;
+}
+[data-page="departments.index"] .org-card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(31, 45, 61, 0.08);
+}
+[data-page="departments.index"] .org-card-header {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #eef2f7;
+    font-weight: 700;
+    color: #1f2d3d;
+    background: linear-gradient(135deg, #f6f9ff, #ffffff);
+}
+[data-page="departments.index"] .org-card-body { padding: 1rem; }
+[data-page="departments.index"] .org-member {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #eef2f7;
+}
+[data-page="departments.index"] .org-member:last-child { border-bottom: 0; }
+[data-page="departments.index"] .org-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #d9e4ff;
+    background: #f0f4ff;
+    margin-right: 0.75rem;
+    flex: 0 0 auto;
+}
+[data-page="departments.index"] .member-name { font-weight: 600; color: #1f2d3d; }
+[data-page="departments.index"] .member-id { font-size: 0.75rem; }
+[data-page="departments.index"] .btn-logo-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.5rem 1.05rem;
+    border-radius: 14px;
+    border: 1px solid #0d6efd;
+    background: #ffffff;
+    color: #0d6efd;
+    font-weight: 700;
+    font-size: 0.86rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+[data-page="departments.index"] .btn-logo-action .btn-logo-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #d9ebff 0%, #bcd6ff 100%);
+    color: #1d4ed8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.2);
+}
+[data-page="departments.index"] .btn-logo-action .btn-logo-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+[data-page="departments.index"] .btn-logo-action .btn-logo-icon i,
+[data-page="departments.index"] .btn-logo-action .btn-logo-icon [class^="cil-"],
+[data-page="departments.index"] .btn-logo-action .btn-logo-icon [class*=" cil-"] {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1;
+    color: currentColor;
+    transition: transform 0.2s ease;
+}
+[data-page="departments.index"] .btn-logo-action:hover {
+    border-color: #0d6efd;
+    background: #0d6efd;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transform: none;
+    color: #ffffff;
+}
+[data-page="departments.index"] .btn-logo-action:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+@media (max-width: 991px) {
+    [data-page="departments.index"] .org-chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    :is([data-page="departments.index"]) .dept-header-actions {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    :is([data-page="departments.index"]) .hrms-page-header .card-body {
+        display: block !important;
+        padding: 1rem 1rem 1.25rem;
+    }
+    :is([data-page="departments.index"]) .hrms-page-header__actions {
+        position: static;
+        margin-top: 1rem;
+    }
+    :is([data-page="departments.index"]) .dept-header-left,
+    :is([data-page="departments.index"]) .dept-header-right {
+        width: 100%;
+    }
+    :is([data-page="departments.index"]) .dept-header-right {
+        justify-content: flex-start;
+    }
+    :is([data-page="departments.index"]) .dept-nav-tabs {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+}
+
+/* Departments UI modernization */
+:is([data-page="departments.index"]) .dept-card,
+:is([data-page="departments.index"]) .org-card {
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+:is([data-page="departments.index"]) #departmentPositionsModal .modal-body {
+    padding: 0 !important;
+}
+
+:is([data-page="departments.index"]) .dept-create-btn {
+    background: #ffffff !important;
+    border-color: #16a34a !important;
+    color: #16a34a !important;
+    border-radius: 10px !important;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+:is([data-page="departments.index"]) .dept-create-btn:hover,
+:is([data-page="departments.index"]) .dept-create-btn:focus {
+    background: #ffffff !important;
+    border-color: #15803d !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(22, 163, 74, 0.24);
+}
+
+:is([data-page="departments.index"]) .form-control,
+:is([data-page="departments.index"]) .select2-container--bootstrap4 .select2-selection,
+:is([data-page="departments.index"]) .input-group-text {
+    height: 44px;
+    min-height: 44px;
+    border-color: #e5e7eb !important;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+:is([data-page="departments.index"]) .input-group {
+    align-items: stretch;
+}
+
+:is([data-page="departments.index"]) .input-group .input-group-prepend {
+    display: flex;
+}
+
+:is([data-page="departments.index"]) .input-group .input-group-append {
+    display: flex;
+}
+
+:is([data-page="departments.index"]) .input-group .input-group-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    min-width: 50px;
+    height: 44px;
+    min-height: 44px;
+    padding-inline: 0.9rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+:is([data-page="departments.index"]) .input-group .form-control {
+    height: 44px;
+    min-height: 44px;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 42px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+:is([data-page="departments.index"]) .input-group .input-group-append .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    height: 44px;
+    min-height: 44px;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+:is([data-page="departments.index"]) .input-group .input-group-append .btn i,
+:is([data-page="departments.index"]) .input-group .input-group-append .btn [class^="cil-"],
+:is([data-page="departments.index"]) .input-group .input-group-append .btn [class*=" cil-"] {
+    line-height: 1;
+}
+
+:is([data-page="departments.index"]) .form-control:focus,
+:is([data-page="departments.index"]) .select2-container--bootstrap4.select2-container--focus .select2-selection {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15) !important;
+}
+
+:is([data-page="departments.index"]) .table-striped tbody tr:nth-of-type(odd) {
+    background-color: transparent;
+}
+
+:is([data-page="departments.index"]) .dept-card .table tbody tr {
+    border-bottom: 1px solid #edf2f7;
+}
+
+:is([data-page="departments.index"]) .department-row {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+:is([data-page="departments.index"]) .department-row:hover {
+    background-color: rgba(34, 197, 94, 0.04) !important;
+    transform: translateY(-1px);
+}
+
+:is([data-page="departments.index"]) .badge-secondary-soft {
+    background: rgba(22, 163, 74, 0.1);
+    color: #166534;
+    border: 1px solid rgba(22, 163, 74, 0.2) !important;
+    border-radius: 999px;
+    padding: 4px 10px !important;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+:is([data-page="departments.index"]) .hrms-table tbody td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+:is([data-page="departments.index"]) .org-card {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+:is([data-page="departments.index"]) .org-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+:is([data-page="departments.index"]) .org-card-header {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    background: #f8fafc;
+}
+
+:is([data-page="departments.index"]) .org-member {
+    gap: 0.7rem;
+    padding: 0.7rem 0;
+}
+
+:is([data-page="departments.index"]) .org-avatar {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #dbe7f6;
+}
+
+:is([data-page="departments.index"]) .department-logo-preview-wrap {
+    width: 136px;
+    height: 136px;
+    margin: 0 auto;
+    border: 1px solid #dbe3ef;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fbfdff 0%, #f4f7fb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem;
+}
+
+:is([data-page="departments.index"]) .logo-upload-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px dashed #94a3b8;
+    border-radius: 16px;
+    background: #f8fafc;
+    padding: 1.1rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+:is([data-page="departments.index"]) .logo-upload-dropzone.is-dragover {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.06);
+}
+
+:is([data-page="departments.index"]) .logo-upload-hint {
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+:is([data-page="departments.index"]) .department-logo-modal-dialog {
+    max-width: 560px;
+}
+
+:is([data-page="departments.index"]) .department-logo-modal-body {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.35rem !important;
+}
+
+:is([data-page="departments.index"]) .department-logo-modal-preview {
+    display: grid;
+    gap: 0.85rem;
+    justify-items: center;
+}
+
+:is([data-page="departments.index"]) .department-logo-preview {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 20px;
+    padding: 0;
+    object-fit: contain;
+    background: transparent;
+}
+
+:is([data-page="departments.index"]) .department-logo-empty-state {
+    display: grid;
+    gap: 0.45rem;
+    justify-items: center;
+    color: #64748b;
+}
+
+:is([data-page="departments.index"]) .department-logo-empty-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    font-size: 1.25rem;
+}
+
+:is([data-page="departments.index"]) .department-logo-empty-text,
+:is([data-page="departments.index"]) .department-logo-helper {
+    font-size: 0.82rem;
+    color: #64748b;
+}
+
+:is([data-page="departments.index"]) .department-logo-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+:is([data-page="departments.index"]) .logo-upload-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(37, 99, 235, 0.08);
+    color: #2563eb;
+    font-size: 1rem;
+}
+
+:is([data-page="departments.index"]) .logo-upload-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+:is([data-page="departments.index"]) .position-status-pill {
+    border-radius: 999px;
+    padding: 0.28rem 0.68rem;
+    font-weight: 700;
+    font-size: 0.72rem;
+    border: 1px solid transparent;
+}
+
+:is([data-page="departments.index"]) .position-status-pill.is-available {
+    background: rgba(22, 163, 74, 0.1);
+    color: #166534;
+    border-color: rgba(22, 163, 74, 0.22);
+}
+
+:is([data-page="departments.index"]) .position-status-pill.is-full {
+    background: rgba(239, 68, 68, 0.1);
+    color: #991b1b;
+    border-color: rgba(239, 68, 68, 0.24);
+}
+
+:is([data-page="departments.index"]) .dept-positions-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #64748b;
+    font-weight: 600;
+}
+

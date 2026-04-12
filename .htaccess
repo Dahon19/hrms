@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Let direct requests to the public web root pass through untouched.
+RewriteRule ^public(?:/.*)?$ - [L]
+
+# When the project is served from /hrms, redirect /hrms/ to /hrms/public/
+# so LAN/browser access lands on Laravel's actual web root.
+RewriteRule ^$ %{REQUEST_URI}public/ [L,R=302]
+
+# Forward all other project-relative requests into the public directory.
+RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

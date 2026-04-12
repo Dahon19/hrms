@@ -1,0 +1,176 @@
+/* Leave index */
+[data-page="leaves.index"] .leave-balance-card,
+[data-page="leaves.index"] .leave-requests-card {
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+[data-page="leaves.index"] .leave-balance-card .card-header,
+[data-page="leaves.index"] .leave-requests-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+[data-page="leaves.index"] .stat-card {
+    border-radius: 16px;
+    padding: 18px;
+    text-align: left;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: #fff;
+}
+[data-page="leaves.index"] .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+}
+[data-page="leaves.index"] .stat-card-primary {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(226, 232, 240, 0.2));
+    border-color: rgba(59, 130, 246, 0.3);
+}
+[data-page="leaves.index"] .stat-card-danger {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(255, 255, 255, 0.8));
+    border-color: rgba(239, 68, 68, 0.3);
+}
+[data-page="leaves.index"] .stat-card-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(240, 253, 250, 0.7));
+    border-color: rgba(16, 185, 129, 0.4);
+}
+[data-page="leaves.index"] .stat-value {
+    font-size: 1.7rem;
+    font-weight: 800;
+    display: block;
+}
+[data-page="leaves.index"] .stat-label {
+    font-size: 0.7rem;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+}
+
+[data-page="leaves.index"] .detail-row { border-bottom: 1px solid #f8f9fa; padding: 12px 0; }
+[data-page="leaves.index"] .detail-row:last-child { border-bottom: none; }
+[data-page="leaves.index"] .detail-label { font-weight: 600; color: #495057; font-size: 0.9rem; }
+[data-page="leaves.index"] .detail-value { color: #6c757d; font-size: 0.9rem; }
+[data-page="leaves.index"] .badge-status-lg { font-size: 0.85rem; padding: 0.5em 1em; border-radius: 50px; }
+:is([data-page="leaves.index"], [data-page="leaves.approvals"]) .leave-pill-tabs .nav-link {
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-weight: 700;
+    color: #64748b;
+}
+:is([data-page="leaves.index"], [data-page="leaves.approvals"]) .leave-pill-tabs .nav-link.active {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+[data-page="leaves.approvals"] .leave-approvals-toolbar {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 0.85rem;
+}
+
+[data-page="leaves.approvals"] .leave-approvals-toolbar .ui-table-toolbar-chip {
+    flex: 0 0 auto;
+}
+
+[data-page="leaves.approvals"] .leave-approvals-toolbar .leave-pill-tabs {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+}
+
+[data-page="leaves.index"] .leave-history-toolbar {
+    width: auto;
+}
+
+[data-page="leaves.index"] .leave-history-toolbar .ui-toolbar__grid {
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+}
+
+[data-page="leaves.index"] .leave-history-toolbar .ui-table-toolbar-field {
+    min-width: 0;
+    flex: 0 1 11rem;
+}
+
+[data-page="leaves.index"] .leave-history-toolbar .ui-table-toolbar-field--search {
+    flex-basis: 15rem;
+    min-width: 15rem;
+}
+
+[data-page="leaves.index"] .leave-history-toolbar .ui-toolbar__field--action {
+    flex: 0 0 auto;
+}
+
+[data-page="leaves.index"] .leave-history-toolbar .ui-toolbar__field--meta {
+    flex: 0 0 auto;
+}
+
+[data-page="leaves.index"] .leave-requests-empty-cell {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+[data-page="leaves.index"] .leave-requests-empty-cell .hrms-empty-state {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+:is([data-page="leaves.index"], [data-page="leaves.approvals"]) .badge-info-soft {
+    background: rgba(59, 130, 246, 0.15);
+    color: #2563eb;
+}
+:is([data-page="leaves.index"], [data-page="leaves.approvals"]) .badge-soft-primary {
+    background: rgba(59, 130, 246, 0.18);
+    color: #1d4ed8;
+}
+:is([data-page="leaves.index"], [data-page="leaves.approvals"]) .badge-success-soft {
+    background: rgba(16, 185, 129, 0.16);
+    color: #047857;
+}
+:is([data-page="leaves.index"], [data-page="leaves.approvals"]) .badge-warning-soft {
+    background: rgba(251, 191, 36, 0.2);
+    color: #b45309;
+}
+
+[data-page="leaves.index"] #leaveRequestModal .select2-container--bootstrap4 .select2-selection--single,
+[data-page="leaves.index"] #leaveEditModal .select2-container--bootstrap4 .select2-selection--single {
+    border: 1px solid #ced4da !important;
+    background-color: #fff !important;
+    border-radius: 0.25rem;
+}
+[data-page="leaves.index"] #leaveRequestModal .select2-container--bootstrap4 .select2-selection--single:focus,
+[data-page="leaves.index"] #leaveEditModal .select2-container--bootstrap4 .select2-selection--single:focus {
+    border-color: #80bdff !important;
+    box-shadow: 0 0 0 0.2rem rgba(31,122,63,0.25);
+}
+
+@media (max-width: 991px) {
+    [data-page="leaves.approvals"] .ui-table-card__actions,
+    [data-page="leaves.approvals"] .leave-approvals-toolbar {
+        width: 100%;
+    }
+
+    [data-page="leaves.approvals"] .leave-approvals-toolbar {
+        justify-content: space-between;
+    }
+
+    [data-page="leaves.index"] .leave-history-toolbar .ui-toolbar__grid {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    [data-page="leaves.index"] .leave-history-toolbar .ui-table-toolbar-field,
+    [data-page="leaves.index"] .leave-history-toolbar .ui-table-toolbar-field--search {
+        flex: 1 1 12rem;
+        min-width: 12rem;
+    }
+}
+
+
