@@ -25,12 +25,12 @@
         }
     </style>
 
-    <div class="flex h-screen w-full overflow-hidden bg-neutral-50 font-sans text-neutral-900 selection:bg-indigo-500 selection:text-white" x-data="{ showPassword: false, isLoading: false }">
+    <div class="flex h-screen w-full overflow-hidden bg-neutral-50 font-sans text-neutral-900 selection:bg-blue-500 selection:text-white" x-data="{ showPassword: false, isLoading: false }">
         <div class="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-neutral-900 px-12 py-16 text-white lg:flex">
-            <div class="absolute inset-0 z-0 bg-gradient-to-br from-indigo-900 via-neutral-900 to-purple-900"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-br from-blue-950 via-slate-950 to-blue-800"></div>
             <div class="absolute left-0 top-0 z-0 h-full w-full pointer-events-none opacity-20 mix-blend-screen">
-                <div class="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-indigo-500 blur-[100px] animate-float"></div>
-                <div class="absolute right-0 top-1/2 h-[400px] w-[400px] rounded-full bg-cyan-500 blur-[100px] animate-float" style="animation-delay: -3s;"></div>
+                <div class="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-blue-500 blur-[100px] animate-float"></div>
+                <div class="absolute right-0 top-1/2 h-[400px] w-[400px] rounded-full bg-sky-400 blur-[100px] animate-float" style="animation-delay: -3s;"></div>
             </div>
 
             <div class="relative z-10 animate-fade-scale" style="animation-delay: 0.1s; opacity: 0;">
@@ -39,14 +39,14 @@
                         <img src="{{ asset('assets/img/Northeastern College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-8 w-8 object-contain" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
                     </div>
                     <div>
-                        <span class="block text-sm font-medium uppercase tracking-widest text-indigo-300">System Hub</span>
+                        <span class="block text-sm font-medium uppercase tracking-widest text-blue-300">System Hub</span>
                         <span class="block text-xl font-bold tracking-wide text-white">NC HRMS</span>
                     </div>
                 </a>
 
                 <h1 class="mb-6 font-display text-5xl font-extrabold leading-[1.15] tracking-tight">
                     Powering<br />workforce<br />
-                    <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">excellence.</span>
+                    <span class="bg-gradient-to-r from-sky-300 to-blue-500 bg-clip-text text-transparent">excellence.</span>
                 </h1>
                 <p class="max-w-md text-lg leading-relaxed text-neutral-300">
                     A unified workspace for employee management, streamlined attendance tracking, and transparent performance evaluation.
@@ -55,7 +55,7 @@
 
             <div class="relative z-10 space-y-5 animate-fade-scale" style="animation-delay: 0.3s; opacity: 0;">
                 <div class="glass-panel flex items-center gap-4 rounded-2xl p-5 transition-colors duration-300 hover:bg-white/10">
-                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-300">
+                    <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                     </div>
                     <div>
@@ -73,7 +73,7 @@
         <div class="relative flex w-full flex-col items-center justify-center bg-white px-6 sm:px-12 lg:w-1/2">
             <div class="w-full max-w-sm animate-fade-scale xl:max-w-md" style="animation-delay: 0.2s; opacity: 0;">
                 <div class="mb-10 text-center lg:hidden">
-                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-600 shadow-xl">
+                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 shadow-xl">
                         <img src="{{ asset('assets/img/Northeastern College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-10 w-10 object-contain brightness-0 invert" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
                     </div>
                     <h2 class="text-3xl font-extrabold tracking-tight text-neutral-900">NC HRMS</h2>
@@ -97,11 +97,11 @@
                     <div class="relative">
                         <label for="login" class="mb-1.5 block text-sm font-medium text-neutral-700">Email / Employee ID</label>
                         <div class="group relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-colors pointer-events-none group-focus-within:text-indigo-500">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-colors pointer-events-none group-focus-within:text-blue-500">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" /></svg>
                             </div>
                             <input id="login" type="text" name="login" value="{{ old('login') }}" required autofocus
-                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-4 text-neutral-900 transition-all duration-300 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 sm:text-sm @error('login') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
+                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-4 text-neutral-900 transition-all duration-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 sm:text-sm @error('login') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
                                 placeholder="name@college.edu.ph" autocomplete="username" />
                         </div>
                         @error ('login')
@@ -112,11 +112,11 @@
                     <div class="relative">
                         <label for="password" class="mb-1.5 block text-sm font-medium text-neutral-700">Password</label>
                         <div class="group relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-colors pointer-events-none group-focus-within:text-indigo-500">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-colors pointer-events-none group-focus-within:text-blue-500">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
                             <input id="password" :type="showPassword ? 'text' : 'password'" name="password" required
-                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-12 text-neutral-900 transition-all duration-300 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 sm:text-sm @error('password') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
+                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-12 text-neutral-900 transition-all duration-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 sm:text-sm @error('password') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
                                 placeholder="********" autocomplete="current-password" />
 
                             <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-400 transition-colors hover:text-neutral-600 focus:outline-none">
@@ -132,21 +132,21 @@
                     <div class="mt-4 flex items-center justify-between">
                         <label for="remember_me" class="group flex cursor-pointer items-center">
                             <div class="relative mr-2 flex h-5 w-5 items-center justify-center">
-                                <input id="remember_me" type="checkbox" name="remember" class="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-neutral-300 transition-all checked:border-indigo-600 checked:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/30" />
+                                <input id="remember_me" type="checkbox" name="remember" class="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-neutral-300 transition-all checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/30" />
                                 <svg class="pointer-events-none absolute h-3 w-3 text-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
                             <span class="text-sm font-medium text-neutral-600 transition-colors group-hover:text-neutral-900">Remember me</span>
                         </label>
 
                         @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-sm font-semibold text-indigo-600 transition-colors hover:text-indigo-500">
+                            <a href="{{ route('password.request') }}" class="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-500">
                                 Forgot password?
                             </a>
                         @endif
                     </div>
 
                     <button type="submit" :disabled="isLoading"
-                        class="relative flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-3.5 font-semibold text-white shadow-[0_8px_20px_-6px_rgba(79,70,229,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_12px_25px_-8px_rgba(79,70,229,0.6)] focus:outline-none focus:ring-4 focus:ring-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-70"
+                        class="relative flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3.5 font-semibold text-white shadow-[0_8px_20px_-6px_rgba(37,99,235,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_12px_25px_-8px_rgba(37,99,235,0.55)] focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
                     >
                         <span x-show="!isLoading">Sign In</span>
                         <span x-show="isLoading" x-cloak class="flex items-center">
