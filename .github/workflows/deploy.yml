@@ -1,19 +1,15 @@
-name: Deploy HRMS to Hostinger
+name: Deploy to Hostinger
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy to Server via SSH
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -21,16 +17,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/u605334451/domains/rodagregado.online/public_html/hrms
-
-            if [ -d ".git" ]; then
-              git pull origin main
-            else
-              git clone https://github.com/Dahon19/hrms.git .
-            fi
-
-            composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            php artisan config:cache
-            php artisan route:cache
-            chmod -R 775 storage bootstrap/cache
+            cd ~/domains/rodagregado.online/public_html/hrms
+            git pull origin main
+            php artisan optimize:clear
