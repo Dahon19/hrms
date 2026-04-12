@@ -1,16 +1,16 @@
 @import "@coreui/icons/css/free.min.css";
 
 :root {
-  --bg: #081120;
-  --surface: rgba(15, 23, 42, 0.72);
-  --ink: #e5eefb;
-  --muted: #9fb3cc;
-  --line: rgba(148, 163, 184, 0.18);
+  --bg: #f4f7fc;
+  --surface: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #d9e3f1;
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
-  --primary-soft: #7dd3fc;
-  --surface-soft: rgba(37, 99, 235, 0.12);
-  --surface-mint: rgba(255, 255, 255, 0.04);
+  --primary-soft: #60a5fa;
+  --surface-soft: #eef2ff;
+  --surface-mint: #f8fbff;
   --employer: #0f766e;
   --jobseeker: #7c3aed;
 }
@@ -32,25 +32,8 @@ html {
 body {
   margin: 0;
   font-family: "Segoe UI", "Inter", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.24), transparent 24%),
-    linear-gradient(135deg, #081225 0%, #0f172a 50%, #0b2f57 100%);
+  background: var(--bg);
   color: var(--ink);
-  position: relative;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-  background-size: 36px 36px;
-  opacity: 0.42;
-  z-index: 0;
 }
 
 a {
@@ -59,8 +42,6 @@ a {
 }
 
 .site-shell {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: none;
   margin: 0 auto;
@@ -80,11 +61,9 @@ a {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(16px);
+  background: rgba(244, 247, 252, 0.95);
+  backdrop-filter: blur(8px);
   padding-top: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  border-radius: 22px;
 }
 
 .topbar-nav {
@@ -96,7 +75,7 @@ a {
 .topbar-nav a {
   font-size: 14px;
   font-weight: 600;
-  color: #c7d7ee;
+  color: #334155;
   transition: color 0.2s ease;
 }
 
@@ -120,7 +99,6 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 18px 50px -20px rgba(56, 189, 248, 0.85);
 }
 
 .brand-mark.brand-mark-logo {
@@ -136,14 +114,13 @@ a {
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 28px rgba(2, 6, 23, 0.35);
+  border: 1px solid #d6e2f3;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
 }
 
 .brand-name {
   font-weight: 700;
   letter-spacing: 0.01em;
-  color: #f8fbff;
 }
 
 .btn {
@@ -158,15 +135,15 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #38bdf8, var(--primary));
+  background: var(--primary);
   color: #fff;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #7dd3fc, var(--primary-dark));
+  background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 18px 32px rgba(37, 99, 235, 0.32);
+  box-shadow: 0 8px 20px rgba(20, 108, 67, 0.25);
 }
 
 .btn-outline {
@@ -176,15 +153,15 @@ a {
 }
 
 .btn-light {
-  border-color: rgba(125, 211, 252, 0.35);
-  background: rgba(255, 255, 255, 0.04);
-  color: #e2ebf8;
+  border-color: var(--primary);
+  background: transparent;
+  color: var(--primary-dark);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-light:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: var(--surface-soft);
+  color: var(--primary-dark);
 }
 
 .hero {
@@ -206,7 +183,7 @@ a {
   letter-spacing: 0.12em;
   font-size: 12px;
   font-weight: 700;
-  color: var(--primary-soft);
+  color: var(--primary);
 }
 
 .hero-copy h1 {
@@ -332,7 +309,6 @@ a {
 .section-heading h2 {
   margin: 0;
   font-size: clamp(24px, 3.5vw, 33px);
-  color: #f8fbff;
 }
 
 .overview-card {
@@ -340,7 +316,6 @@ a {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 18px;
-  backdrop-filter: blur(18px);
 }
 
 .overview-card p {
@@ -375,7 +350,6 @@ a {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 18px;
-  backdrop-filter: blur(18px);
 }
 
 .module-card {
@@ -429,10 +403,9 @@ a {
 .directory-item {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-left: 4px solid #7dd3fc;
+  border-left: 4px solid #93c5fd;
   border-radius: 10px;
   padding: 14px 16px;
-  backdrop-filter: blur(18px);
 }
 
 .directory-item h3 {
@@ -451,7 +424,6 @@ a {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px;
-  backdrop-filter: blur(18px);
 }
 
 .job-filters {
@@ -468,8 +440,8 @@ a {
   border-radius: 10px;
   padding: 0 12px;
   font: inherit;
-  color: #e5eefb;
-  background: rgba(255, 255, 255, 0.05);
+  color: #334155;
+  background: #fff;
 }
 
 .job-list {
@@ -478,15 +450,14 @@ a {
 }
 
 .job-item {
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
   padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(18px);
+  background: var(--surface-mint);
 }
 
 .job-item h3 {
@@ -525,11 +496,10 @@ a {
 }
 
 .security {
-  background: var(--surface);
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 20px;
-  backdrop-filter: blur(18px);
 }
 
 .security-grid {
@@ -581,7 +551,6 @@ a {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 14px 16px;
-  backdrop-filter: blur(18px);
 }
 
 .faq-list summary {
@@ -597,11 +566,10 @@ a {
 .final-cta {
   margin-top: 56px;
   text-align: center;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(37, 99, 235, 0.16));
-  border: 1px solid rgba(125, 211, 252, 0.25);
+  background: var(--surface-soft);
+  border: 1px solid #bfdbfe;
   border-radius: 16px;
   padding: 30px 20px;
-  backdrop-filter: blur(20px);
 }
 
 .final-cta h2 {
@@ -619,7 +587,7 @@ a {
 
 .site-footer {
   margin-top: 56px;
-  border-top: 1px solid rgba(125, 211, 252, 0.18);
+  border-top: 1px solid #1e3a8a;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 16px;
@@ -628,10 +596,8 @@ a {
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 18px;
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(8, 18, 37, 0.92), rgba(15, 23, 42, 0.88));
-  color: #e5eefb;
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  backdrop-filter: blur(18px);
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #f3fbf6;
 }
 
 .site-footer h4,
@@ -641,19 +607,19 @@ a {
 
 .site-footer p {
   margin: 0;
-  color: #9fb3cc;
+  color: #d7efe0;
   line-height: 1.5;
 }
 
 .site-footer a {
   display: block;
   margin: 4px 0;
-  color: #dbe8f8;
+  color: #e8f5ed;
   font-size: 14px;
 }
 
 .site-footer a:hover {
-  color: #7dd3fc;
+  color: #b7e4c7;
 }
 
 @media (max-width: 1040px) {
@@ -772,15 +738,14 @@ a {
 .overview-card, 
 .job-card {
     border-radius: 1.5rem !important; /* 2xl */
-    border: 1px solid rgba(148, 163, 184, 0.14) !important;
-    box-shadow: 0 18px 40px -20px rgba(2, 6, 23, 0.55), 0 8px 16px -10px rgba(2, 6, 23, 0.28) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
-    background: rgba(15, 23, 42, 0.68) !important;
-    backdrop-filter: blur(18px) !important;
+    background: #ffffff !important;
 }
 
 .portal-hero-section {
-    background: linear-gradient(135deg, rgba(8, 18, 37, 0.9) 0%, rgba(15, 23, 42, 0.82) 55%, rgba(11, 47, 87, 0.84) 100%) !important;
+    background: linear-gradient(135deg, #f4fbf6 0%, #eef2ff 55%, #f6f9ff 100%) !important;
 }
 
 /* Micro-interactions: Cards (Lift Effect) */
@@ -788,14 +753,14 @@ a {
 .module-card:hover, 
 .job-card:hover {
     transform: translateY(-8px) scale(1.01) !important;
-    box-shadow: 0 24px 46px -18px rgba(2, 6, 23, 0.68), 0 10px 18px -10px rgba(14, 165, 233, 0.18) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
     border-color: var(--primary-soft) !important;
 }
 
 /* Micro-interactions: Buttons */
 .btn-primary {
     border-radius: 1rem !important;
-    background: linear-gradient(135deg, #38bdf8, var(--primary), #5b7be0) !important;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
     border: none !important;
     box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39) !important;
     transition: all 0.3s ease !important;
@@ -803,19 +768,19 @@ a {
 .btn-primary:hover {
     transform: translateY(-2px) scale(1.03) !important;
     box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
-    background: linear-gradient(135deg, #7dd3fc, #3b82f6, var(--primary)) !important;
+    background: linear-gradient(135deg, var(--primary-soft), var(--primary)) !important;
 }
 
 .btn-light {
     border-radius: 1rem !important;
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 2px solid rgba(125, 211, 252, 0.28) !important;
+    background: transparent !important;
+    border: 2px solid var(--primary) !important;
     transition: all 0.3s ease !important;
-    color: #e2ebf8 !important;
+    color: var(--primary) !important;
 }
 .btn-light:hover {
     transform: translateY(-2px) scale(1.03) !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+    background: var(--surface-soft) !important;
+    color: var(--primary-dark) !important;
     box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.1) !important;
 }
