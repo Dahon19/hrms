@@ -10,6 +10,21 @@
             50% { transform: translateY(-15px) rotate(2deg); }
         }
 
+        @keyframes shimmerPulse {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.08); }
+        }
+
+        @keyframes cardLiftIn {
+            0% { opacity: 0; transform: translateY(34px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         .animate-fade-scale {
             animation: fadeScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -30,6 +45,18 @@
                 linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
             background-size: 36px 36px;
         }
+
+        .animate-shimmer-pulse {
+            animation: shimmerPulse 7s ease-in-out infinite;
+        }
+
+        .animate-card-lift {
+            animation: cardLiftIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-fade-slide {
+            animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 
     <div class="flex h-screen w-full overflow-hidden bg-neutral-50 font-sans text-neutral-900 selection:bg-blue-500 selection:text-white" x-data="{ showPassword: false, isLoading: false }">
@@ -38,8 +65,8 @@
             <div class="graph-grid-bg absolute inset-0 z-0 opacity-40"></div>
             <div class="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:12px_12px] opacity-20"></div>
             <div class="absolute left-0 top-0 z-0 h-full w-full pointer-events-none opacity-20 mix-blend-screen">
-                <div class="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-blue-500 blur-[100px] animate-float"></div>
-                <div class="absolute right-0 top-1/2 h-[400px] w-[400px] rounded-full bg-sky-400 blur-[100px] animate-float" style="animation-delay: -3s;"></div>
+                <div class="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-blue-500 blur-[100px] animate-float animate-shimmer-pulse"></div>
+                <div class="absolute right-0 top-1/2 h-[400px] w-[400px] rounded-full bg-sky-400 blur-[100px] animate-float animate-shimmer-pulse" style="animation-delay: -3s;"></div>
             </div>
 
             <div class="relative z-10 animate-fade-scale" style="animation-delay: 0.1s; opacity: 0;">
@@ -63,7 +90,7 @@
             </div>
 
             <div class="relative z-10 space-y-5 animate-fade-scale" style="animation-delay: 0.3s; opacity: 0;">
-                <div class="glass-panel flex items-center gap-4 rounded-2xl p-5 transition-colors duration-300 hover:bg-white/10">
+                <div class="glass-panel flex items-center gap-4 rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1 hover:bg-white/10 hover:shadow-[0_20px_40px_-25px_rgba(56,189,248,0.45)]">
                     <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                     </div>
@@ -80,9 +107,9 @@
         </div>
 
         <div class="relative flex w-full flex-col items-center justify-center bg-white px-6 sm:px-12 lg:w-1/2">
-            <div class="w-full max-w-sm animate-fade-scale xl:max-w-md" style="animation-delay: 0.2s; opacity: 0;">
+            <div class="animate-card-lift w-full max-w-sm xl:max-w-md" style="animation-delay: 0.2s; opacity: 0;">
                 <div class="mb-10 text-center lg:hidden">
-                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 shadow-xl">
+                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 shadow-xl transition-transform duration-500 hover:scale-[1.04] hover:shadow-[0_24px_36px_-20px_rgba(37,99,235,0.55)]">
                         <img src="{{ asset('assets/img/Northeastern College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-10 w-10 object-contain brightness-0 invert" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
                     </div>
                     <h2 class="text-3xl font-extrabold tracking-tight text-neutral-900">NC HRMS</h2>
@@ -95,7 +122,7 @@
                 </div>
 
                 @if (session('status'))
-                    <div class="mb-4 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-700">
+                    <div class="animate-fade-slide mb-4 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-700">
                         {{ session('status') }}
                     </div>
                 @endif
@@ -106,42 +133,42 @@
                     <div class="relative">
                         <label for="login" class="mb-1.5 block text-sm font-medium text-neutral-700">Email / Employee ID</label>
                         <div class="group relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-colors pointer-events-none group-focus-within:text-blue-500">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-all duration-300 pointer-events-none group-focus-within:scale-110 group-focus-within:text-blue-500">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" /></svg>
                             </div>
                             <input id="login" type="text" name="login" value="{{ old('login') }}" required autofocus
-                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-4 text-neutral-900 transition-all duration-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 sm:text-sm @error('login') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
+                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-4 text-neutral-900 shadow-[0_8px_18px_-14px_rgba(15,23,42,0.18)] transition-all duration-300 focus:-translate-y-0.5 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/15 sm:text-sm @error('login') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
                                 placeholder="name@college.edu.ph" autocomplete="username" />
                         </div>
                         @error ('login')
-                            <p class="mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
+                            <p class="animate-fade-slide mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="relative">
                         <label for="password" class="mb-1.5 block text-sm font-medium text-neutral-700">Password</label>
                         <div class="group relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-colors pointer-events-none group-focus-within:text-blue-500">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-all duration-300 pointer-events-none group-focus-within:scale-110 group-focus-within:text-blue-500">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
                             <input id="password" :type="showPassword ? 'text' : 'password'" name="password" required
-                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-12 text-neutral-900 transition-all duration-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 sm:text-sm @error('password') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
+                                class="block w-full rounded-xl border border-neutral-200 bg-neutral-50/50 py-3 pl-11 pr-12 text-neutral-900 shadow-[0_8px_18px_-14px_rgba(15,23,42,0.18)] transition-all duration-300 focus:-translate-y-0.5 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/15 sm:text-sm @error('password') border-red-500 bg-red-50/30 focus:border-red-500 focus:ring-red-500/20 @enderror"
                                 placeholder="********" autocomplete="current-password" />
 
-                            <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-400 transition-colors hover:text-neutral-600 focus:outline-none">
+                            <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-400 transition-all duration-300 hover:scale-110 hover:text-neutral-600 focus:outline-none">
                                 <svg x-show="!showPassword" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                 <svg x-show="showPassword" x-cloak class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                             </button>
                         </div>
                         @error ('password')
-                            <p class="mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
+                            <p class="animate-fade-slide mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="mt-4 flex items-center justify-between">
                         <label for="remember_me" class="group flex cursor-pointer items-center">
                             <div class="relative mr-2 flex h-5 w-5 items-center justify-center">
-                                <input id="remember_me" type="checkbox" name="remember" class="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-neutral-300 transition-all checked:border-blue-600 checked:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/30" />
+                                <input id="remember_me" type="checkbox" name="remember" class="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-neutral-300 transition-all duration-300 checked:border-blue-600 checked:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500/30" />
                                 <svg class="pointer-events-none absolute h-3 w-3 text-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
                             <span class="text-sm font-medium text-neutral-600 transition-colors group-hover:text-neutral-900">Remember me</span>
@@ -155,8 +182,9 @@
                     </div>
 
                     <button type="submit" :disabled="isLoading"
-                        class="relative flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3.5 font-semibold text-white shadow-[0_8px_20px_-6px_rgba(37,99,235,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_12px_25px_-8px_rgba(37,99,235,0.55)] focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
+                        class="group relative flex w-full items-center justify-center overflow-hidden rounded-xl bg-blue-600 px-4 py-3.5 font-semibold text-white shadow-[0_8px_20px_-6px_rgba(37,99,235,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-[0_16px_28px_-10px_rgba(37,99,235,0.45)] focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-70"
                     >
+                        <span class="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.22),transparent)] transition-transform duration-700 group-hover:translate-x-full"></span>
                         <span x-show="!isLoading">Sign In</span>
                         <span x-show="isLoading" x-cloak class="flex items-center">
                             <svg class="-ml-1 mr-2 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
