@@ -317,8 +317,21 @@ body.app-shell,
 }
 
 .app-shell .nav-group-toggle::after {
-    color: rgba(255, 255, 255, 0.86) !important;
+    content: "\203A" !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    min-width: 1rem;
+    height: 1rem;
+    margin-left: auto;
+    font-size: 1rem !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    color: #ffffff !important;
     opacity: 1;
+    transform: rotate(0deg);
+    text-shadow: none;
 }
 
 .app-shell .nav-group-items .nav-link {
@@ -363,6 +376,10 @@ body.app-shell,
 .app-shell .sidebar-nav .nav-group-toggle:focus::after,
 .app-shell .sidebar-nav .nav-link.active::after {
     color: #ffffff !important;
+}
+
+.app-shell .nav-group.show > .nav-group-toggle::after {
+    transform: rotate(90deg) !important;
 }
 
 .app-shell .nav-group.show > .nav-link .nav-icon,
