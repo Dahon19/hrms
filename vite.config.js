@@ -86,6 +86,7 @@ export default defineConfig({
                 'resources/css/audit-logs.css',
                 'resources/css/landing.css',
                 'resources/css/job-portal.css',
+                'resources/css/emerald-theme.css',
                 'resources/css/toasts.css',
                 'resources/css/attendance-calendar.css',
                 'resources/css/travel-orders.css',
