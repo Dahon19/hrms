@@ -362,7 +362,14 @@ body.app-shell,
 .app-shell .sidebar-nav .nav-group-toggle:hover::after,
 .app-shell .sidebar-nav .nav-group-toggle:focus::after,
 .app-shell .sidebar-nav .nav-link.active::after {
-    color: var(--hrms-emerald-300) !important;
+    color: #ffffff !important;
+}
+
+.app-shell .nav-group.show > .nav-link .nav-icon,
+.app-shell .nav-group.show > .nav-link:hover .nav-icon,
+.app-shell .nav-group.show > .nav-link:focus .nav-icon,
+.app-shell .sidebar-nav .nav-link.active .nav-icon {
+    color: #ffffff !important;
 }
 
 .app-shell .app-header {
