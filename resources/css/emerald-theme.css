@@ -1,0 +1,461 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap");
+
+:root {
+    --hrms-theme-font: "Manrope", "Segoe UI", sans-serif;
+    --hrms-emerald-950: #07170f;
+    --hrms-emerald-900: #0b2217;
+    --hrms-emerald-800: #113423;
+    --hrms-emerald-700: #166534;
+    --hrms-emerald-600: #15803d;
+    --hrms-emerald-500: #16a34a;
+    --hrms-emerald-400: #4ade80;
+    --hrms-emerald-300: #86efac;
+    --hrms-emerald-100: #dcfce7;
+    --hrms-emerald-50: #f0fdf4;
+    --hrms-ink-950: #0f172a;
+    --hrms-ink-700: #334155;
+    --hrms-ink-500: #64748b;
+    --hrms-line: rgba(15, 23, 42, 0.08);
+    --hrms-panel-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+    --hrms-soft-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+    --hrms-glow: 0 18px 46px rgba(22, 163, 74, 0.18);
+    --cui-primary: #16a34a;
+    --cui-primary-rgb: 22, 163, 74;
+    --cui-link-color: #15803d;
+    --cui-link-hover-color: #166534;
+    --cui-focus-ring-color: rgba(22, 163, 74, 0.22);
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: var(--hrms-theme-font);
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.08), transparent 24%),
+        #f8faf8;
+}
+
+.landing-shell {
+    position: relative;
+}
+
+.landing-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 78%);
+    opacity: 0.38;
+}
+
+.landing-shell,
+.landing-shell .brand-name,
+.landing-shell .section-heading h2,
+.landing-shell h1,
+.landing-shell h2,
+.landing-shell h3,
+.landing-shell h4 {
+    font-family: var(--hrms-theme-font);
+}
+
+.landing-shell .topbar {
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 1.35rem;
+    padding: 0.9rem 1.2rem;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: var(--hrms-soft-shadow);
+    backdrop-filter: blur(18px);
+}
+
+.landing-shell .brand-mark.brand-mark-logo img {
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+.landing-shell .topbar-nav a {
+    color: #4b5563;
+}
+
+.landing-shell .topbar-nav a:hover,
+.landing-shell .topbar-nav a.is-active {
+    color: var(--hrms-emerald-700);
+}
+
+.landing-shell .btn,
+.app-shell .btn {
+    border-radius: 1rem;
+}
+
+.landing-shell .btn-primary,
+.app-shell .btn-primary,
+.app-shell .btn-success,
+.app-shell .btn-outline-primary:hover,
+.app-shell .btn-outline-primary:focus {
+    background:
+        linear-gradient(135deg, var(--hrms-emerald-500) 0%, var(--hrms-emerald-700) 100%) !important;
+    border-color: transparent !important;
+    box-shadow: var(--hrms-glow);
+}
+
+.landing-shell .btn-primary:hover,
+.app-shell .btn-primary:hover,
+.app-shell .btn-success:hover {
+    background:
+        linear-gradient(135deg, var(--hrms-emerald-400) 0%, var(--hrms-emerald-600) 100%) !important;
+}
+
+.landing-shell .btn-light,
+.landing-shell .btn-outline,
+.app-shell .btn-outline-primary {
+    border-color: rgba(22, 163, 74, 0.2) !important;
+    color: var(--hrms-emerald-700) !important;
+    background: rgba(255, 255, 255, 0.82) !important;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.landing-shell .btn-light:hover,
+.landing-shell .btn-outline:hover,
+.app-shell .btn-outline-primary:hover,
+.app-shell .btn-outline-primary:focus {
+    background: rgba(240, 253, 244, 0.95) !important;
+    color: var(--hrms-emerald-800) !important;
+}
+
+.landing-shell .portal-hero-section {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.2), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.18), transparent 28%),
+        linear-gradient(135deg, #07170f 0%, #0f172a 48%, #0b3b2a 100%) !important;
+    box-shadow: var(--hrms-panel-shadow) !important;
+}
+
+.landing-shell .portal-hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.landing-shell .portal-hero-copy,
+.landing-shell .portal-hero-copy p,
+.landing-shell .portal-hero-copy h1,
+.landing-shell .portal-hero-copy .eyebrow,
+.landing-shell .hero-typewriter,
+.landing-shell .hero-panel,
+.landing-shell .hero-panel h3,
+.landing-shell .hero-panel span,
+.landing-shell .hero-panel strong {
+    position: relative;
+    z-index: 1;
+}
+
+.landing-shell .portal-hero-copy .eyebrow,
+.landing-shell .eyebrow {
+    color: var(--hrms-emerald-300);
+}
+
+.landing-shell .portal-hero-copy h1,
+.landing-shell .portal-hero-copy p,
+.landing-shell .hero-panel h3,
+.landing-shell .hero-panel strong {
+    color: #fff;
+}
+
+.landing-shell .portal-hero-copy p,
+.landing-shell .hero-panel span,
+.landing-shell .hero-panel .muted {
+    color: rgba(255, 255, 255, 0.74);
+}
+
+.landing-shell .portal-hero-copy h1 span,
+.landing-shell .hero-typewriter {
+    background: linear-gradient(90deg, var(--hrms-emerald-300), var(--hrms-emerald-400));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.landing-shell .hero-panel,
+.landing-shell .cta-inner {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.16) !important;
+}
+
+.landing-shell .landing-section,
+.landing-shell .feature-card,
+.landing-shell .module-card,
+.landing-shell .flow-card,
+.landing-shell .job-card,
+.landing-shell .empty-portal,
+.landing-shell .contact-grid article,
+.landing-shell .about-layout {
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.9) 100%) !important;
+    box-shadow: var(--hrms-soft-shadow) !important;
+}
+
+.landing-shell .feature-card i,
+.landing-shell .module-card i,
+.landing-shell .flow-card span,
+.landing-shell .job-type-badge {
+    color: var(--hrms-emerald-700);
+}
+
+.landing-shell .job-type-badge {
+    background: rgba(22, 163, 74, 0.1);
+    border: 1px solid rgba(22, 163, 74, 0.14);
+}
+
+.landing-shell .portal-footer {
+    margin-top: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.4rem;
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.16), transparent 32%),
+        linear-gradient(135deg, #07170f 0%, #0f172a 55%, #0c2d1f 100%);
+    color: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--hrms-panel-shadow);
+}
+
+.landing-shell .portal-footer .muted {
+    color: rgba(255, 255, 255, 0.62) !important;
+}
+
+.app-shell {
+    --hrms-shell-bg: #f5f8f6;
+    --hrms-surface: rgba(255, 255, 255, 0.94);
+    --hrms-surface-alt: #f7fbf8;
+    --hrms-border: rgba(15, 23, 42, 0.08);
+    --hrms-text: #1f2937;
+    --hrms-muted: #6b7280;
+    --hrms-sidebar-bg: #07170f;
+    --hrms-sidebar-bg-alt: #0f2c1d;
+    --hrms-sidebar-border: rgba(134, 239, 172, 0.08);
+    --hrms-sidebar-text: rgba(255, 255, 255, 0.88);
+    --hrms-sidebar-muted: rgba(255, 255, 255, 0.54);
+    --hrms-sidebar-active: #4ade80;
+    --hrms-sidebar-active-soft: rgba(74, 222, 128, 0.18);
+    --hrms-sidebar-hover: rgba(255, 255, 255, 0.07);
+    --hrms-shadow: 0 24px 54px rgba(15, 23, 42, 0.12);
+}
+
+.app-shell body,
+.app-shell,
+body.app-shell,
+.wrapper.app-shell {
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.08), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.06), transparent 24%),
+        #f5f8f6;
+}
+
+.app-shell .app-sidebar {
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.16), transparent 28%),
+        linear-gradient(180deg, var(--hrms-sidebar-bg) 0%, var(--hrms-sidebar-bg-alt) 100%);
+    border-right-color: var(--hrms-sidebar-border);
+    box-shadow: 24px 0 48px rgba(7, 23, 15, 0.22);
+}
+
+.app-shell .app-sidebar .sidebar-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.app-shell .sidebar-brand-mark {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.app-shell .sidebar-brand-line,
+.app-shell .sidebar-brand:hover .sidebar-brand-line {
+    color: #fff;
+}
+
+.app-shell .sidebar-brand-accent,
+.app-shell .app-sidebar .sidebar-brand:hover .sidebar-brand-accent {
+    color: var(--hrms-emerald-300);
+}
+
+.app-shell .nav-header {
+    color: var(--hrms-sidebar-muted);
+}
+
+.app-shell .sidebar-nav .nav-link {
+    color: var(--hrms-sidebar-text);
+}
+
+.app-shell .sidebar-nav .nav-link .nav-icon,
+.app-shell .nav-group-toggle::after {
+    color: var(--hrms-sidebar-muted);
+}
+
+.app-shell .sidebar-nav .nav-link:hover,
+.app-shell .sidebar-nav .nav-link.active,
+.app-shell .nav-group.show > .nav-link {
+    color: #fff;
+    background:
+        linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(22, 163, 74, 0.12));
+    box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.12);
+}
+
+.app-shell .sidebar-nav .nav-link:hover .nav-icon,
+.app-shell .sidebar-nav .nav-link.active .nav-icon,
+.app-shell .nav-group.show > .nav-link .nav-icon,
+.app-shell .nav-group.show > .nav-link::after {
+    color: var(--hrms-emerald-300);
+}
+
+.app-shell .app-header {
+    background: rgba(255, 255, 255, 0.76);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.52);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    backdrop-filter: blur(18px);
+}
+
+.app-shell .app-header-toggle:hover,
+.app-shell .app-header-toggle:focus,
+.app-shell .app-header-toggle:active {
+    background: rgba(22, 163, 74, 0.1);
+    color: var(--hrms-emerald-700);
+}
+
+.app-shell .app-header-breadcrumb .breadcrumb-item a,
+.app-shell .title-icon {
+    color: var(--hrms-emerald-700);
+}
+
+.app-shell .app-header-breadcrumb .breadcrumb-item a:hover,
+.app-shell .app-header-breadcrumb .breadcrumb-item a:focus {
+    color: var(--hrms-emerald-800);
+}
+
+.app-shell .topbar-user-chip,
+.app-shell .hrms-notification-toggle {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(22, 163, 74, 0.08);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.app-shell .topbar-user-chip:hover,
+.app-shell .hrms-notification-toggle:hover {
+    border-color: rgba(22, 163, 74, 0.18);
+}
+
+.app-shell .card,
+.app-shell .ui-table-card,
+.app-shell .hero-card,
+.app-shell .ui-hero-card,
+.app-shell .hrms-list-card,
+.app-shell .spms-overview-card,
+.app-shell .spms-cycle-stat,
+.app-shell .offboarding-stat-card,
+.app-shell .offboarding-card,
+.app-shell .travel-order-summary-card,
+.app-shell .travel-order-show-card,
+.app-shell .settings-card,
+.app-shell .hrms-modal-surface,
+.app-shell .dropdown-menu {
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 251, 248, 0.94) 100%) !important;
+    box-shadow: var(--hrms-soft-shadow) !important;
+}
+
+.app-shell .ui-table-card__toolbar,
+.app-shell .card-header,
+.app-shell .hrms-modal-head,
+.app-shell .modal-header:not(.border-0),
+.app-shell .hrms-modal-footer,
+.app-shell .modal-footer {
+    background: rgba(247, 251, 248, 0.78) !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+.app-shell .badge-soft-primary {
+    background: rgba(22, 163, 74, 0.12);
+    color: var(--hrms-emerald-700);
+    border-color: rgba(22, 163, 74, 0.14);
+}
+
+.app-shell .form-control:focus,
+.app-shell .form-select:focus,
+.app-shell .custom-select:focus,
+.app-shell .btn:focus-visible {
+    border-color: rgba(22, 163, 74, 0.34);
+    box-shadow: 0 0 0 0.2rem rgba(22, 163, 74, 0.14);
+}
+
+.app-shell .btn-outline-secondary:hover,
+.app-shell .btn-outline-secondary:focus {
+    background: rgba(240, 253, 244, 0.92);
+    border-color: rgba(22, 163, 74, 0.18);
+    color: var(--hrms-emerald-800);
+}
+
+.dark-mode .landing-shell .landing-section,
+.dark-mode .landing-shell .feature-card,
+.dark-mode .landing-shell .module-card,
+.dark-mode .landing-shell .flow-card,
+.dark-mode .landing-shell .job-card,
+.dark-mode .landing-shell .contact-grid article,
+.dark-mode .landing-shell .about-layout {
+    background: linear-gradient(180deg, #111827 0%, #0f172a 100%) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark-mode .app-shell {
+    --hrms-shell-bg: #08120c;
+    --hrms-surface: #101b14;
+    --hrms-surface-alt: #132018;
+    --hrms-border: rgba(134, 239, 172, 0.08);
+    --hrms-text: #e5efe8;
+    --hrms-muted: #9cb1a3;
+    --hrms-heading: #f8fffb;
+    --hrms-elevated: #122016;
+    --hrms-elevated-alt: #16261b;
+    --hrms-input-bg: #122016;
+    --hrms-input-border: rgba(134, 239, 172, 0.12);
+}
+
+.dark-mode .app-shell .app-header,
+.dark-mode .app-shell .topbar-user-chip,
+.dark-mode .app-shell .hrms-notification-toggle,
+.dark-mode .app-shell .card,
+.dark-mode .app-shell .ui-table-card,
+.dark-mode .app-shell .dropdown-menu,
+.dark-mode .app-shell .hrms-modal-surface {
+    background: linear-gradient(180deg, rgba(18, 32, 22, 0.96), rgba(15, 27, 20, 0.98)) !important;
+    border-color: rgba(134, 239, 172, 0.08) !important;
+}
+
+@media (max-width: 991.98px) {
+    .landing-shell .topbar {
+        border-radius: 1rem;
+    }
+
+    .app-shell .app-header {
+        background: rgba(255, 255, 255, 0.88);
+    }
+}

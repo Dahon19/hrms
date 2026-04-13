@@ -53,6 +53,7 @@
             'resources/css/ui-hero.css',
             'resources/css/mobile-responsive.css',
             'resources/css/module-overrides.css',
+            'resources/css/emerald-theme.css',
             'resources/css/toasts.css',
         ];
 

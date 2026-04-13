@@ -18,7 +18,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     />
-    @vite (['resources/css/landing.css', 'resources/css/job-portal.css', 'resources/css/toasts.css', 'resources/js/job-portal.js', 'resources/js/flash-toasts.js'])
+    @vite (['resources/css/landing.css', 'resources/css/job-portal.css', 'resources/css/emerald-theme.css', 'resources/css/toasts.css', 'resources/js/job-portal.js', 'resources/js/flash-toasts.js'])
 </head>
 <body>
     @php
