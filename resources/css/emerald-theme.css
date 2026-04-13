@@ -201,18 +201,70 @@ body {
     box-shadow: 0 24px 50px rgba(0, 0, 0, 0.16) !important;
 }
 
+.landing-shell .hero-kpi-grid article {
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    box-shadow: 0 12px 24px rgba(7, 23, 15, 0.18);
+}
+
+.landing-shell .hero-kpi-grid article span {
+    color: var(--hrms-ink-500) !important;
+}
+
+.landing-shell .hero-kpi-grid article strong {
+    color: var(--hrms-ink-950) !important;
+}
+
 .landing-shell .landing-section,
 .landing-shell .feature-card,
 .landing-shell .module-card,
 .landing-shell .flow-card,
 .landing-shell .job-card,
-.landing-shell .empty-portal,
-.landing-shell .contact-grid article,
-.landing-shell .about-layout {
+    .landing-shell .empty-portal,
+    .landing-shell .contact-grid article {
     border: 1px solid rgba(255, 255, 255, 0.5) !important;
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.9) 100%) !important;
     box-shadow: var(--hrms-soft-shadow) !important;
+}
+
+.landing-shell .about-layout {
+    max-width: 920px;
+    padding: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.landing-shell .about-layout p {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    color: var(--hrms-ink-700);
+}
+
+.landing-shell .cta-section {
+    background:
+        linear-gradient(135deg, rgba(240, 253, 244, 0.92) 0%, rgba(236, 253, 245, 0.92) 48%, rgba(239, 246, 255, 0.92) 100%) !important;
+}
+
+.landing-shell .cta-inner {
+    padding: 1.9rem 2rem;
+    border-radius: 1.3rem;
+    background:
+        linear-gradient(135deg, rgba(7, 23, 15, 0.92) 0%, rgba(11, 34, 23, 0.9) 42%, rgba(21, 128, 61, 0.82) 100%) !important;
+    border: 1px solid rgba(134, 239, 172, 0.18) !important;
+}
+
+.landing-shell .cta-inner h2,
+.landing-shell .cta-inner p.eyebrow {
+    color: #ffffff;
+}
+
+.landing-shell .cta-inner p {
+    margin: 0;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.78);
 }
 
 .landing-shell .feature-card i,
@@ -229,6 +281,7 @@ body {
 
 .landing-shell .portal-footer {
     margin-top: 3rem;
+    padding: 1rem 1.4rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1.4rem;
     background:
@@ -236,6 +289,12 @@ body {
         linear-gradient(135deg, #07170f 0%, #0f172a 55%, #0c2d1f 100%);
     color: rgba(255, 255, 255, 0.92);
     box-shadow: var(--hrms-panel-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .landing-shell .portal-footer .muted {
