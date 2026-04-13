@@ -166,6 +166,15 @@
       "eligibility-index.css"
     ]
   },
+  "resources/css/emerald-theme.css": {
+    "file": "assets/emerald-theme-WthH_xT0.css",
+    "src": "resources/css/emerald-theme.css",
+    "isEntry": true,
+    "name": "emerald-theme",
+    "names": [
+      "emerald-theme.css"
+    ]
+  },
   "resources/css/employees-index.css": {
     "file": "assets/employees-index-DfdgMrSo.css",
     "src": "resources/css/employees-index.css",
