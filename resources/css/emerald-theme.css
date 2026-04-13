@@ -376,16 +376,34 @@ body.app-shell,
     color: var(--hrms-emerald-800);
 }
 
-.app-shell .topbar-user-chip,
-.app-shell .hrms-notification-toggle {
+.app-shell .topbar-user-chip {
     background: rgba(255, 255, 255, 0.82);
     border: 1px solid rgba(22, 163, 74, 0.08);
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
 }
 
-.app-shell .topbar-user-chip:hover,
-.app-shell .hrms-notification-toggle:hover {
+.app-shell .topbar-user-chip:hover {
     border-color: rgba(22, 163, 74, 0.18);
+}
+
+.app-shell .hrms-notification-toggle {
+    min-width: auto;
+    min-height: auto;
+    padding: 0.15rem 0.2rem;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    color: #64748b;
+}
+
+.app-shell .hrms-notification-toggle:hover,
+.app-shell .hrms-notification-toggle:focus,
+.app-shell .hrms-notification-toggle[aria-expanded="true"] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: var(--hrms-emerald-700);
 }
 
 .app-shell .card,
