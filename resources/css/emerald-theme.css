@@ -299,16 +299,29 @@ body.app-shell,
 }
 
 .app-shell .nav-header {
-    color: var(--hrms-sidebar-muted);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .app-shell .sidebar-nav .nav-link {
-    color: var(--hrms-sidebar-text);
+    color: #effaf1;
+}
+
+.app-shell .sidebar-nav .nav-label {
+    color: inherit;
 }
 
 .app-shell .sidebar-nav .nav-link .nav-icon,
 .app-shell .nav-group-toggle::after {
-    color: var(--hrms-sidebar-muted);
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.app-shell .nav-group-items .nav-link {
+    color: rgba(255, 255, 255, 0.84);
+}
+
+.app-shell .nav-group-items .nav-link:hover,
+.app-shell .nav-group-items .nav-link.active {
+    color: #ffffff;
 }
 
 .app-shell .sidebar-nav .nav-link:hover,
@@ -318,6 +331,12 @@ body.app-shell,
     background:
         linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(22, 163, 74, 0.12));
     box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.12);
+}
+
+.app-shell .sidebar-nav .nav-link:hover .nav-label,
+.app-shell .sidebar-nav .nav-link.active .nav-label,
+.app-shell .nav-group.show > .nav-link .nav-label {
+    color: #ffffff;
 }
 
 .app-shell .sidebar-nav .nav-link:hover .nav-icon,
@@ -365,8 +384,6 @@ body.app-shell,
 
 .app-shell .card,
 .app-shell .ui-table-card,
-.app-shell .hero-card,
-.app-shell .ui-hero-card,
 .app-shell .hrms-list-card,
 .app-shell .spms-overview-card,
 .app-shell .spms-cycle-stat,
@@ -381,6 +398,54 @@ body.app-shell,
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 251, 248, 0.94) 100%) !important;
     box-shadow: var(--hrms-soft-shadow) !important;
+}
+
+.app-shell .hero-card,
+.app-shell .ui-hero-card,
+.app-shell .hrms-page-header {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.22), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.18), transparent 28%),
+        linear-gradient(135deg, #07170f 0%, #0f172a 48%, #0b3b2a 100%) !important;
+    box-shadow: var(--hrms-panel-shadow) !important;
+}
+
+.app-shell .hero-title,
+.app-shell .hero-card h4,
+.app-shell .ui-hero-card h4,
+.app-shell .hrms-page-header h4,
+[data-page="dashboard"] .dashboard-hero .hero-title {
+    color: #ffffff !important;
+}
+
+.app-shell .hero-subtitle,
+.app-shell .hero-card .text-medium-emphasis,
+.app-shell .ui-hero-card .text-medium-emphasis,
+.app-shell .hrms-page-header p,
+[data-page="dashboard"] .dashboard-hero .hero-subtitle {
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.app-shell .hero-eyebrow,
+.app-shell .hero-card .hrms-page-header__eyebrow,
+.app-shell .ui-hero-card .hrms-page-header__eyebrow,
+.app-shell .hrms-page-header__eyebrow,
+[data-page="dashboard"] .dashboard-eyebrow {
+    color: rgba(134, 239, 172, 0.84) !important;
+}
+
+.app-shell .hero-actions .btn,
+.app-shell .ui-hero-card .btn,
+.app-shell .hrms-page-header .btn,
+[data-page="dashboard"] .dashboard-chip {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+[data-page="dashboard"] .dashboard-chip i {
+    color: rgba(255, 255, 255, 0.88) !important;
 }
 
 .app-shell .ui-table-card__toolbar,
@@ -448,6 +513,15 @@ body.app-shell,
 .dark-mode .app-shell .hrms-modal-surface {
     background: linear-gradient(180deg, rgba(18, 32, 22, 0.96), rgba(15, 27, 20, 0.98)) !important;
     border-color: rgba(134, 239, 172, 0.08) !important;
+}
+
+.dark-mode .app-shell .hero-card,
+.dark-mode .app-shell .ui-hero-card,
+.dark-mode .app-shell .hrms-page-header {
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.15), transparent 28%),
+        linear-gradient(135deg, #07170f 0%, #0b1610 45%, #0d2a1b 100%) !important;
 }
 
 @media (max-width: 991.98px) {
