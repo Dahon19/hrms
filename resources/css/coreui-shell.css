@@ -414,22 +414,13 @@ body.app-shell .offcanvas-backdrop.show {
 }
 
 .app-shell .nav-group-toggle::after {
-    content: "";
-    display: inline-block;
-    width: 0.46rem;
-    height: 0.46rem;
-    margin-left: auto;
-    border-top: 2px solid var(--hrms-chevron-color);
-    border-right: 2px solid var(--hrms-chevron-color);
-    background: transparent;
-    color: transparent;
-    line-height: 1;
-    transition: transform 0.25s ease;
-    transform: rotate(45deg);
+    content: none;
+    display: none;
 }
 
 .app-shell .nav-group.show>.nav-group-toggle::after {
-    transform: rotate(135deg);
+    content: none;
+    display: none;
 }
 
 .app-shell .sidebar-nav .nav-link:hover {
@@ -2036,33 +2027,20 @@ body.dark-mode {
 }
 
 .dark-mode .app-shell .nav-group-toggle::after {
-    content: "" !important;
-    display: inline-block !important;
-    flex: 0 0 auto;
-    width: 0.46rem !important;
-    height: 0.46rem !important;
-    margin-left: auto;
-    margin-right: 0;
-    color: transparent !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-top: 2px solid #ffffff !important;
-    border-right: 2px solid #ffffff !important;
-    opacity: 1 !important;
-    transform: rotate(45deg) !important;
-    transform-origin: center center;
-    text-shadow: none !important;
+    content: none !important;
+    display: none !important;
 }
 
 .dark-mode .app-shell .sidebar-nav .nav-group-toggle:hover::after,
 .dark-mode .app-shell .sidebar-nav .nav-group-toggle:focus::after,
 .dark-mode .app-shell .sidebar-nav .nav-group.show > .nav-group-toggle::after {
-    background-color: #ffffff !important;
-    opacity: 1 !important;
+    content: none !important;
+    display: none !important;
 }
 
 .dark-mode .app-shell .nav-group.show > .nav-group-toggle::after {
-    transform: rotate(135deg) !important;
+    content: none !important;
+    display: none !important;
 }
 
 .dark-mode .app-shell .sidebar-nav .nav-link:hover {
