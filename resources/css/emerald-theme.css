@@ -527,23 +527,22 @@ body.app-shell,
 }
 
 .app-shell .nav-group-toggle::after {
-    content: "" !important;
-    display: inline-block !important;
-    width: 0.8rem !important;
-    min-width: 0.8rem !important;
-    height: 0.8rem !important;
+    display: none !important;
+}
+
+.app-shell .nav-group-chevron {
+    display: inline-block;
+    width: 0.85rem;
+    min-width: 0.85rem;
+    height: 0.85rem;
     margin-left: auto;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M4.5 2.5L9 7l-4.5 4.5' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 0.8rem 0.8rem !important;
-    border: 0 !important;
-    color: transparent !important;
-    line-height: 1 !important;
-    opacity: 1 !important;
-    transform: rotate(0deg) !important;
-    text-shadow: none;
-    box-shadow: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M4.5 2.5L9 7l-4.5 4.5' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0.85rem 0.85rem;
+    opacity: 1;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease;
     filter: drop-shadow(0 0 1px rgba(7, 23, 15, 0.28));
 }
 
@@ -584,16 +583,14 @@ body.app-shell,
     color: var(--hrms-emerald-300);
 }
 
-.app-shell .nav-group.show > .nav-link::after,
-.app-shell .sidebar-nav .nav-group-toggle:hover::after,
-.app-shell .sidebar-nav .nav-group-toggle:focus::after,
-.app-shell .sidebar-nav .nav-link.active::after {
-    color: #ffffff !important;
+.app-shell .nav-group.show > .nav-link .nav-group-chevron,
+.app-shell .sidebar-nav .nav-group-toggle:hover .nav-group-chevron,
+.app-shell .sidebar-nav .nav-group-toggle:focus .nav-group-chevron,
+.app-shell .sidebar-nav .nav-link.active .nav-group-chevron {
     opacity: 1 !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M4.5 2.5L9 7l-4.5 4.5' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 }
 
-.app-shell .nav-group.show > .nav-group-toggle::after {
+.app-shell .nav-group.show > .nav-group-toggle .nav-group-chevron {
     transform: rotate(90deg) !important;
 }
 
@@ -772,55 +769,55 @@ body.app-shell,
     color: rgba(226, 232, 240, 0.74) !important;
 }
 
-.app-shell .profile-sidecard,
-.app-shell .profile-maincard {
+.app-shell .profile-modal .profile-sidecard,
+.app-shell .profile-modal .profile-maincard {
     border: 1px solid rgba(134, 239, 172, 0.08) !important;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)) !important;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
-.app-shell .profile-sidecard {
+.app-shell .profile-modal .profile-sidecard {
     background:
         radial-gradient(circle at top left, rgba(74, 222, 128, 0.08), transparent 34%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03)) !important;
 }
 
-.app-shell .profile-identity-name,
-.app-shell .profile-identity-role,
-.app-shell .profile-sidecard__subline,
-.app-shell .profile-stat__value,
-.app-shell .profile-section-heading,
+.app-shell .profile-modal .profile-identity-name,
+.app-shell .profile-modal .profile-identity-role,
+.app-shell .profile-modal .profile-sidecard__subline,
+.app-shell .profile-modal .profile-stat__value,
+.app-shell .profile-modal .profile-section-heading,
 .app-shell .profile-modal .form-group label {
     color: #f8fffb !important;
 }
 
-.app-shell .profile-sidecard__subline,
-.app-shell .profile-stat__label,
-.app-shell .profile-section-note,
+.app-shell .profile-modal .profile-sidecard__subline,
+.app-shell .profile-modal .profile-stat__label,
+.app-shell .profile-modal .profile-section-note,
 .app-shell .profile-modal .form-group label {
     opacity: 0.82;
 }
 
-.app-shell .profile-section-heading--security {
+.app-shell .profile-modal .profile-section-heading--security {
     color: rgba(253, 186, 116, 0.96) !important;
 }
 
-.app-shell .profile-stat {
+.app-shell .profile-modal .profile-stat {
     border: 1px solid rgba(134, 239, 172, 0.08) !important;
     background: rgba(255, 255, 255, 0.035) !important;
 }
 
-.app-shell .profile-stat__label i,
+.app-shell .profile-modal .profile-stat__label i,
 .app-shell .profile-modal .input-group-text i {
     color: rgba(167, 243, 208, 0.9) !important;
 }
 
-.app-shell .profile-avatar-shell {
+.app-shell .profile-modal .profile-avatar-shell {
     background: linear-gradient(135deg, rgba(31, 68, 50, 0.9), rgba(18, 47, 35, 0.96)) !important;
     box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.12);
 }
 
-.app-shell .profile-avatar-edit {
+.app-shell .profile-modal .profile-avatar-edit {
     background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
 }
 

@@ -104,6 +104,7 @@
                         >
                             <i class="nav-icon cil-bullhorn"></i>
                             <span class="nav-label">Recruitment</span>
+                            <span class="nav-group-chevron" aria-hidden="true"></span>
                         </a>
                         <ul class="nav-group-items">
                             <li class="nav-item">
@@ -178,6 +179,7 @@
                             >
                                 <i class="nav-icon cil-sitemap"></i>
                                 <span class="nav-label">Organization</span>
+                                <span class="nav-group-chevron" aria-hidden="true"></span>
                             </a>
                             <ul class="nav-group-items">
                                 <li class="nav-item">
@@ -226,6 +228,7 @@
                     >
                         <i class="nav-icon cil-clock"></i>
                         <span class="nav-label">Attendance</span>
+                        <span class="nav-group-chevron" aria-hidden="true"></span>
                     </a>
                     <ul class="nav-group-items">
                         <li class="nav-item">
@@ -310,6 +313,7 @@
                         >
                             <i class="nav-icon cil-calendar"></i>
                             <span class="nav-label">Leave</span>
+                            <span class="nav-group-chevron" aria-hidden="true"></span>
                         </a>
                         <ul class="nav-group-items">
                             @if ($showLeaveNav)
@@ -366,6 +370,7 @@
                     >
                         <i class="nav-icon cil-calculator"></i>
                         <span class="nav-label">SPMS</span>
+                        <span class="nav-group-chevron" aria-hidden="true"></span>
                     </a>
                     <ul class="nav-group-items">
                         <li class="nav-item">
