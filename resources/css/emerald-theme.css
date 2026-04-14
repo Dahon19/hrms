@@ -529,21 +529,22 @@ body.app-shell,
 .app-shell .nav-group-toggle::after {
     content: "" !important;
     display: inline-block !important;
-    width: 0.62rem !important;
-    min-width: 0.62rem !important;
-    height: 0.62rem !important;
+    width: 0.8rem !important;
+    min-width: 0.8rem !important;
+    height: 0.8rem !important;
     margin-left: auto;
-    border-top: 2.5px solid #ffffff !important;
-    border-right: 2.5px solid #ffffff !important;
-    border-bottom: 0 !important;
-    border-left: 0 !important;
-    background: transparent !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M4.5 2.5L9 7l-4.5 4.5' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 0.8rem 0.8rem !important;
+    border: 0 !important;
     color: transparent !important;
     line-height: 1 !important;
     opacity: 1 !important;
-    transform: rotate(45deg) !important;
+    transform: rotate(0deg) !important;
     text-shadow: none;
-    box-shadow: 0 0 0 1px rgba(7, 23, 15, 0.08) !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 0 1px rgba(7, 23, 15, 0.28));
 }
 
 .app-shell .nav-group-items .nav-link {
@@ -588,15 +589,12 @@ body.app-shell,
 .app-shell .sidebar-nav .nav-group-toggle:focus::after,
 .app-shell .sidebar-nav .nav-link.active::after {
     color: #ffffff !important;
-    border-top-color: #ffffff !important;
-    border-right-color: #ffffff !important;
     opacity: 1 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M4.5 2.5L9 7l-4.5 4.5' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 }
 
 .app-shell .nav-group.show > .nav-group-toggle::after {
-    transform: rotate(135deg) !important;
-    border-top-color: #ffffff !important;
-    border-right-color: #ffffff !important;
+    transform: rotate(90deg) !important;
 }
 
 .app-shell .nav-group.show > .nav-link .nav-icon,
@@ -851,6 +849,78 @@ body.app-shell,
 .app-shell .profile-modal .form-control:focus {
     border-color: rgba(74, 222, 128, 0.38) !important;
     box-shadow: 0 0 0 0.2rem rgba(22, 163, 74, 0.12) !important;
+}
+
+.dark-mode .app-shell .modal-content,
+.dark-mode .app-shell .hrms-modal-surface,
+.dark-mode .app-shell .modal-dialog-scrollable .modal-content {
+    background: linear-gradient(180deg, rgba(14, 29, 20, 0.985), rgba(10, 23, 16, 0.995)) !important;
+    border-color: rgba(134, 239, 172, 0.08) !important;
+    color: #e5efe8 !important;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34) !important;
+}
+
+.dark-mode .app-shell .modal-header,
+.dark-mode .app-shell .modal-footer,
+.dark-mode .app-shell .hrms-modal-head,
+.dark-mode .app-shell .hrms-modal-footer {
+    background: linear-gradient(180deg, rgba(18, 35, 24, 0.96), rgba(14, 29, 20, 0.94)) !important;
+    border-color: rgba(134, 239, 172, 0.08) !important;
+    color: #f8fffb !important;
+}
+
+.dark-mode .app-shell .modal-body,
+.dark-mode .app-shell .modal-body.bg-light,
+.dark-mode .app-shell .hrms-modal-surface .modal-body {
+    background: transparent !important;
+    color: #e5efe8 !important;
+}
+
+.dark-mode .app-shell .modal-title,
+.dark-mode .app-shell .modal-header .modal-title,
+.dark-mode .app-shell .hrms-modal-surface .modal-title,
+.dark-mode .app-shell .modal-body label,
+.dark-mode .app-shell .modal-body .form-label,
+.dark-mode .app-shell .modal-body h1,
+.dark-mode .app-shell .modal-body h2,
+.dark-mode .app-shell .modal-body h3,
+.dark-mode .app-shell .modal-body h4,
+.dark-mode .app-shell .modal-body h5,
+.dark-mode .app-shell .modal-body h6 {
+    color: #f8fffb !important;
+}
+
+.dark-mode .app-shell .modal-body p,
+.dark-mode .app-shell .modal-body small,
+.dark-mode .app-shell .modal-body .text-muted,
+.dark-mode .app-shell .modal-body .form-text,
+.dark-mode .app-shell .modal-body .small {
+    color: rgba(226, 232, 240, 0.74) !important;
+}
+
+.dark-mode .app-shell .modal-body .form-control,
+.dark-mode .app-shell .modal-body .form-select,
+.dark-mode .app-shell .modal-body .custom-select,
+.dark-mode .app-shell .modal-body .input-group-text,
+.dark-mode .app-shell .hrms-modal-surface .form-control,
+.dark-mode .app-shell .hrms-modal-surface .form-select,
+.dark-mode .app-shell .hrms-modal-surface .custom-select,
+.dark-mode .app-shell .hrms-modal-surface .input-group-text {
+    background: rgba(7, 23, 15, 0.82) !important;
+    border-color: rgba(134, 239, 172, 0.1) !important;
+    color: #f8fffb !important;
+}
+
+.dark-mode .app-shell .modal-body .input-group-text i,
+.dark-mode .app-shell .hrms-modal-surface .input-group-text i {
+    color: rgba(167, 243, 208, 0.9) !important;
+}
+
+.dark-mode .app-shell .modal-body .btn-light,
+.dark-mode .app-shell .modal-footer .btn-light {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(134, 239, 172, 0.1) !important;
+    color: #f8fffb !important;
 }
 
 .app-shell .badge-soft-primary {
