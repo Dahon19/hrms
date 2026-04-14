@@ -529,12 +529,12 @@ body.app-shell,
 .app-shell .nav-group-toggle::after {
     content: "" !important;
     display: inline-block !important;
-    width: 0.56rem !important;
-    min-width: 0.56rem !important;
-    height: 0.56rem !important;
+    width: 0.62rem !important;
+    min-width: 0.62rem !important;
+    height: 0.62rem !important;
     margin-left: auto;
-    border-top: 2px solid #ffffff !important;
-    border-right: 2px solid #ffffff !important;
+    border-top: 2.5px solid #ffffff !important;
+    border-right: 2.5px solid #ffffff !important;
     border-bottom: 0 !important;
     border-left: 0 !important;
     background: transparent !important;
@@ -543,7 +543,7 @@ body.app-shell,
     opacity: 1 !important;
     transform: rotate(45deg) !important;
     text-shadow: none;
-    box-shadow: none !important;
+    box-shadow: 0 0 0 1px rgba(7, 23, 15, 0.08) !important;
 }
 
 .app-shell .nav-group-items .nav-link {
@@ -681,12 +681,24 @@ body.app-shell,
 .app-shell .hero-card,
 .app-shell .ui-hero-card,
 .app-shell .hrms-page-header {
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(134, 239, 172, 0.12) !important;
     background:
-        radial-gradient(circle at top left, rgba(74, 222, 128, 0.22), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.18), transparent 28%),
-        linear-gradient(135deg, #07170f 0%, #0f172a 48%, #0b3b2a 100%) !important;
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.16), transparent 26%),
+        radial-gradient(circle at 82% 18%, rgba(16, 185, 129, 0.12), transparent 18%),
+        linear-gradient(135deg, #112317 0%, #17261d 52%, #183427 100%) !important;
     box-shadow: var(--hrms-panel-shadow) !important;
+}
+
+.app-shell .hero-card::before,
+.app-shell .ui-hero-card::before,
+.app-shell .hrms-page-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(134, 239, 172, 0.08), transparent 32%);
+    pointer-events: none;
 }
 
 .app-shell .hero-title,
@@ -695,6 +707,8 @@ body.app-shell,
 .app-shell .hrms-page-header h4,
 [data-page="dashboard"] .dashboard-hero .hero-title {
     color: #ffffff !important;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
 }
 
 .app-shell .hero-subtitle,
@@ -702,7 +716,7 @@ body.app-shell,
 .app-shell .ui-hero-card .text-medium-emphasis,
 .app-shell .hrms-page-header p,
 [data-page="dashboard"] .dashboard-hero .hero-subtitle {
-    color: rgba(255, 255, 255, 0.82) !important;
+    color: rgba(226, 232, 240, 0.9) !important;
 }
 
 .app-shell .hero-eyebrow,
@@ -710,7 +724,8 @@ body.app-shell,
 .app-shell .ui-hero-card .hrms-page-header__eyebrow,
 .app-shell .hrms-page-header__eyebrow,
 [data-page="dashboard"] .dashboard-eyebrow {
-    color: rgba(134, 239, 172, 0.84) !important;
+    color: rgba(167, 243, 208, 0.88) !important;
+    letter-spacing: 0.08em;
 }
 
 .app-shell .hero-actions .btn,
