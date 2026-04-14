@@ -751,6 +751,108 @@ body.app-shell,
     border-color: rgba(15, 23, 42, 0.08) !important;
 }
 
+.app-shell .profile-modal .modal-content {
+    border: 1px solid rgba(134, 239, 172, 0.08) !important;
+    background: linear-gradient(180deg, rgba(14, 29, 20, 0.98), rgba(10, 23, 16, 0.99)) !important;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28) !important;
+}
+
+.app-shell .profile-modal .modal-header,
+.app-shell .profile-modal .modal-footer,
+.app-shell .profile-modal .modal-body {
+    background: transparent !important;
+}
+
+.app-shell .profile-modal .modal-title,
+.app-shell .profile-modal .modal-subtitle {
+    color: #f8fffb !important;
+}
+
+.app-shell .profile-modal .modal-subtitle,
+.app-shell .profile-modal .text-muted,
+.app-shell .profile-section-note {
+    color: rgba(226, 232, 240, 0.74) !important;
+}
+
+.app-shell .profile-sidecard,
+.app-shell .profile-maincard {
+    border: 1px solid rgba(134, 239, 172, 0.08) !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.app-shell .profile-sidecard {
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03)) !important;
+}
+
+.app-shell .profile-identity-name,
+.app-shell .profile-identity-role,
+.app-shell .profile-sidecard__subline,
+.app-shell .profile-stat__value,
+.app-shell .profile-section-heading,
+.app-shell .profile-modal .form-group label {
+    color: #f8fffb !important;
+}
+
+.app-shell .profile-sidecard__subline,
+.app-shell .profile-stat__label,
+.app-shell .profile-section-note,
+.app-shell .profile-modal .form-group label {
+    opacity: 0.82;
+}
+
+.app-shell .profile-section-heading--security {
+    color: rgba(253, 186, 116, 0.96) !important;
+}
+
+.app-shell .profile-stat {
+    border: 1px solid rgba(134, 239, 172, 0.08) !important;
+    background: rgba(255, 255, 255, 0.035) !important;
+}
+
+.app-shell .profile-stat__label i,
+.app-shell .profile-modal .input-group-text i {
+    color: rgba(167, 243, 208, 0.9) !important;
+}
+
+.app-shell .profile-avatar-shell {
+    background: linear-gradient(135deg, rgba(31, 68, 50, 0.9), rgba(18, 47, 35, 0.96)) !important;
+    box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.12);
+}
+
+.app-shell .profile-avatar-edit {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+}
+
+.app-shell .profile-modal .input-group {
+    box-shadow: none !important;
+}
+
+.app-shell .profile-modal .input-group-text {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(134, 239, 172, 0.1) !important;
+    color: rgba(226, 232, 240, 0.82) !important;
+}
+
+.app-shell .profile-modal .form-control,
+.app-shell .profile-modal .filepond--panel-root {
+    border-color: rgba(134, 239, 172, 0.1) !important;
+    background: rgba(7, 23, 15, 0.82) !important;
+    color: #f8fffb !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.16) !important;
+}
+
+.app-shell .profile-modal .form-control::placeholder {
+    color: rgba(226, 232, 240, 0.42) !important;
+}
+
+.app-shell .profile-modal .form-control:focus {
+    border-color: rgba(74, 222, 128, 0.38) !important;
+    box-shadow: 0 0 0 0.2rem rgba(22, 163, 74, 0.12) !important;
+}
+
 .app-shell .badge-soft-primary {
     background: rgba(22, 163, 74, 0.12);
     color: var(--hrms-emerald-700);
