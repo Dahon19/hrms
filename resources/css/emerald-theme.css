@@ -529,18 +529,21 @@ body.app-shell,
 .app-shell .nav-group-toggle::after {
     content: "" !important;
     display: inline-block !important;
-    width: 0.48rem !important;
-    min-width: 0.48rem !important;
-    height: 0.48rem !important;
+    width: 0.56rem !important;
+    min-width: 0.56rem !important;
+    height: 0.56rem !important;
     margin-left: auto;
     border-top: 2px solid #ffffff !important;
     border-right: 2px solid #ffffff !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
     background: transparent !important;
     color: transparent !important;
     line-height: 1 !important;
     opacity: 1 !important;
     transform: rotate(45deg) !important;
     text-shadow: none;
+    box-shadow: none !important;
 }
 
 .app-shell .nav-group-items .nav-link {
@@ -585,10 +588,15 @@ body.app-shell,
 .app-shell .sidebar-nav .nav-group-toggle:focus::after,
 .app-shell .sidebar-nav .nav-link.active::after {
     color: #ffffff !important;
+    border-top-color: #ffffff !important;
+    border-right-color: #ffffff !important;
+    opacity: 1 !important;
 }
 
 .app-shell .nav-group.show > .nav-group-toggle::after {
     transform: rotate(135deg) !important;
+    border-top-color: #ffffff !important;
+    border-right-color: #ffffff !important;
 }
 
 .app-shell .nav-group.show > .nav-link .nav-icon,
