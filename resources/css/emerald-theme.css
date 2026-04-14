@@ -121,12 +121,16 @@ body {
     color: #4b5563;
     font-size: 0.79rem;
     letter-spacing: 0.06em;
+    text-decoration: none !important;
     transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .landing-shell .topbar-nav a:hover,
+.landing-shell .topbar-nav a:focus,
+.landing-shell .topbar-nav a:active,
 .landing-shell .topbar-nav a.is-active {
     color: var(--hrms-emerald-700);
+    text-decoration: none !important;
 }
 
 .landing-shell .topbar-nav a:hover {
@@ -205,11 +209,8 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 26px 26px;
-    opacity: 0.45;
+    background: none;
+    opacity: 0;
     pointer-events: none;
 }
 
