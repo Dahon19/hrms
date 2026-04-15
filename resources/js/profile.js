@@ -6,10 +6,12 @@ function initProfileAvatarPreview() {
     const avatarInput = document.getElementById('avatarInput');
     const avatarPreview = document.getElementById('avatar-preview');
     const avatarShell = avatarPreview?.closest('.profile-avatar-shell');
+    const profileSidecard = document.getElementById('profileSidecard');
     const avatarEditButton = document.getElementById('profileAvatarEditButton');
     const avatarPicker = document.getElementById('profileAvatarPicker');
     const avatarEditor = document.getElementById('profileAvatarEditor');
     const avatarZoom = document.getElementById('profileAvatarZoom');
+    const avatarZoomValue = document.getElementById('profileAvatarZoomValue');
     const avatarResetButton = document.getElementById('profileAvatarResetButton');
     const avatarCancelButton = document.getElementById('profileAvatarCancelButton');
     const avatarApplyButton = document.getElementById('profileAvatarApplyButton');
@@ -34,6 +36,7 @@ function initProfileAvatarPreview() {
         avatarEditor.classList.toggle('d-none', !show);
         avatarShell.classList.toggle('profile-avatar-shell--cropping', show);
         avatarPreview.classList.toggle('profile-avatar-image--editing', show);
+        profileSidecard?.classList.toggle('profile-sidecard--editing', show);
     }
 
     function revokePendingObjectUrl() {
@@ -54,7 +57,12 @@ function initProfileAvatarPreview() {
             return;
         }
 
-        avatarZoom.value = String(Math.max(100, Math.min(300, Math.round(value))));
+        const normalizedValue = Math.max(100, Math.min(300, Math.round(value)));
+        avatarZoom.value = String(normalizedValue);
+
+        if (avatarZoomValue) {
+            avatarZoomValue.textContent = `${normalizedValue}%`;
+        }
     }
 
     function destroyCropper({ restoreCommittedPreview = false } = {}) {

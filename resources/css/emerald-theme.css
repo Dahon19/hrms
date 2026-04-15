@@ -817,11 +817,26 @@ body.app-shell,
     box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.12);
 }
 
+.app-shell .profile-modal .profile-sidecard--editing {
+    background:
+        radial-gradient(circle at top center, rgba(74, 222, 128, 0.1), transparent 36%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)) !important;
+}
+
 .app-shell .profile-modal .profile-avatar-shell--cropping {
-    width: min(100%, 15.5rem);
-    height: auto;
+    width: 100%;
+    max-width: 15.75rem;
+    height: 15.75rem;
     aspect-ratio: 1;
-    border-radius: 1.5rem;
+    padding: 0.45rem;
+    border-radius: 1.6rem;
+    background:
+        linear-gradient(180deg, rgba(5, 19, 13, 0.92), rgba(9, 27, 18, 0.98)) padding-box,
+        linear-gradient(145deg, rgba(134, 239, 172, 0.28), rgba(52, 211, 153, 0.08)) border-box !important;
+    border: 1px solid transparent;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 18px 36px rgba(0, 0, 0, 0.24);
 }
 
 .app-shell .profile-modal .profile-avatar-image--editing {
@@ -843,11 +858,16 @@ body.app-shell,
 
 .app-shell .profile-modal .profile-avatar-editor {
     margin: 0 auto 1rem;
-    padding: 0.85rem 0.95rem;
+    padding: 1rem;
     max-width: 16rem;
-    border: 1px solid rgba(134, 239, 172, 0.1);
-    border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(134, 239, 172, 0.12);
+    border-radius: 1.15rem;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)) padding-box,
+        linear-gradient(145deg, rgba(134, 239, 172, 0.12), rgba(16, 185, 129, 0.05)) border-box;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 14px 28px rgba(3, 10, 7, 0.16);
 }
 
 .app-shell .profile-modal .profile-avatar-editor__header,
@@ -859,16 +879,39 @@ body.app-shell,
 }
 
 .app-shell .profile-modal .profile-avatar-editor__header {
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.35rem;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__eyebrow {
+    margin-bottom: 0.18rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(134, 239, 172, 0.68) !important;
 }
 
 .app-shell .profile-modal .profile-avatar-editor__title,
 .app-shell .profile-modal .profile-avatar-editor__label {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: rgba(167, 243, 208, 0.92) !important;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__title {
+    display: block;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    color: #f8fffb !important;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__copy {
+    margin-bottom: 0.85rem !important;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: rgba(226, 232, 240, 0.7) !important;
 }
 
 .app-shell .profile-modal .profile-avatar-editor__label {
@@ -876,23 +919,35 @@ body.app-shell,
     margin-bottom: 0.45rem;
 }
 
-.app-shell .profile-modal .profile-avatar-editor__reset {
-    padding: 0;
-    color: rgba(226, 232, 240, 0.8) !important;
-    text-decoration: none !important;
-}
-
-.app-shell .profile-modal .profile-avatar-editor__reset:hover,
-.app-shell .profile-modal .profile-avatar-editor__reset:focus {
-    color: #f8fffb !important;
+.app-shell .profile-modal .profile-avatar-editor__zoom-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.25rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid rgba(134, 239, 172, 0.12);
+    background: rgba(4, 120, 87, 0.18);
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #f8fffb;
 }
 
 .app-shell .profile-modal .profile-avatar-editor__zoom {
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.95rem;
+    accent-color: #22c55e;
 }
 
-.app-shell .profile-modal .profile-avatar-editor .btn {
-    min-width: 6rem;
+.app-shell .profile-modal .profile-avatar-editor__actions {
+    gap: 0.55rem;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__action {
+    min-width: 0;
+    flex: 1 1 0;
+    border-radius: 999px;
+    font-weight: 700;
+    box-shadow: none !important;
 }
 
 .app-shell .profile-modal .cropper-container {
@@ -908,6 +963,7 @@ body.app-shell,
 .app-shell .profile-modal .cropper-view-box {
     outline: 1px solid rgba(255, 255, 255, 0.9);
     outline-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 9999px rgba(3, 10, 7, 0.42);
 }
 
 .app-shell .profile-modal .cropper-line,
@@ -918,6 +974,14 @@ body.app-shell,
 .app-shell .profile-modal .cropper-point {
     width: 0.7rem;
     height: 0.7rem;
+}
+
+.app-shell .profile-modal .cropper-bg {
+    background-image:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.035) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.035) 75%, rgba(255, 255, 255, 0.035)),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.035) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.035) 75%, rgba(255, 255, 255, 0.035)) !important;
+    background-position: 0 0, 8px 8px !important;
+    background-size: 16px 16px !important;
 }
 
 .app-shell .profile-modal .input-group {

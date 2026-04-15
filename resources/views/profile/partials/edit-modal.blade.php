@@ -22,7 +22,7 @@
                 />
                 <div class="modal-body profile-modal-body">
                     <div class="profile-workspace">
-                        <aside class="profile-sidecard">
+                        <aside class="profile-sidecard" id="profileSidecard">
                             <div class="profile-avatar-shell profile-avatar-shell--editor">
                                 <img
                                     id="avatar-preview"
@@ -65,15 +65,20 @@
                                 aria-live="polite"
                             >
                                 <div class="profile-avatar-editor__header">
-                                    <span class="profile-avatar-editor__title">Crop and Scale</span>
-                                    <button
-                                        type="button"
-                                        class="btn btn-link btn-sm profile-avatar-editor__reset"
-                                        id="profileAvatarResetButton"
+                                    <div>
+                                        <div class="profile-avatar-editor__eyebrow">Avatar Editor</div>
+                                        <span class="profile-avatar-editor__title">Crop and Scale</span>
+                                    </div>
+                                    <span
+                                        class="profile-avatar-editor__zoom-badge"
+                                        id="profileAvatarZoomValue"
                                     >
-                                        Reset
-                                    </button>
+                                        100%
+                                    </span>
                                 </div>
+                                <p class="profile-avatar-editor__copy mb-0">
+                                    Drag the image to reposition it, then use zoom to frame your profile photo.
+                                </p>
                                 <label
                                     for="profileAvatarZoom"
                                     class="profile-avatar-editor__label"
@@ -92,14 +97,21 @@
                                 <div class="profile-avatar-editor__actions">
                                     <button
                                         type="button"
-                                        class="btn btn-light btn-sm"
+                                        class="btn btn-light btn-sm profile-avatar-editor__action"
+                                        id="profileAvatarResetButton"
+                                    >
+                                        Reset
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-light btn-sm profile-avatar-editor__action"
                                         id="profileAvatarCancelButton"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="button"
-                                        class="btn btn-primary btn-sm"
+                                        class="btn btn-primary btn-sm profile-avatar-editor__action"
                                         id="profileAvatarApplyButton"
                                     >
                                         Apply Crop
