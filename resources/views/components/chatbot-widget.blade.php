@@ -51,28 +51,23 @@
         </header>
 
         <div class="hrms-chatbot__intro" data-chatbot-intro>
-            <div class="hrms-chatbot__intro-hero">
-                <p class="hrms-chatbot__intro-copy mb-0">
-                    Hello, {{ $chatbotName }}. I can help with approved {{ $chatbotRole }} HRMS questions and point you to the right module for actual actions.
-                </p>
-            </div>
-            <div class="hrms-chatbot__capability-list">
-                <span class="hrms-chatbot__capability-pill">Employee self-service</span>
-                <span class="hrms-chatbot__capability-pill">HR and admin help</span>
-                <span class="hrms-chatbot__capability-pill">Policies and navigation</span>
-                <span class="hrms-chatbot__capability-pill">Role-based access</span>
-            </div>
+            <p class="hrms-chatbot__intro-copy mb-0">
+                Hello, {{ $chatbotName }}. Ask about approved {{ $chatbotRole }} HRMS features and I will guide you to the right module for actual actions.
+            </p>
             <div class="hrms-chatbot__presets" data-chatbot-presets>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What is the purpose of this HRMS?">
                     System purpose
                 </button>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How can employees use the HRMS for leave, attendance, and payslip concerns?">
-                    Employee help
+                    Employee services
                 </button>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What policy, navigation, and reminder questions can the HRMS assistant answer?">
-                    Policy help
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How does HR or admin use the HRMS for reports, summaries, and approvals?">
+                    HR and admin help
                 </button>
             </div>
+            <p class="hrms-chatbot__scope-note mb-0">
+                AI explains and guides. Actual requests and approvals still follow system permissions.
+            </p>
         </div>
 
         <div class="hrms-chatbot__messages" data-chatbot-messages role="log" aria-live="polite">
