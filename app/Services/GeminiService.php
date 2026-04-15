@@ -80,12 +80,13 @@ class GeminiService
                 ->post("{$this->baseUrl}/{$this->model}:generateContent", $payload)
                 ->throw();
         } catch (RequestException $exception) {
+            $status = $exception->response?->status();
             $errorBody = $exception->response?->json() ?? $exception->response?->body();
 
             return [
                 'error' => true,
-                'message' => is_array($errorBody) ? json_encode($errorBody) : (string) $errorBody,
-                'status' => $exception->response?->status(),
+                'message' => $this->normalizeErrorMessage($errorBody, $status),
+                'status' => $status,
             ];
         }
 
@@ -101,5 +102,30 @@ class GeminiService
             'text' => $text,
             'raw' => $data,
         ];
+    }
+
+    protected function normalizeErrorMessage(array|string|null $errorBody, ?int $status): string
+    {
+        $providerMessage = is_array($errorBody)
+            ? (string) data_get($errorBody, 'error.message', '')
+            : trim((string) $errorBody);
+
+        if ($status === 503) {
+            return 'The assistant is temporarily unavailable because the AI service is under heavy load. Please try again in a moment.';
+        }
+
+        if ($status === 429) {
+            return 'The assistant is receiving too many requests right now. Please wait a moment and try again.';
+        }
+
+        if ($status === 401 || $status === 403) {
+            return 'The assistant could not authenticate with the AI service. Check the Gemini production credentials.';
+        }
+
+        if ($providerMessage !== '') {
+            return $providerMessage;
+        }
+
+        return 'The assistant is unavailable right now. Please try again in a moment.';
     }
 }

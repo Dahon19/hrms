@@ -80,9 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const presetButtons = Array.from(root.querySelectorAll('[data-chatbot-preset]'));
     const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const storageKey = getChatbotStorageKey(userId);
-    const userName = root.dataset.chatbotName || 'there';
-    const userRole = root.dataset.chatbotRole || 'team member';
-
     let history = [];
     let open = false;
     let pending = false;
@@ -275,7 +272,11 @@ document.addEventListener('DOMContentLoaded', () => {
             renderHistory(messages, history);
             persistHistory();
             syncIntroState();
-            setStatus(status, error.message || 'Request failed.', 'error');
+            setStatus(
+                status,
+                error.message || 'The assistant is unavailable right now. Please try again in a moment.',
+                'error',
+            );
         } finally {
             hideTyping();
             setPending(false);
