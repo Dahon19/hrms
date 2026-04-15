@@ -12,6 +12,8 @@ function initProfileAvatarPreview() {
     const avatarEditor = document.getElementById('profileAvatarEditor');
     const avatarZoom = document.getElementById('profileAvatarZoom');
     const avatarZoomValue = document.getElementById('profileAvatarZoomValue');
+    const avatarZoomOutButton = document.getElementById('profileAvatarZoomOutButton');
+    const avatarZoomInButton = document.getElementById('profileAvatarZoomInButton');
     const avatarResetButton = document.getElementById('profileAvatarResetButton');
     const avatarCancelButton = document.getElementById('profileAvatarCancelButton');
     const avatarApplyButton = document.getElementById('profileAvatarApplyButton');
@@ -224,6 +226,28 @@ function initProfileAvatarPreview() {
             }
 
             state.cropper.zoomTo(Number(this.value) / 100);
+        });
+    }
+
+    function nudgeZoom(delta) {
+        if (!avatarZoom || !state.cropper) {
+            return;
+        }
+
+        const nextValue = Math.max(100, Math.min(300, Number(avatarZoom.value) + delta));
+        syncZoomSlider(nextValue);
+        state.cropper.zoomTo(nextValue / 100);
+    }
+
+    if (avatarZoomOutButton) {
+        avatarZoomOutButton.addEventListener('click', function () {
+            nudgeZoom(-15);
+        });
+    }
+
+    if (avatarZoomInButton) {
+        avatarZoomInButton.addEventListener('click', function () {
+            nudgeZoom(15);
         });
     }
 

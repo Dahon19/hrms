@@ -85,15 +85,33 @@
                                 >
                                     Zoom
                                 </label>
-                                <input
-                                    type="range"
-                                    id="profileAvatarZoom"
-                                    class="custom-range profile-avatar-editor__zoom"
-                                    min="100"
-                                    max="300"
-                                    value="100"
-                                    step="1"
-                                />
+                                <div class="profile-avatar-editor__zoom-row">
+                                    <button
+                                        type="button"
+                                        class="btn btn-light btn-sm profile-avatar-editor__icon-btn"
+                                        id="profileAvatarZoomOutButton"
+                                        aria-label="Zoom out"
+                                    >
+                                        <i class="cil-minus"></i>
+                                    </button>
+                                    <input
+                                        type="range"
+                                        id="profileAvatarZoom"
+                                        class="custom-range profile-avatar-editor__zoom"
+                                        min="100"
+                                        max="300"
+                                        value="100"
+                                        step="1"
+                                    />
+                                    <button
+                                        type="button"
+                                        class="btn btn-light btn-sm profile-avatar-editor__icon-btn"
+                                        id="profileAvatarZoomInButton"
+                                        aria-label="Zoom in"
+                                    >
+                                        <i class="cil-plus"></i>
+                                    </button>
+                                </div>
                                 <div class="profile-avatar-editor__actions">
                                     <button
                                         type="button"
