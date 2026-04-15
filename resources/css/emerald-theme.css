@@ -1332,6 +1332,25 @@ body.dark-mode {
     background: linear-gradient(180deg, rgba(9, 30, 19, 0.96), rgba(11, 37, 23, 0.9));
 }
 
+.app-shell .hrms-chatbot__panel-brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.app-shell .hrms-chatbot__brand-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border-radius: 0.9rem;
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    color: #f8fffb;
+    box-shadow: 0 12px 28px rgba(21, 128, 61, 0.24);
+}
+
 .app-shell .hrms-chatbot__eyebrow {
     display: inline-block;
     margin-bottom: 0.25rem;
@@ -1346,6 +1365,13 @@ body.dark-mode {
     font-size: 1.05rem;
     font-weight: 700;
     color: #f8fffb;
+}
+
+.app-shell .hrms-chatbot__subtitle {
+    margin-top: 0.22rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: rgba(226, 232, 240, 0.78);
 }
 
 .app-shell .hrms-chatbot__close {
@@ -1364,6 +1390,52 @@ body.dark-mode {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+}
+
+.app-shell .hrms-chatbot__intro {
+    padding: 0.95rem 1rem 0;
+}
+
+.app-shell .hrms-chatbot__intro-copy {
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(15, 118, 110, 0.1);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.72);
+    color: #365246;
+    font-size: 0.84rem;
+    line-height: 1.45;
+}
+
+.app-shell .hrms-chatbot__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.app-shell .hrms-chatbot__preset {
+    padding: 0.48rem 0.78rem;
+    border: 1px solid rgba(22, 163, 74, 0.16);
+    border-radius: 999px;
+    background: rgba(240, 253, 244, 0.94);
+    color: #166534;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.app-shell .hrms-chatbot__preset:hover,
+.app-shell .hrms-chatbot__preset:focus {
+    background: rgba(220, 252, 231, 1);
+    border-color: rgba(22, 163, 74, 0.24);
+    transform: translateY(-1px);
+}
+
+.app-shell .hrms-chatbot__preset:disabled {
+    opacity: 0.62;
+    cursor: wait;
+    transform: none;
 }
 
 .app-shell .hrms-chatbot__message {
@@ -1417,23 +1489,35 @@ body.dark-mode {
 }
 
 .app-shell .hrms-chatbot__composer {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.75rem;
     padding: 0.9rem 1rem 1rem;
     border-top: 1px solid rgba(15, 118, 110, 0.1);
 }
 
+.app-shell .hrms-chatbot__composer-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    padding: 0.42rem;
+    border: 1px solid rgba(15, 118, 110, 0.12);
+    border-radius: 1.2rem;
+    background: rgba(255, 255, 255, 0.82);
+}
+
 .app-shell .hrms-chatbot__input {
     width: 100%;
-    min-height: 3rem;
+    min-height: 3.2rem;
     max-height: 7.5rem;
-    padding: 0.82rem 0.95rem;
+    padding: 0.82rem 0.88rem;
     resize: none;
-    border: 1px solid rgba(15, 118, 110, 0.16);
+    border: 0;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.92);
+    background: transparent;
     color: #183126;
+}
+
+.app-shell .hrms-chatbot__input:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .app-shell .hrms-chatbot__send,
@@ -1503,11 +1587,32 @@ body.dark-mode {
     box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
 }
 
+.dark-mode .app-shell .hrms-chatbot__intro-copy,
+.dark-mode .app-shell .hrms-chatbot__composer-shell {
+    background: rgba(18, 33, 24, 0.92);
+    border-color: rgba(134, 239, 172, 0.12);
+}
+
 .dark-mode .app-shell .hrms-chatbot__message--assistant .hrms-chatbot__bubble,
 .dark-mode .app-shell .hrms-chatbot__input {
     background: rgba(18, 33, 24, 0.96);
     border-color: rgba(134, 239, 172, 0.12);
     color: #f8fffb;
+}
+
+.dark-mode .app-shell .hrms-chatbot__intro-copy {
+    color: rgba(226, 232, 240, 0.82);
+}
+
+.dark-mode .app-shell .hrms-chatbot__preset {
+    background: rgba(21, 44, 31, 0.96);
+    border-color: rgba(134, 239, 172, 0.14);
+    color: #bbf7d0;
+}
+
+.dark-mode .app-shell .hrms-chatbot__preset:hover,
+.dark-mode .app-shell .hrms-chatbot__preset:focus {
+    background: rgba(26, 57, 37, 0.98);
 }
 
 .dark-mode .app-shell .hrms-chatbot__status {

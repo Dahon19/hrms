@@ -11,9 +11,15 @@
         aria-hidden="true"
     >
         <header class="hrms-chatbot__panel-header">
-            <div>
+            <div class="hrms-chatbot__panel-brand">
+                <span class="hrms-chatbot__brand-icon">
+                    <i class="cil-speech"></i>
+                </span>
+                <div>
                 <span class="hrms-chatbot__eyebrow">AI Assistant</span>
                 <h2 class="hrms-chatbot__title mb-0">HRMS Support</h2>
+                    <p class="hrms-chatbot__subtitle mb-0">System purpose, modules, workflows, and organization use only.</p>
+                </div>
             </div>
             <button
                 type="button"
@@ -24,6 +30,26 @@
                 <i class="cil-x"></i>
             </button>
         </header>
+
+        <div class="hrms-chatbot__intro" data-chatbot-intro>
+            <p class="hrms-chatbot__intro-copy mb-0">
+                Ask about how Northeastern College uses the HRMS for recruitment, records, leave, attendance, and approvals.
+            </p>
+            <div class="hrms-chatbot__presets" data-chatbot-presets>
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What is the purpose of this HRMS?">
+                    System purpose
+                </button>
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What modules are available in this HRMS?">
+                    Modules
+                </button>
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How does the organization use this HRMS?">
+                    Organization use
+                </button>
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How do approvals and workflows work in this HRMS?">
+                    Workflows
+                </button>
+            </div>
+        </div>
 
         <div class="hrms-chatbot__messages" data-chatbot-messages role="log" aria-live="polite">
             <article class="hrms-chatbot__message hrms-chatbot__message--assistant">
@@ -36,23 +62,25 @@
         <div class="hrms-chatbot__status" data-chatbot-status aria-live="polite"></div>
 
         <form class="hrms-chatbot__composer" data-chatbot-form>
-            <label class="sr-only" for="hrmsChatbotInput">Message</label>
-            <textarea
-                id="hrmsChatbotInput"
-                class="hrms-chatbot__input"
-                data-chatbot-input
-                rows="1"
-                maxlength="1000"
-                placeholder="Ask HRMS Assistant..."
-            ></textarea>
-            <button
-                type="submit"
-                class="hrms-chatbot__send"
-                data-chatbot-send
-                aria-label="Send message"
-            >
-                <i class="cil-location-arrow"></i>
-            </button>
+            <div class="hrms-chatbot__composer-shell">
+                <label class="sr-only" for="hrmsChatbotInput">Message</label>
+                <textarea
+                    id="hrmsChatbotInput"
+                    class="hrms-chatbot__input"
+                    data-chatbot-input
+                    rows="1"
+                    maxlength="1000"
+                    placeholder="Ask about the HRMS system..."
+                ></textarea>
+                <button
+                    type="submit"
+                    class="hrms-chatbot__send"
+                    data-chatbot-send
+                    aria-label="Send message"
+                >
+                    <i class="cil-location-arrow"></i>
+                </button>
+            </div>
         </form>
     </section>
 

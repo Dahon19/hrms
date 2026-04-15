@@ -78,7 +78,7 @@
     "src": "node_modules/@coreui/icons/fonts/CoreUI-Icons-Free.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-Dx2IHrfU.css",
+    "file": "assets/app-BpWsgrAG.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-DriuZhjJ.css",
+    "file": "assets/emerald-theme-XxEIG0Bz.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -397,7 +397,7 @@
     ]
   },
   "resources/js/chatbot.js": {
-    "file": "assets/chatbot-CFmcFv4k.js",
+    "file": "assets/chatbot-CEZ8lTAj.js",
     "name": "chatbot",
     "src": "resources/js/chatbot.js",
     "isEntry": true

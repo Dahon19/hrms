@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const send = root.querySelector('[data-chatbot-send]');
     const messages = root.querySelector('[data-chatbot-messages]');
     const status = root.querySelector('[data-chatbot-status]');
+    const intro = root.querySelector('[data-chatbot-intro]');
+    const presetButtons = Array.from(root.querySelectorAll('[data-chatbot-preset]'));
     const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const storageKey = getChatbotStorageKey(userId);
 
@@ -82,6 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const syncIntroState = () => {
+        if (!intro) {
+            return;
+        }
+
+        intro.hidden = history.length > 0;
+    };
+
     const syncOpenState = () => {
         root.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -97,9 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
         root.classList.toggle('is-loading', value);
         send.disabled = value;
         input.disabled = value;
+        presetButtons.forEach((button) => {
+            button.disabled = value;
+        });
     };
 
     renderHistory(messages, history);
+    syncIntroState();
     autoResize(input);
     syncOpenState();
 
@@ -120,6 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             form.requestSubmit();
         }
+    });
+
+    presetButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            input.value = button.dataset.chatbotPreset || '';
+            autoResize(input);
+            input.focus();
+            form.requestSubmit();
+        });
     });
 
     form.addEventListener('submit', async (event) => {
@@ -146,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         renderHistory(messages, history);
         persistHistory();
+        syncIntroState();
         input.value = '';
         autoResize(input);
         setPending(true);
@@ -180,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             renderHistory(messages, history);
             persistHistory();
+            syncIntroState();
             setStatus(status, 'Reply generated.', 'success');
         } catch (error) {
             history.push({
@@ -188,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             renderHistory(messages, history);
             persistHistory();
+            syncIntroState();
             setStatus(status, error.message || 'Request failed.', 'error');
         } finally {
             setPending(false);
