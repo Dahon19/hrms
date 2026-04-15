@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-DYAkhrOT.css",
+    "file": "assets/emerald-theme-C5nXfL_0.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -397,7 +397,7 @@
     ]
   },
   "resources/js/chatbot.js": {
-    "file": "assets/chatbot-C05hZXjI.js",
+    "file": "assets/chatbot-DIStq02U.js",
     "name": "chatbot",
     "src": "resources/js/chatbot.js",
     "isEntry": true

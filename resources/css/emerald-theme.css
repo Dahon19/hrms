@@ -1429,6 +1429,70 @@ body.dark-mode {
     margin-top: 0.75rem;
 }
 
+.app-shell .hrms-chatbot__feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.75rem;
+}
+
+.app-shell .hrms-chatbot__feature-card {
+    padding: 0.82rem 0.85rem;
+    border: 1px solid rgba(15, 118, 110, 0.1);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.76);
+    color: #365246;
+}
+
+.app-shell .hrms-chatbot__feature-card strong {
+    display: block;
+    margin-top: 0.45rem;
+    margin-bottom: 0.18rem;
+    font-size: 0.8rem;
+    color: #183126;
+}
+
+.app-shell .hrms-chatbot__feature-card p {
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+.app-shell .hrms-chatbot__feature-icon {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background: rgba(22, 163, 74, 0.12);
+    color: #15803d;
+}
+
+.app-shell .hrms-chatbot__principle {
+    margin-top: 0.75rem;
+    padding: 0.8rem 0.9rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(21, 128, 61, 0.08), rgba(74, 222, 128, 0.06));
+    border: 1px solid rgba(22, 163, 74, 0.12);
+    color: #365246;
+    font-size: 0.77rem;
+    line-height: 1.45;
+}
+
+.app-shell .hrms-chatbot__principle-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.55rem;
+    margin-bottom: 0.45rem;
+    border-radius: 999px;
+    background: rgba(22, 163, 74, 0.14);
+    color: #166534;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
 .app-shell .hrms-chatbot__preset {
     padding: 0.48rem 0.78rem;
     border: 1px solid rgba(22, 163, 74, 0.16);
@@ -1627,7 +1691,8 @@ body.dark-mode {
 }
 
 .dark-mode .app-shell .hrms-chatbot__intro-copy,
-.dark-mode .app-shell .hrms-chatbot__composer-shell {
+.dark-mode .app-shell .hrms-chatbot__composer-shell,
+.dark-mode .app-shell .hrms-chatbot__feature-card {
     background: rgba(18, 33, 24, 0.92);
     border-color: rgba(134, 239, 172, 0.12);
 }
@@ -1647,6 +1712,30 @@ body.dark-mode {
 
 .dark-mode .app-shell .hrms-chatbot__intro-copy {
     color: rgba(226, 232, 240, 0.82);
+}
+
+.dark-mode .app-shell .hrms-chatbot__feature-card strong {
+    color: #f8fffb;
+}
+
+.dark-mode .app-shell .hrms-chatbot__feature-card p,
+.dark-mode .app-shell .hrms-chatbot__principle {
+    color: rgba(226, 232, 240, 0.8);
+}
+
+.dark-mode .app-shell .hrms-chatbot__feature-icon {
+    background: rgba(22, 163, 74, 0.18);
+    color: #86efac;
+}
+
+.dark-mode .app-shell .hrms-chatbot__principle {
+    background: linear-gradient(135deg, rgba(21, 44, 31, 0.98), rgba(18, 33, 24, 0.94));
+    border-color: rgba(134, 239, 172, 0.14);
+}
+
+.dark-mode .app-shell .hrms-chatbot__principle-badge {
+    background: rgba(22, 163, 74, 0.2);
+    color: #bbf7d0;
 }
 
 .dark-mode .app-shell .hrms-chatbot__preset {
@@ -1705,6 +1794,10 @@ body.dark-mode {
 
     .app-shell .hrms-chatbot__toggle {
         align-self: flex-end;
+    }
+
+    .app-shell .hrms-chatbot__feature-grid {
+        grid-template-columns: 1fr;
     }
 
     .landing-shell .topbar {

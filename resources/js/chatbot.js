@@ -6,7 +6,8 @@ const autoResize = (input) => {
 };
 
 const sanitizeMessage = (value) => value.replace(/\s+/g, ' ').trim();
-const defaultAssistantPrompt = 'Ask about modules, workflows, approvals, or general HRMS guidance.';
+const defaultAssistantPrompt =
+    'Ask about employee self-service, HR workflows, policies, navigation, reminders, analytics, or role-based access in the HRMS.';
 
 const appendMessage = (container, role, text) => {
     const article = document.createElement('article');
@@ -244,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     message,
                     history: history.slice(0, -1),
                     system_instruction:
-                        'You are the HRMS Assistant for Northeastern College. Answer clearly, briefly, and only about the system, HR workflows, and related guidance. If the answer depends on data you cannot access, say so directly.',
+                        'Answer only within approved HRMS features: self-service, HR/admin assistance, policy guidance, conversational request guidance, reminders, navigation, analytics, and role-based access. Use AI for guidance only and never claim that a real system action was completed unless system data was provided.',
                 }),
             });
 

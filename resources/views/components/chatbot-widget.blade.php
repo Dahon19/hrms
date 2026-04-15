@@ -52,21 +52,47 @@
 
         <div class="hrms-chatbot__intro" data-chatbot-intro>
             <p class="hrms-chatbot__intro-copy mb-0">
-                Hello, {{ $chatbotName }}. I can help explain how the {{ $chatbotRole }} uses the HRMS for recruitment, records, leave, attendance, and approvals.
+                Hello, {{ $chatbotName }}. I can support {{ $chatbotRole }} questions only within approved HRMS features and explain where to go in the system for actual actions.
             </p>
+            <div class="hrms-chatbot__feature-grid">
+                <article class="hrms-chatbot__feature-card">
+                    <span class="hrms-chatbot__feature-icon"><i class="cil-user"></i></span>
+                    <strong>Self-Service</strong>
+                    <p class="mb-0">Leave balance, leave flow, payslip, and attendance guidance.</p>
+                </article>
+                <article class="hrms-chatbot__feature-card">
+                    <span class="hrms-chatbot__feature-icon"><i class="cil-briefcase"></i></span>
+                    <strong>HR Assistant</strong>
+                    <p class="mb-0">Reports, employee summaries, and HR module questions.</p>
+                </article>
+                <article class="hrms-chatbot__feature-card">
+                    <span class="hrms-chatbot__feature-icon"><i class="cil-book"></i></span>
+                    <strong>Policy Help</strong>
+                    <p class="mb-0">Policies, benefits, and procedures tied to HRMS use.</p>
+                </article>
+                <article class="hrms-chatbot__feature-card">
+                    <span class="hrms-chatbot__feature-icon"><i class="cil-compass"></i></span>
+                    <strong>Navigation</strong>
+                    <p class="mb-0">Page guidance, reminders, analytics, and role-based access help.</p>
+                </article>
+            </div>
             <div class="hrms-chatbot__presets" data-chatbot-presets>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What is the purpose of this HRMS?">
                     System purpose
                 </button>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What modules are available in this HRMS?">
-                    Modules
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How can employees use the HRMS for leave, attendance, and payslip concerns?">
+                    Employee self-service
                 </button>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How does the organization use this HRMS?">
-                    Organization use
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How does HR or admin use the HRMS for reports, summaries, and approvals?">
+                    HR assistant
                 </button>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How do approvals and workflows work in this HRMS?">
-                    Workflows
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What policy, navigation, and reminder questions can the HRMS assistant answer?">
+                    Policy and navigation
                 </button>
+            </div>
+            <div class="hrms-chatbot__principle">
+                <span class="hrms-chatbot__principle-badge">Key principle</span>
+                <p class="mb-0">AI explains and guides. Actual requests, approvals, and records still depend on system logic and user permissions.</p>
             </div>
         </div>
 
