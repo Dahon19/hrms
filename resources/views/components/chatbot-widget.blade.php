@@ -27,9 +27,9 @@
                     <i class="cil-speech"></i>
                 </span>
                 <div>
-                <span class="hrms-chatbot__eyebrow">AI Assistant</span>
-                <h2 class="hrms-chatbot__title mb-0">HRMS Support</h2>
-                    <p class="hrms-chatbot__subtitle mb-0">System purpose, modules, workflows, and organization use only.</p>
+                    <span class="hrms-chatbot__eyebrow">AI Assistant</span>
+                    <h2 class="hrms-chatbot__title mb-0">HRMS Support</h2>
+                    <p class="hrms-chatbot__subtitle mb-0">Guidance for HRMS features, workflows, and navigation.</p>
                 </div>
             </div>
             <button
@@ -38,7 +38,7 @@
                 data-chatbot-clear
                 aria-label="Clear chat history"
             >
-                Clear
+                Reset
             </button>
             <button
                 type="button"
@@ -52,28 +52,22 @@
 
         <div class="hrms-chatbot__intro" data-chatbot-intro>
             <p class="hrms-chatbot__intro-copy mb-0">
-                Hello, {{ $chatbotName }}. Ask a question about the HRMS and I will guide you.
+                Hello, {{ $chatbotName }}. Ask about a module, process, or where to find something in the system.
             </p>
             <div class="hrms-chatbot__presets" data-chatbot-presets>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What can this HRMS help me with?">
-                    What can you do?
+                    Capabilities
                 </button>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="Where can I find leave, attendance, and payslip features?">
-                    Find features
+                    Find a feature
                 </button>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How do approvals and requests work in the HRMS?">
-                    Requests and approvals
+                    Requests
                 </button>
             </div>
         </div>
 
-        <div class="hrms-chatbot__messages" data-chatbot-messages role="log" aria-live="polite">
-            <article class="hrms-chatbot__message hrms-chatbot__message--assistant">
-                <div class="hrms-chatbot__bubble">
-                    Ask about modules, workflows, approvals, or general HRMS guidance.
-                </div>
-            </article>
-        </div>
+        <div class="hrms-chatbot__messages" data-chatbot-messages role="log" aria-live="polite"></div>
 
         <div class="hrms-chatbot__status" data-chatbot-status aria-live="polite"></div>
 

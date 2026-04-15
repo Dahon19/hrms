@@ -1298,10 +1298,10 @@ body.dark-mode {
 }
 
 .app-shell .hrms-chatbot__panel {
-    width: min(24rem, calc(100vw - 2rem));
-    max-height: min(31rem, calc(100vh - 6rem));
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: min(27.5rem, calc(100vh - 6.5rem));
     display: grid;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
     overflow: hidden;
     border: 1px solid rgba(15, 118, 110, 0.16);
     border-radius: 1.5rem;
@@ -1371,7 +1371,7 @@ body.dark-mode {
 
 .app-shell .hrms-chatbot__title {
     display: block;
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: #f8fffb;
     white-space: nowrap;
@@ -1380,10 +1380,10 @@ body.dark-mode {
 .app-shell .hrms-chatbot__subtitle {
     display: block;
     margin-top: 0.22rem;
-    font-size: 0.74rem;
+    font-size: 0.7rem;
     line-height: 1.35;
     color: rgba(226, 232, 240, 0.78);
-    max-width: 16rem;
+    max-width: 14rem;
 }
 
 .app-shell .hrms-chatbot__close {
@@ -1414,42 +1414,42 @@ body.dark-mode {
 }
 
 .app-shell .hrms-chatbot__messages {
-    min-height: 10rem;
-    padding: 0.75rem 1rem 0.85rem;
+    min-height: 0;
+    padding: 0.7rem 1rem 0.8rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
 }
 
 .app-shell .hrms-chatbot__intro {
-    padding: 0.8rem 1rem 0;
+    padding: 0.72rem 1rem 0;
 }
 
 .app-shell .hrms-chatbot__intro-copy {
-    padding: 0.82rem 0.9rem;
+    padding: 0.7rem 0.82rem;
     border: 1px solid rgba(15, 118, 110, 0.08);
-    border-radius: 1rem;
+    border-radius: 0.95rem;
     background: rgba(255, 255, 255, 0.74);
     color: #365246;
-    font-size: 0.79rem;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    line-height: 1.38;
 }
 
 .app-shell .hrms-chatbot__presets {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.65rem;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
 }
 
 .app-shell .hrms-chatbot__preset {
-    padding: 0.44rem 0.72rem;
+    padding: 0.42rem 0.68rem;
     border: 1px solid rgba(22, 163, 74, 0.16);
     border-radius: 999px;
     background: rgba(240, 253, 244, 0.94);
     color: #166534;
-    font-size: 0.72rem;
+    font-size: 0.69rem;
     font-weight: 600;
     line-height: 1;
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
@@ -1489,10 +1489,10 @@ body.dark-mode {
 
 .app-shell .hrms-chatbot__bubble {
     max-width: 86%;
-    padding: 0.8rem 0.95rem;
+    padding: 0.72rem 0.88rem;
     border-radius: 1rem;
-    line-height: 1.45;
-    font-size: 0.93rem;
+    line-height: 1.42;
+    font-size: 0.86rem;
     white-space: pre-wrap;
 }
 
@@ -1534,9 +1534,9 @@ body.dark-mode {
 }
 
 .app-shell .hrms-chatbot__status {
-    min-height: 1.2rem;
+    min-height: 1rem;
     padding: 0 1rem;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     color: #5f766a;
 }
 
@@ -1549,7 +1549,7 @@ body.dark-mode {
 }
 
 .app-shell .hrms-chatbot__composer {
-    padding: 0.72rem 1rem 0.9rem;
+    padding: 0.65rem 1rem 0.9rem;
     border-top: 1px solid rgba(15, 118, 110, 0.1);
 }
 
@@ -1565,9 +1565,9 @@ body.dark-mode {
 
 .app-shell .hrms-chatbot__input {
     width: 100%;
-    min-height: 2.85rem;
+    min-height: 2.65rem;
     max-height: 7.5rem;
-    padding: 0.68rem 0.8rem;
+    padding: 0.62rem 0.78rem;
     resize: none;
     border: 0;
     border-radius: 1rem;
@@ -1726,7 +1726,7 @@ body.dark-mode {
 
     .app-shell .hrms-chatbot__panel {
         width: 100%;
-        max-height: min(25rem, calc(100vh - 6.5rem));
+        max-height: min(22.5rem, calc(100vh - 6.5rem));
     }
 
     .app-shell .hrms-chatbot__toggle {
@@ -1758,19 +1758,30 @@ body.dark-mode {
     }
 
     .app-shell .hrms-chatbot__subtitle {
-        max-width: 11rem;
-        font-size: 0.67rem;
+        max-width: 9.5rem;
+        font-size: 0.62rem;
         line-height: 1.25;
     }
 
     .app-shell .hrms-chatbot__clear {
-        padding: 0.34rem 0.52rem;
-        font-size: 0.66rem;
+        padding: 0.32rem 0.5rem;
+        font-size: 0.63rem;
     }
 
     .app-shell .hrms-chatbot__close {
         width: 2rem;
         height: 2rem;
+    }
+
+    .app-shell .hrms-chatbot__messages {
+        padding: 0.65rem 0.85rem 0.75rem;
+    }
+
+    .app-shell .hrms-chatbot__intro,
+    .app-shell .hrms-chatbot__composer,
+    .app-shell .hrms-chatbot__status {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
     }
 
     .landing-shell .topbar {
