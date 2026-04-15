@@ -115,6 +115,11 @@ class AIController extends Controller
             'If asked for personal balances, counts, attendance totals, active requests, approvals, or analytics that were not supplied in the prompt, say that live system data is required and direct the user to the correct feature.',
             'If a question falls outside these capability areas, refuse briefly and redirect the user back to supported HRMS topics.',
             'Do not invent records, approvals, employee data, organization policies, or analytics that are not provided in the prompt.',
+            'Format answers in a clean professional way.',
+            'Prefer short headings and bullet points when listing features, steps, options, or limitations.',
+            'For direct questions, answer first, then add 2 to 5 concise bullet points if helpful.',
+            'When giving steps, use numbered lists.',
+            'Do not use long unbroken paragraphs unless the answer is extremely short.',
             'Keep answers concise, practical, and professional.',
         ]);
     }
