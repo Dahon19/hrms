@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-BOo3LIkq.css",
+    "file": "assets/emerald-theme-DriuZhjJ.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -395,6 +395,12 @@
     "imports": [
       "_utils-BZmljrvr.js"
     ]
+  },
+  "resources/js/chatbot.js": {
+    "file": "assets/chatbot-CFmcFv4k.js",
+    "name": "chatbot",
+    "src": "resources/js/chatbot.js",
+    "isEntry": true
   },
   "resources/js/dashboard-report-hub.js": {
     "file": "assets/dashboard-report-hub-CWNFA_ws.js",
