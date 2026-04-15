@@ -1,8 +1,19 @@
+@php
+    $chatbotUser = Auth::user();
+    $chatbotName = $chatbotUser?->employee?->first_name ?: ($chatbotUser?->name ? explode(' ', trim($chatbotUser->name))[0] : 'there');
+    $chatbotRole = $chatbotUser?->isAdmin()
+        ? 'administrator'
+        : (\App\Services\AccessControl::isHrStaff($chatbotUser)
+            ? 'HR staff'
+            : (optional(optional($chatbotUser?->employee)->position)->name ?: 'team member'));
+@endphp
 <div
     class="hrms-chatbot"
     data-chatbot
     data-chat-endpoint="{{ route('ai.chat') }}"
     data-chatbot-user="{{ Auth::id() }}"
+    data-chatbot-name="{{ $chatbotName }}"
+    data-chatbot-role="{{ $chatbotRole }}"
 >
     <section
         class="hrms-chatbot__panel"
@@ -23,6 +34,14 @@
             </div>
             <button
                 type="button"
+                class="hrms-chatbot__clear"
+                data-chatbot-clear
+                aria-label="Clear chat history"
+            >
+                Clear
+            </button>
+            <button
+                type="button"
                 class="hrms-chatbot__close"
                 data-chatbot-close
                 aria-label="Close assistant"
@@ -33,7 +52,7 @@
 
         <div class="hrms-chatbot__intro" data-chatbot-intro>
             <p class="hrms-chatbot__intro-copy mb-0">
-                Ask about how Northeastern College uses the HRMS for recruitment, records, leave, attendance, and approvals.
+                Hello, {{ $chatbotName }}. I can help explain how the {{ $chatbotRole }} uses the HRMS for recruitment, records, leave, attendance, and approvals.
             </p>
             <div class="hrms-chatbot__presets" data-chatbot-presets>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What is the purpose of this HRMS?">

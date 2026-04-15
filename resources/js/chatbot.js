@@ -6,6 +6,7 @@ const autoResize = (input) => {
 };
 
 const sanitizeMessage = (value) => value.replace(/\s+/g, ' ').trim();
+const defaultAssistantPrompt = 'Ask about modules, workflows, approvals, or general HRMS guidance.';
 
 const appendMessage = (container, role, text) => {
     const article = document.createElement('article');
@@ -18,6 +19,23 @@ const appendMessage = (container, role, text) => {
     article.appendChild(bubble);
     container.appendChild(article);
     container.scrollTop = container.scrollHeight;
+
+    return article;
+};
+
+const appendTypingIndicator = (container) => {
+    const article = document.createElement('article');
+    article.className = 'hrms-chatbot__message hrms-chatbot__message--assistant hrms-chatbot__message--typing';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'hrms-chatbot__bubble hrms-chatbot__bubble--typing';
+    bubble.innerHTML = '<span></span><span></span><span></span>';
+
+    article.appendChild(bubble);
+    container.appendChild(article);
+    container.scrollTop = container.scrollHeight;
+
+    return article;
 };
 
 const renderHistory = (container, history) => {
@@ -27,7 +45,7 @@ const renderHistory = (container, history) => {
         appendMessage(
             container,
             'assistant',
-            'Ask about modules, workflows, approvals, or general HRMS guidance.',
+            defaultAssistantPrompt,
         );
         return;
     }
@@ -51,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userId = root.dataset.chatbotUser;
     const toggle = root.querySelector('[data-chatbot-toggle]');
     const panel = root.querySelector('[data-chatbot-panel]');
+    const clear = root.querySelector('[data-chatbot-clear]');
     const close = root.querySelector('[data-chatbot-close]');
     const form = root.querySelector('[data-chatbot-form]');
     const input = root.querySelector('[data-chatbot-input]');
@@ -61,10 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const presetButtons = Array.from(root.querySelectorAll('[data-chatbot-preset]'));
     const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const storageKey = getChatbotStorageKey(userId);
+    const userName = root.dataset.chatbotName || 'there';
+    const userRole = root.dataset.chatbotRole || 'team member';
 
     let history = [];
     let open = false;
     let pending = false;
+    let typingNode = null;
 
     try {
         const stored = window.localStorage.getItem(storageKey);
@@ -107,9 +129,42 @@ document.addEventListener('DOMContentLoaded', () => {
         root.classList.toggle('is-loading', value);
         send.disabled = value;
         input.disabled = value;
+        if (clear) {
+            clear.disabled = value;
+        }
         presetButtons.forEach((button) => {
             button.disabled = value;
         });
+    };
+
+    const showTyping = () => {
+        typingNode = appendTypingIndicator(messages);
+    };
+
+    const hideTyping = () => {
+        if (!typingNode) {
+            return;
+        }
+
+        typingNode.remove();
+        typingNode = null;
+    };
+
+    const resetChat = () => {
+        history = [];
+        try {
+            window.localStorage.removeItem(storageKey);
+        } catch (error) {
+            // Ignore storage failures.
+        }
+        hideTyping();
+        renderHistory(messages, history);
+        syncIntroState();
+        setStatus(
+            status,
+            `Chat cleared. Ask what the HRMS does for ${userRole} use.`,
+            'success',
+        );
     };
 
     renderHistory(messages, history);
@@ -126,6 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
         open = false;
         syncOpenState();
     });
+
+    if (clear) {
+        clear.addEventListener('click', () => {
+            resetChat();
+            input.focus();
+        });
+    }
 
     input.addEventListener('input', () => autoResize(input));
 
@@ -174,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         autoResize(input);
         setPending(true);
         setStatus(status, 'Thinking...', 'default');
+        showTyping();
 
         try {
             const response = await fetch(endpoint, {
@@ -202,11 +265,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 role: 'assistant',
                 text: payload.reply,
             });
+            hideTyping();
             renderHistory(messages, history);
             persistHistory();
             syncIntroState();
             setStatus(status, 'Reply generated.', 'success');
         } catch (error) {
+            hideTyping();
             history.push({
                 role: 'assistant',
                 text: 'I could not reach the assistant right now. Try again in a moment.',
@@ -216,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             syncIntroState();
             setStatus(status, error.message || 'Request failed.', 'error');
         } finally {
+            hideTyping();
             setPending(false);
         }
     });

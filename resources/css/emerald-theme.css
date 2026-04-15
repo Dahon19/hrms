@@ -1383,6 +1383,22 @@ body.dark-mode {
     color: #f8fffb;
 }
 
+.app-shell .hrms-chatbot__clear {
+    margin-left: auto;
+    padding: 0.48rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(248, 255, 251, 0.9);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.app-shell .hrms-chatbot__clear:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
 .app-shell .hrms-chatbot__messages {
     min-height: 16rem;
     padding: 1rem;
@@ -1471,6 +1487,29 @@ body.dark-mode {
     color: #f8fffb;
     box-shadow: 0 12px 30px rgba(21, 128, 61, 0.2);
     border-bottom-right-radius: 0.35rem;
+}
+
+.app-shell .hrms-chatbot__bubble--typing {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    min-width: 4rem;
+}
+
+.app-shell .hrms-chatbot__bubble--typing span {
+    width: 0.46rem;
+    height: 0.46rem;
+    border-radius: 999px;
+    background: rgba(22, 101, 52, 0.55);
+    animation: hrms-chatbot-bounce 1s infinite ease-in-out;
+}
+
+.app-shell .hrms-chatbot__bubble--typing span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.app-shell .hrms-chatbot__bubble--typing span:nth-child(3) {
+    animation-delay: 0.3s;
 }
 
 .app-shell .hrms-chatbot__status {
@@ -1593,6 +1632,12 @@ body.dark-mode {
     border-color: rgba(134, 239, 172, 0.12);
 }
 
+.dark-mode .app-shell .hrms-chatbot__clear {
+    border-color: rgba(134, 239, 172, 0.14);
+    background: rgba(18, 33, 24, 0.92);
+    color: #d1fae5;
+}
+
 .dark-mode .app-shell .hrms-chatbot__message--assistant .hrms-chatbot__bubble,
 .dark-mode .app-shell .hrms-chatbot__input {
     background: rgba(18, 33, 24, 0.96);
@@ -1613,6 +1658,24 @@ body.dark-mode {
 .dark-mode .app-shell .hrms-chatbot__preset:hover,
 .dark-mode .app-shell .hrms-chatbot__preset:focus {
     background: rgba(26, 57, 37, 0.98);
+}
+
+.dark-mode .app-shell .hrms-chatbot__bubble--typing span {
+    background: rgba(187, 247, 208, 0.7);
+}
+
+@keyframes hrms-chatbot-bounce {
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.45;
+    }
+
+    40% {
+        transform: translateY(-0.18rem);
+        opacity: 1;
+    }
 }
 
 .dark-mode .app-shell .hrms-chatbot__status {
