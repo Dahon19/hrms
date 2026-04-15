@@ -7,7 +7,7 @@ const autoResize = (input) => {
 
 const sanitizeMessage = (value) => value.replace(/\s+/g, ' ').trim();
 const defaultAssistantPrompt =
-    'Ask about employee self-service, HR workflows, policies, navigation, reminders, analytics, or role-based access in the HRMS.';
+    'Hello. Ask about HRMS features, workflows, navigation, or approvals.';
 
 const appendMessage = (container, role, text) => {
     const article = document.createElement('article');

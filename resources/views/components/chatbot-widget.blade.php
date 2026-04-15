@@ -52,22 +52,19 @@
 
         <div class="hrms-chatbot__intro" data-chatbot-intro>
             <p class="hrms-chatbot__intro-copy mb-0">
-                Hello, {{ $chatbotName }}. Ask about approved {{ $chatbotRole }} HRMS features and I will guide you to the right module for actual actions.
+                Hello, {{ $chatbotName }}. Ask a question about the HRMS and I will guide you.
             </p>
             <div class="hrms-chatbot__presets" data-chatbot-presets>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What is the purpose of this HRMS?">
-                    System purpose
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What can this HRMS help me with?">
+                    What can you do?
                 </button>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How can employees use the HRMS for leave, attendance, and payslip concerns?">
-                    Employee services
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="Where can I find leave, attendance, and payslip features?">
+                    Find features
                 </button>
-                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How does HR or admin use the HRMS for reports, summaries, and approvals?">
-                    HR and admin help
+                <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="How do approvals and requests work in the HRMS?">
+                    Requests and approvals
                 </button>
             </div>
-            <p class="hrms-chatbot__scope-note mb-0">
-                AI explains and guides. Actual requests and approvals still follow system permissions.
-            </p>
         </div>
 
         <div class="hrms-chatbot__messages" data-chatbot-messages role="log" aria-live="polite">
