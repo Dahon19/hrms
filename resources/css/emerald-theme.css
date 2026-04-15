@@ -782,6 +782,23 @@ body.app-shell,
         linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03)) !important;
 }
 
+.app-shell .profile-modal .profile-avatar-panel,
+.app-shell .profile-modal .profile-identity-card {
+    border: 1px solid rgba(134, 239, 172, 0.08);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.app-shell .profile-modal .profile-avatar-panel {
+    margin-bottom: 1rem;
+    padding: 1rem 1rem 1.1rem;
+}
+
+.app-shell .profile-modal .profile-identity-card {
+    padding: 1rem 1rem 1.05rem;
+    text-align: center;
+}
+
 .app-shell .profile-modal .profile-identity-name,
 .app-shell .profile-modal .profile-identity-role,
 .app-shell .profile-modal .profile-sidecard__subline,
@@ -824,8 +841,7 @@ body.app-shell,
 }
 
 .app-shell .profile-modal .profile-sidecard--editing .profile-avatar-help,
-.app-shell .profile-modal .profile-sidecard--editing .profile-sidecard__identity,
-.app-shell .profile-modal .profile-sidecard--editing .profile-sidecard__stats {
+.app-shell .profile-modal .profile-sidecard--editing .profile-identity-card {
     display: none;
 }
 
@@ -855,11 +871,15 @@ body.app-shell,
 
 .app-shell .profile-modal .profile-avatar-help {
     margin: 0 auto 1rem;
-    max-width: 16rem;
+    max-width: 17rem;
     font-size: 0.8rem;
     line-height: 1.45;
     text-align: center;
     color: rgba(226, 232, 240, 0.72) !important;
+}
+
+.app-shell .profile-modal .profile-section-heading--avatar {
+    margin-bottom: 0.9rem;
 }
 
 .app-shell .profile-modal .profile-avatar-editor {
@@ -978,6 +998,18 @@ body.app-shell,
     border-radius: 999px;
     font-weight: 700;
     box-shadow: none !important;
+}
+
+.app-shell .profile-modal .profile-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 1.1rem;
+}
+
+.app-shell .profile-modal .profile-stat--inline {
+    min-height: 100%;
+    margin-bottom: 0;
 }
 
 .app-shell .profile-modal .cropper-container {
