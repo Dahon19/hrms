@@ -4,12 +4,12 @@ import { $, onReady } from './utils';
 
 function initProfileAvatarPreview() {
     const avatarInput = document.getElementById('avatarInput');
-    const avatarPreview = document.getElementById('avatar-preview');
-    const avatarShell = avatarPreview?.closest('.profile-avatar-shell');
-    const profileSidecard = document.getElementById('profileSidecard');
+    const avatarPreviewMain = document.getElementById('avatar-preview-main');
+    const avatarPreviewEditor = document.getElementById('avatar-preview-editor');
+    const avatarShell = avatarPreviewEditor?.closest('.profile-avatar-shell');
+    const openAvatarEditorButton = document.getElementById('openAvatarEditorButton');
     const avatarEditButton = document.getElementById('profileAvatarEditButton');
     const avatarPicker = document.getElementById('profileAvatarPicker');
-    const avatarEditor = document.getElementById('profileAvatarEditor');
     const avatarZoom = document.getElementById('profileAvatarZoom');
     const avatarZoomValue = document.getElementById('profileAvatarZoomValue');
     const avatarZoomOutButton = document.getElementById('profileAvatarZoomOutButton');
@@ -18,28 +18,18 @@ function initProfileAvatarPreview() {
     const avatarCancelButton = document.getElementById('profileAvatarCancelButton');
     const avatarApplyButton = document.getElementById('profileAvatarApplyButton');
 
-    if (!avatarInput || !avatarPreview || !avatarShell) {
+    if (!avatarInput || !avatarPreviewMain || !avatarPreviewEditor || !avatarShell || !$) {
         return;
     }
 
-    const defaultPreviewSrc = avatarPreview.dataset.originalSrc || avatarPreview.src;
+    const $avatarModal = $('#avatarEditModal');
+    const defaultPreviewSrc = avatarPreviewMain.dataset.originalSrc || avatarPreviewMain.src;
     const state = {
         committedPreviewSrc: defaultPreviewSrc,
         cropper: null,
         pendingObjectUrl: null,
         pendingFilename: 'avatar.jpg',
     };
-
-    function toggleEditor(show) {
-        if (!avatarEditor) {
-            return;
-        }
-
-        avatarEditor.classList.toggle('d-none', !show);
-        avatarShell.classList.toggle('profile-avatar-shell--cropping', show);
-        avatarPreview.classList.toggle('profile-avatar-image--editing', show);
-        profileSidecard?.classList.toggle('profile-sidecard--editing', show);
-    }
 
     function revokePendingObjectUrl() {
         if (!state.pendingObjectUrl) {
@@ -48,10 +38,6 @@ function initProfileAvatarPreview() {
 
         URL.revokeObjectURL(state.pendingObjectUrl);
         state.pendingObjectUrl = null;
-    }
-
-    function setPreviewSource(src) {
-        avatarPreview.src = src;
     }
 
     function syncZoomSlider(value) {
@@ -67,8 +53,14 @@ function initProfileAvatarPreview() {
         }
     }
 
+    function setCommittedPreview(src) {
+        state.committedPreviewSrc = src;
+        avatarPreviewMain.src = src;
+        avatarPreviewEditor.src = src;
+    }
+
     function destroyCropper({ restoreCommittedPreview = false } = {}) {
-        avatarPreview.onload = null;
+        avatarPreviewEditor.onload = null;
 
         if (state.cropper) {
             state.cropper.destroy();
@@ -76,11 +68,10 @@ function initProfileAvatarPreview() {
         }
 
         revokePendingObjectUrl();
-        toggleEditor(false);
         syncZoomSlider(100);
 
         if (restoreCommittedPreview) {
-            setPreviewSource(state.committedPreviewSrc);
+            avatarPreviewEditor.src = state.committedPreviewSrc;
         }
     }
 
@@ -92,12 +83,10 @@ function initProfileAvatarPreview() {
                     return;
                 }
 
-                resolve(
-                    new File([blob], state.pendingFilename.replace(/\.[^.]+$/, '') + '.jpg', {
-                        type: 'image/jpeg',
-                        lastModified: Date.now(),
-                    }),
-                );
+                resolve(new File([blob], state.pendingFilename.replace(/\.[^.]+$/, '') + '.jpg', {
+                    type: 'image/jpeg',
+                    lastModified: Date.now(),
+                }));
             }, 'image/jpeg', 0.92);
         });
     }
@@ -127,26 +116,18 @@ function initProfileAvatarPreview() {
 
         const reader = new FileReader();
         reader.onload = function (event) {
-            state.committedPreviewSrc = event.target?.result || defaultPreviewSrc;
-            setPreviewSource(state.committedPreviewSrc);
+            const src = event.target?.result || defaultPreviewSrc;
+            setCommittedPreview(src);
         };
         reader.readAsDataURL(file);
     }
 
-    function openCropper(file) {
-        if (!file || !file.type || !file.type.startsWith('image/')) {
-            return;
-        }
-
+    function initCropperWithCurrentPreview() {
         destroyCropper();
-
-        state.pendingFilename = file.name || 'avatar.jpg';
-        state.pendingObjectUrl = URL.createObjectURL(file);
-        setPreviewSource(state.pendingObjectUrl);
-
-        avatarPreview.onload = () => {
-            avatarPreview.onload = null;
-            state.cropper = new Cropper(avatarPreview, {
+        avatarPreviewEditor.src = state.committedPreviewSrc;
+        avatarPreviewEditor.onload = () => {
+            avatarPreviewEditor.onload = null;
+            state.cropper = new Cropper(avatarPreviewEditor, {
                 aspectRatio: 1,
                 viewMode: 1,
                 dragMode: 'move',
@@ -163,7 +144,46 @@ function initProfileAvatarPreview() {
                 cropBoxMovable: false,
                 cropBoxResizable: false,
                 ready() {
-                    toggleEditor(true);
+                    syncZoomSlider(100);
+                },
+                zoom(event) {
+                    const ratio = event?.detail?.ratio ?? 1;
+                    syncZoomSlider(ratio * 100);
+                },
+            });
+        };
+    }
+
+    function openCropper(file) {
+        if (!file || !file.type || !file.type.startsWith('image/')) {
+            return;
+        }
+
+        destroyCropper();
+
+        state.pendingFilename = file.name || 'avatar.jpg';
+        state.pendingObjectUrl = URL.createObjectURL(file);
+        avatarPreviewEditor.src = state.pendingObjectUrl;
+
+        avatarPreviewEditor.onload = () => {
+            avatarPreviewEditor.onload = null;
+            state.cropper = new Cropper(avatarPreviewEditor, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                background: false,
+                responsive: true,
+                guides: false,
+                center: false,
+                highlight: false,
+                movable: true,
+                scalable: true,
+                zoomable: true,
+                rotatable: false,
+                cropBoxMovable: false,
+                cropBoxResizable: false,
+                ready() {
                     syncZoomSlider(100);
                 },
                 zoom(event) {
@@ -189,9 +209,10 @@ function initProfileAvatarPreview() {
 
             const file = await fileFromCanvas(canvas);
             await replacePondFile(file);
-            state.committedPreviewSrc = canvas.toDataURL('image/jpeg', 0.92);
+            const src = canvas.toDataURL('image/jpeg', 0.92);
+            setCommittedPreview(src);
             destroyCropper();
-            setPreviewSource(state.committedPreviewSrc);
+            $avatarModal.modal('hide');
         } catch (error) {
             console.error('Unable to apply avatar crop.', error);
         }
@@ -203,9 +224,8 @@ function initProfileAvatarPreview() {
     });
 
     avatarInput.addEventListener('FilePond:removefile', function () {
-        state.committedPreviewSrc = defaultPreviewSrc;
-        destroyCropper();
-        setPreviewSource(defaultPreviewSrc);
+        setCommittedPreview(defaultPreviewSrc);
+        destroyCropper({ restoreCommittedPreview: true });
     });
 
     if (avatarPicker) {
@@ -239,61 +259,55 @@ function initProfileAvatarPreview() {
         state.cropper.zoomTo(nextValue / 100);
     }
 
-    if (avatarZoomOutButton) {
-        avatarZoomOutButton.addEventListener('click', function () {
-            nudgeZoom(-15);
-        });
-    }
+    avatarZoomOutButton?.addEventListener('click', function () {
+        nudgeZoom(-15);
+    });
 
-    if (avatarZoomInButton) {
-        avatarZoomInButton.addEventListener('click', function () {
-            nudgeZoom(15);
-        });
-    }
+    avatarZoomInButton?.addEventListener('click', function () {
+        nudgeZoom(15);
+    });
 
-    if (avatarResetButton) {
-        avatarResetButton.addEventListener('click', function () {
-            if (!state.cropper) {
-                return;
-            }
+    avatarResetButton?.addEventListener('click', function () {
+        if (!state.cropper) {
+            return;
+        }
 
-            state.cropper.reset();
-            syncZoomSlider(100);
-        });
-    }
+        state.cropper.reset();
+        syncZoomSlider(100);
+    });
 
-    if (avatarCancelButton) {
-        avatarCancelButton.addEventListener('click', function () {
-            destroyCropper({ restoreCommittedPreview: true });
-        });
-    }
+    avatarCancelButton?.addEventListener('click', function () {
+        destroyCropper({ restoreCommittedPreview: true });
+    });
 
-    if (avatarApplyButton) {
-        avatarApplyButton.addEventListener('click', function () {
-            applyCrop();
-        });
-    }
+    avatarApplyButton?.addEventListener('click', function () {
+        applyCrop();
+    });
 
-    if (avatarEditButton) {
-        avatarEditButton.addEventListener('keydown', function (event) {
-            if (!avatarPicker) {
-                return;
-            }
+    openAvatarEditorButton?.addEventListener('click', function () {
+        $avatarModal.modal('show');
+    });
 
-            if (event.key !== 'Enter' && event.key !== ' ') {
-                return;
-            }
+    avatarEditButton?.addEventListener('keydown', function (event) {
+        if (!avatarPicker) {
+            return;
+        }
 
-            event.preventDefault();
-            avatarPicker.click();
-        });
-    }
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
 
-    if ($) {
-        $('#profileEditModal').on('hidden.bs.modal', function () {
-            destroyCropper({ restoreCommittedPreview: true });
-        });
-    }
+        event.preventDefault();
+        avatarPicker.click();
+    });
+
+    $avatarModal.on('show.bs.modal', function () {
+        initCropperWithCurrentPreview();
+    });
+
+    $avatarModal.on('hidden.bs.modal', function () {
+        destroyCropper({ restoreCommittedPreview: true });
+    });
 }
 
 function initProfileAutoModal() {

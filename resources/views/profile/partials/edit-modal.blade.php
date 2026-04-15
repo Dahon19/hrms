@@ -27,119 +27,23 @@
                                 <div class="profile-section-heading profile-section-heading--avatar">Profile Photo</div>
                                 <div class="profile-avatar-shell profile-avatar-shell--editor">
                                     <img
-                                        id="avatar-preview"
+                                        id="avatar-preview-main"
                                         src="{{ $avatarUrl ?: $avatarFallback }}"
                                         class="profile-avatar-image"
                                         data-original-src="{{ $avatarUrl ?: $avatarFallback }}"
                                         alt="User profile picture"
                                     />
-                                    <input
-                                        type="file"
-                                        id="profileAvatarPicker"
-                                        class="profile-avatar-picker"
-                                        accept="image/*"
-                                        tabindex="-1"
-                                        aria-hidden="true"
-                                    />
-                                    <input
-                                        type="file"
-                                        name="avatar"
-                                        class="filepond profile-avatar-filepond"
-                                        id="avatarInput"
-                                        accept="image/*"
-                                        data-max-file-size="2MB"
-                                        data-filepond-label-idle=' '
-                                    />
-                                    <label
-                                        for="profileAvatarPicker"
+                                    <button
+                                        type="button"
                                         class="profile-avatar-edit"
-                                        id="profileAvatarEditButton"
-                                        aria-label="Change avatar"
-                                        role="button"
-                                        tabindex="0"
+                                        id="openAvatarEditorButton"
+                                        aria-label="Edit profile photo"
                                     >
                                         <i class="cil-pencil"></i>
-                                    </label>
-                                </div>
-                                <div
-                                    class="profile-avatar-editor d-none"
-                                    id="profileAvatarEditor"
-                                    aria-live="polite"
-                                >
-                                    <div class="profile-avatar-editor__header">
-                                        <div>
-                                            <div class="profile-avatar-editor__eyebrow">Avatar Editor</div>
-                                            <span class="profile-avatar-editor__title">Crop and Scale</span>
-                                        </div>
-                                        <span
-                                            class="profile-avatar-editor__zoom-badge"
-                                            id="profileAvatarZoomValue"
-                                        >
-                                            100%
-                                        </span>
-                                    </div>
-                                    <p class="profile-avatar-editor__copy mb-0">
-                                        Drag the image to reposition it, then use zoom to frame your profile photo.
-                                    </p>
-                                    <label
-                                        for="profileAvatarZoom"
-                                        class="profile-avatar-editor__label"
-                                    >
-                                        Zoom
-                                    </label>
-                                    <div class="profile-avatar-editor__zoom-row">
-                                        <button
-                                            type="button"
-                                            class="btn btn-light btn-sm profile-avatar-editor__icon-btn"
-                                            id="profileAvatarZoomOutButton"
-                                            aria-label="Zoom out"
-                                        >
-                                            <i class="cil-minus"></i>
-                                        </button>
-                                        <input
-                                            type="range"
-                                            id="profileAvatarZoom"
-                                            class="custom-range profile-avatar-editor__zoom"
-                                            min="100"
-                                            max="300"
-                                            value="100"
-                                            step="1"
-                                        />
-                                        <button
-                                            type="button"
-                                            class="btn btn-light btn-sm profile-avatar-editor__icon-btn"
-                                            id="profileAvatarZoomInButton"
-                                            aria-label="Zoom in"
-                                        >
-                                            <i class="cil-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="profile-avatar-editor__actions">
-                                        <button
-                                            type="button"
-                                            class="btn btn-light btn-sm profile-avatar-editor__action"
-                                            id="profileAvatarResetButton"
-                                        >
-                                            Reset
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="btn btn-light btn-sm profile-avatar-editor__action"
-                                            id="profileAvatarCancelButton"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="btn btn-primary btn-sm profile-avatar-editor__action"
-                                            id="profileAvatarApplyButton"
-                                        >
-                                            Apply Crop
-                                        </button>
-                                    </div>
+                                    </button>
                                 </div>
                                 <p class="profile-avatar-help mb-0">
-                                    Update your picture here. Save changes after applying the crop.
+                                    Open the photo editor to upload, crop, and apply your new profile picture.
                                 </p>
                             </div>
                             <div class="profile-identity-card">
@@ -309,3 +213,132 @@
     data-open="{{ $showProfileEditOnLoad ? '1' : '0' }}"
     class="d-none"
 ></div>
+
+<x-ui.modal
+    id="avatarEditModal"
+    size="md"
+    class="profile-avatar-modal"
+>
+            <x-ui.modal-header
+                title="Update Profile Photo"
+                subtitle="Upload a photo, adjust the crop, and apply it to your profile."
+            />
+            <div class="modal-body">
+                <div class="profile-avatar-modal__stage">
+                    <div class="profile-avatar-shell profile-avatar-shell--editor profile-avatar-shell--cropping">
+                        <img
+                            id="avatar-preview-editor"
+                            src="{{ $avatarUrl ?: $avatarFallback }}"
+                            class="profile-avatar-image"
+                            alt="Profile photo editor preview"
+                        />
+                        <input
+                            type="file"
+                            id="profileAvatarPicker"
+                            class="profile-avatar-picker"
+                            accept="image/*"
+                            tabindex="-1"
+                            aria-hidden="true"
+                        />
+                        <input
+                            type="file"
+                            name="avatar"
+                            form="profileEditForm"
+                            class="filepond profile-avatar-filepond"
+                            id="avatarInput"
+                            accept="image/*"
+                            data-max-file-size="2MB"
+                            data-filepond-label-idle=' '
+                        />
+                        <label
+                            for="profileAvatarPicker"
+                            class="profile-avatar-edit"
+                            id="profileAvatarEditButton"
+                            aria-label="Upload a new photo"
+                            role="button"
+                            tabindex="0"
+                        >
+                            <i class="cil-pencil"></i>
+                        </label>
+                    </div>
+                </div>
+                <div
+                    class="profile-avatar-editor"
+                    id="profileAvatarEditor"
+                    aria-live="polite"
+                >
+                    <div class="profile-avatar-editor__header">
+                        <div>
+                            <div class="profile-avatar-editor__eyebrow">Avatar Editor</div>
+                            <span class="profile-avatar-editor__title">Crop and Scale</span>
+                        </div>
+                        <span
+                            class="profile-avatar-editor__zoom-badge"
+                            id="profileAvatarZoomValue"
+                        >
+                            100%
+                        </span>
+                    </div>
+                    <p class="profile-avatar-editor__copy mb-0">
+                        Drag the image to reposition it, then use zoom to frame your profile photo.
+                    </p>
+                    <label
+                        for="profileAvatarZoom"
+                        class="profile-avatar-editor__label"
+                    >
+                        Zoom
+                    </label>
+                    <div class="profile-avatar-editor__zoom-row">
+                        <button
+                            type="button"
+                            class="btn btn-light btn-sm profile-avatar-editor__icon-btn"
+                            id="profileAvatarZoomOutButton"
+                            aria-label="Zoom out"
+                        >
+                            <i class="cil-minus"></i>
+                        </button>
+                        <input
+                            type="range"
+                            id="profileAvatarZoom"
+                            class="custom-range profile-avatar-editor__zoom"
+                            min="100"
+                            max="300"
+                            value="100"
+                            step="1"
+                        />
+                        <button
+                            type="button"
+                            class="btn btn-light btn-sm profile-avatar-editor__icon-btn"
+                            id="profileAvatarZoomInButton"
+                            aria-label="Zoom in"
+                        >
+                            <i class="cil-plus"></i>
+                        </button>
+                    </div>
+                    <div class="profile-avatar-editor__actions">
+                        <button
+                            type="button"
+                            class="btn btn-light btn-sm profile-avatar-editor__action"
+                            id="profileAvatarResetButton"
+                        >
+                            Reset
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-light btn-sm profile-avatar-editor__action"
+                            id="profileAvatarCancelButton"
+                            data-coreui-dismiss="modal"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-sm profile-avatar-editor__action"
+                            id="profileAvatarApplyButton"
+                        >
+                            Apply Photo
+                        </button>
+                    </div>
+                </div>
+            </div>
+</x-ui.modal>
