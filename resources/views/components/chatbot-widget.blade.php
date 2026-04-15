@@ -88,7 +88,7 @@
                     data-chatbot-send
                     aria-label="Send message"
                 >
-                    <i class="cil-location-arrow"></i>
+                    <i class="cil-paper-plane"></i>
                 </button>
             </div>
         </form>
