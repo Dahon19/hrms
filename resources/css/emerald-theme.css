@@ -817,8 +817,107 @@ body.app-shell,
     box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.12);
 }
 
+.app-shell .profile-modal .profile-avatar-shell--cropping {
+    width: min(100%, 15.5rem);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 1.5rem;
+}
+
+.app-shell .profile-modal .profile-avatar-image--editing {
+    max-width: none;
+}
+
 .app-shell .profile-modal .profile-avatar-edit {
     background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+}
+
+.app-shell .profile-modal .profile-avatar-help {
+    margin: 0 auto 1rem;
+    max-width: 16rem;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    text-align: center;
+    color: rgba(226, 232, 240, 0.72) !important;
+}
+
+.app-shell .profile-modal .profile-avatar-editor {
+    margin: 0 auto 1rem;
+    padding: 0.85rem 0.95rem;
+    max-width: 16rem;
+    border: 1px solid rgba(134, 239, 172, 0.1);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.app-shell .profile-modal .profile-avatar-editor__header,
+.app-shell .profile-modal .profile-avatar-editor__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__header {
+    margin-bottom: 0.7rem;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__title,
+.app-shell .profile-modal .profile-avatar-editor__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(167, 243, 208, 0.92) !important;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__label {
+    display: block;
+    margin-bottom: 0.45rem;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__reset {
+    padding: 0;
+    color: rgba(226, 232, 240, 0.8) !important;
+    text-decoration: none !important;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__reset:hover,
+.app-shell .profile-modal .profile-avatar-editor__reset:focus {
+    color: #f8fffb !important;
+}
+
+.app-shell .profile-modal .profile-avatar-editor__zoom {
+    margin-bottom: 0.85rem;
+}
+
+.app-shell .profile-modal .profile-avatar-editor .btn {
+    min-width: 6rem;
+}
+
+.app-shell .profile-modal .cropper-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.app-shell .profile-modal .cropper-view-box,
+.app-shell .profile-modal .cropper-face {
+    border-radius: 1.1rem;
+}
+
+.app-shell .profile-modal .cropper-view-box {
+    outline: 1px solid rgba(255, 255, 255, 0.9);
+    outline-color: rgba(255, 255, 255, 0.9);
+}
+
+.app-shell .profile-modal .cropper-line,
+.app-shell .profile-modal .cropper-point {
+    background-color: rgba(134, 239, 172, 0.92);
+}
+
+.app-shell .profile-modal .cropper-point {
+    width: 0.7rem;
+    height: 0.7rem;
 }
 
 .app-shell .profile-modal .input-group {

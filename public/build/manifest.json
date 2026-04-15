@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-i6hE71DO.css",
+    "file": "assets/emerald-theme-CQ0KiU9n.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -570,12 +570,15 @@
     ]
   },
   "resources/js/profile.js": {
-    "file": "assets/profile-BtC5pb5V.js",
+    "file": "assets/profile-FPOlsZyD.js",
     "name": "profile",
     "src": "resources/js/profile.js",
     "isEntry": true,
     "imports": [
       "_utils-BZmljrvr.js"
+    ],
+    "css": [
+      "assets/profile-D0aDPu-n.css"
     ]
   },
   "resources/js/reports-index.js": {

@@ -59,6 +59,56 @@
                                     <i class="cil-pencil"></i>
                                 </label>
                             </div>
+                            <div
+                                class="profile-avatar-editor d-none"
+                                id="profileAvatarEditor"
+                                aria-live="polite"
+                            >
+                                <div class="profile-avatar-editor__header">
+                                    <span class="profile-avatar-editor__title">Crop and Scale</span>
+                                    <button
+                                        type="button"
+                                        class="btn btn-link btn-sm profile-avatar-editor__reset"
+                                        id="profileAvatarResetButton"
+                                    >
+                                        Reset
+                                    </button>
+                                </div>
+                                <label
+                                    for="profileAvatarZoom"
+                                    class="profile-avatar-editor__label"
+                                >
+                                    Zoom
+                                </label>
+                                <input
+                                    type="range"
+                                    id="profileAvatarZoom"
+                                    class="custom-range profile-avatar-editor__zoom"
+                                    min="100"
+                                    max="300"
+                                    value="100"
+                                    step="1"
+                                />
+                                <div class="profile-avatar-editor__actions">
+                                    <button
+                                        type="button"
+                                        class="btn btn-light btn-sm"
+                                        id="profileAvatarCancelButton"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary btn-sm"
+                                        id="profileAvatarApplyButton"
+                                    >
+                                        Apply Crop
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="profile-avatar-help mb-0">
+                                Use the pencil icon to upload, crop, and scale your avatar before saving.
+                            </p>
                             <div class="profile-sidecard__identity">
                                 <h4 class="profile-identity-name mb-1">{{ $profileName }}</h4>
                                 <p class="profile-identity-role mb-0">{{ $positionLabel }}</p>
