@@ -160,11 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hideTyping();
         renderHistory(messages, history);
         syncIntroState();
-        setStatus(
-            status,
-            `Chat cleared. Ask what the HRMS does for ${userRole} use.`,
-            'success',
-        );
+        setStatus(status);
     };
 
     renderHistory(messages, history);
@@ -235,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
         autoResize(input);
         setPending(true);
-        setStatus(status, 'Thinking...', 'default');
+        setStatus(status);
         showTyping();
 
         try {
@@ -269,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderHistory(messages, history);
             persistHistory();
             syncIntroState();
-            setStatus(status, 'Reply generated.', 'success');
+            setStatus(status);
         } catch (error) {
             hideTyping();
             history.push({
