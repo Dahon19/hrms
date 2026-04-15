@@ -51,30 +51,19 @@
         </header>
 
         <div class="hrms-chatbot__intro" data-chatbot-intro>
-            <p class="hrms-chatbot__intro-copy mb-0">
-                Hello, {{ $chatbotName }}. I can support {{ $chatbotRole }} questions only within approved HRMS features and explain where to go in the system for actual actions.
-            </p>
-            <div class="hrms-chatbot__feature-grid">
-                <article class="hrms-chatbot__feature-card">
-                    <span class="hrms-chatbot__feature-icon"><i class="cil-user"></i></span>
-                    <strong>Self-Service</strong>
-                    <p class="mb-0">Leave balance, leave flow, payslip, and attendance guidance.</p>
-                </article>
-                <article class="hrms-chatbot__feature-card">
-                    <span class="hrms-chatbot__feature-icon"><i class="cil-briefcase"></i></span>
-                    <strong>HR Assistant</strong>
-                    <p class="mb-0">Reports, employee summaries, and HR module questions.</p>
-                </article>
-                <article class="hrms-chatbot__feature-card">
-                    <span class="hrms-chatbot__feature-icon"><i class="cil-book"></i></span>
-                    <strong>Policy Help</strong>
-                    <p class="mb-0">Policies, benefits, and procedures tied to HRMS use.</p>
-                </article>
-                <article class="hrms-chatbot__feature-card">
-                    <span class="hrms-chatbot__feature-icon"><i class="cil-compass"></i></span>
-                    <strong>Navigation</strong>
-                    <p class="mb-0">Page guidance, reminders, analytics, and role-based access help.</p>
-                </article>
+            <div class="hrms-chatbot__intro-hero">
+                <span class="hrms-chatbot__intro-kicker">Assistant scope</span>
+                <p class="hrms-chatbot__intro-copy mb-0">
+                    Hello, {{ $chatbotName }}. I can support {{ $chatbotRole }} questions about approved HRMS features and guide you to the right page for real system actions.
+                </p>
+            </div>
+            <div class="hrms-chatbot__capability-list">
+                <span class="hrms-chatbot__capability-pill">Employee self-service</span>
+                <span class="hrms-chatbot__capability-pill">HR and admin help</span>
+                <span class="hrms-chatbot__capability-pill">Policies and procedures</span>
+                <span class="hrms-chatbot__capability-pill">Navigation and reminders</span>
+                <span class="hrms-chatbot__capability-pill">Analytics guidance</span>
+                <span class="hrms-chatbot__capability-pill">Role-based access</span>
             </div>
             <div class="hrms-chatbot__presets" data-chatbot-presets>
                 <button type="button" class="hrms-chatbot__preset" data-chatbot-preset="What is the purpose of this HRMS?">
@@ -90,10 +79,9 @@
                     Policy and navigation
                 </button>
             </div>
-            <div class="hrms-chatbot__principle">
-                <span class="hrms-chatbot__principle-badge">Key principle</span>
-                <p class="mb-0">AI explains and guides. Actual requests, approvals, and records still depend on system logic and user permissions.</p>
-            </div>
+            <p class="hrms-chatbot__footnote mb-0">
+                AI explains and guides. Actual requests, approvals, and records still depend on system logic and user permissions.
+            </p>
         </div>
 
         <div class="hrms-chatbot__messages" data-chatbot-messages role="log" aria-live="polite">
