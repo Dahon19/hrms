@@ -62,28 +62,14 @@
             width: min(100%, 34rem);
         }
 
-        .turnstile-shell {
-            border: 1px solid rgba(229, 231, 235, 0.95);
-            background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 250, 251, 0.98) 100%);
-            box-shadow: 0 16px 36px -28px rgba(15, 23, 42, 0.28);
-        }
-
-        .turnstile-shell .cf-turnstile {
+        .cf-turnstile {
             display: block;
             width: 100%;
             max-width: 100%;
         }
 
-        .turnstile-shell iframe {
+        .cf-turnstile iframe {
             max-width: 100%;
-        }
-
-        @media (max-width: 640px) {
-            .turnstile-shell {
-                padding-left: 0.85rem;
-                padding-right: 0.85rem;
-            }
         }
     </style>
 
@@ -206,15 +192,13 @@
                     @endphp
                     @if (filled($turnstileSiteKey))
                         <div class="space-y-2">
-                            <div class="turnstile-shell rounded-2xl px-4 py-3">
-                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">Security Check</p>
+                            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">Security Check</p>
                             <div
                                 class="cf-turnstile"
                                 data-sitekey="{{ $turnstileSiteKey }}"
                                 data-theme="light"
                                 data-size="flexible"
                             ></div>
-                            </div>
                             @error('cf-turnstile-response')
                                 <p class="animate-fade-slide mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
                             @enderror
