@@ -33,15 +33,15 @@
                                         data-original-src="{{ $avatarUrl ?: $avatarFallback }}"
                                         alt="User profile picture"
                                     />
-                                    <button
-                                        type="button"
-                                        class="profile-avatar-edit"
-                                        id="openAvatarEditorButton"
-                                        aria-label="Edit profile photo"
-                                    >
-                                        <i class="cil-pencil"></i>
-                                    </button>
                                 </div>
+                                <button
+                                    type="button"
+                                    class="profile-avatar-edit profile-avatar-edit--primary"
+                                    id="openAvatarEditorButton"
+                                >
+                                    <i class="cil-camera"></i>
+                                    <span>Change Profile Photo</span>
+                                </button>
                                 <p class="profile-avatar-help mb-0">
                                     Open the photo editor to upload, crop, and apply your new profile picture.
                                 </p>
@@ -252,7 +252,7 @@
                         />
                         <label
                             for="profileAvatarPicker"
-                            class="profile-avatar-edit"
+                            class="profile-avatar-edit profile-avatar-edit--floating"
                             id="profileAvatarEditButton"
                             aria-label="Upload a new photo"
                             role="button"
