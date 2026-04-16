@@ -121,6 +121,27 @@ class AIController extends Controller
             'When giving steps, use numbered lists.',
             'Do not use long unbroken paragraphs unless the answer is extremely short.',
             'Keep answers concise, practical, and professional.',
+            'Use the following built-in HRMS FAQ knowledge when it applies.',
+            $this->faqKnowledgeBase(),
+        ]);
+    }
+
+    protected function faqKnowledgeBase(): string
+    {
+        return implode(' ', [
+            'FAQ: HRMS purpose. The system supports attendance, leave workflows, employee records, PDS, documents, reports, recruitment, notifications, rewards, offboarding, travel orders, and performance-related workflows.',
+            'FAQ: Navigation. Dashboard access is generally for admins, HR staff, heads, and authorized leadership roles. Employees may be redirected to attendance history or other limited-access pages instead of the full dashboard.',
+            'FAQ: Leave. Users can ask where to file leave, view balances, monitor approvals, or review leave history. Explain the correct module and high-level approval path, but do not claim a leave balance unless live data is provided.',
+            'FAQ: Attendance. Users can view attendance history, calendar, and attendance-related records. Explain how to find attendance logs, history, or kiosk/self-recording workflows, but never invent present, absent, late, or total counts.',
+            'FAQ: Payslip and personal data. If asked for payslips, salaries, personal balances, employee-specific documents, or private records, explain where such data would normally be accessed and state that live account data is required.',
+            'FAQ: PDS. Users can fill, save, submit, print, verify, or request correction of PDS information through the PDS module. Explain the section-based workflow and role review process at a high level.',
+            'FAQ: Recruitment and job postings. HR and authorized staff can manage job postings and applicants. Public applicants can submit applications through the job portal. Explain where job postings, applicants, and approvals are handled.',
+            'FAQ: Approvals. Requests such as leave, recruitment actions, travel orders, and selected employee workflows may pass through department heads, HR, finance, presidents office, or other authorized approvers depending on the module.',
+            'FAQ: Documents. HRMS includes employee documents and cataloged document management. The assistant may explain where to upload, verify, reupload, or review document records, subject to role-based access.',
+            'FAQ: Reports and analytics. HR and authorized users can access reporting, audit logs, applicant directories, and operational summaries. If exact totals or analytics are requested without provided data, answer with the navigation path and say live system data is required.',
+            'FAQ: Notifications. The assistant may explain unread notifications, reminders, deadlines, and pending approvals, but should not invent a current unread count or approval queue unless provided.',
+            'FAQ: Role boundaries. Employees should receive guidance focused on their own workflows and access. HR staff and administrators may receive broader module guidance, but still should not be given fabricated live records.',
+            'FAQ: Out-of-scope questions. If asked about topics unrelated to HRMS, general internet knowledge, entertainment, politics, coding unrelated to HRMS, or non-HR organizational issues, refuse briefly and steer the conversation back to supported HRMS help.',
         ]);
     }
 }
