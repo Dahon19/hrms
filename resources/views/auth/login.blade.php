@@ -181,6 +181,22 @@
                         @endif
                     </div>
 
+                    @php
+                        $turnstileSiteKey = config('services.turnstile.site_key');
+                    @endphp
+                    @if (filled($turnstileSiteKey))
+                        <div>
+                            <div
+                                class="cf-turnstile"
+                                data-sitekey="{{ $turnstileSiteKey }}"
+                                data-theme="light"
+                            ></div>
+                            @error('cf-turnstile-response')
+                                <p class="animate-fade-slide mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @endif
+
                     <button type="submit" :disabled="isLoading"
                         class="group relative flex w-full items-center justify-center overflow-hidden rounded-xl bg-green-600 px-4 py-3.5 font-semibold text-white shadow-[0_8px_20px_-6px_rgba(22,163,74,0.42)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-700 hover:shadow-[0_16px_28px_-10px_rgba(22,163,74,0.42)] focus:outline-none focus:ring-4 focus:ring-green-500/30 disabled:cursor-not-allowed disabled:opacity-70"
                     >
@@ -202,4 +218,7 @@
             </p>
         </div>
     </div>
+    @if (filled(config('services.turnstile.site_key')))
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endif
 </x-guest-layout>
