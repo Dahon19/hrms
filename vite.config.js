@@ -109,6 +109,7 @@ export default defineConfig({
                 'resources/js/leave-types.js',
                 'resources/js/leaves.js',
                 'resources/js/profile.js',
+                'resources/js/chatbot.js',
                 'resources/js/dashboard-ui.js',
                 'resources/js/dashboard-report-hub.js',
                 'resources/js/reports-index.js',

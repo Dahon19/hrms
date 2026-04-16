@@ -114,7 +114,7 @@
     ]
   },
   "resources/css/coreui-shell.css": {
-    "file": "assets/coreui-shell-Daof2REt.css",
+    "file": "assets/coreui-shell-CFI5MEQE.css",
     "src": "resources/css/coreui-shell.css",
     "isEntry": true,
     "name": "coreui-shell",
@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-DhPuRjr8.css",
+    "file": "assets/emerald-theme-UGU1Ydos.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -396,6 +396,12 @@
       "_utils-BZmljrvr.js"
     ]
   },
+  "resources/js/chatbot.js": {
+    "file": "assets/chatbot-COa7aPt0.js",
+    "name": "chatbot",
+    "src": "resources/js/chatbot.js",
+    "isEntry": true
+  },
   "resources/js/dashboard-report-hub.js": {
     "file": "assets/dashboard-report-hub-CWNFA_ws.js",
     "name": "dashboard-report-hub",
@@ -570,12 +576,15 @@
     ]
   },
   "resources/js/profile.js": {
-    "file": "assets/profile-BtC5pb5V.js",
+    "file": "assets/profile-BhbvApyO.js",
     "name": "profile",
     "src": "resources/js/profile.js",
     "isEntry": true,
     "imports": [
       "_utils-BZmljrvr.js"
+    ],
+    "css": [
+      "assets/profile-D0aDPu-n.css"
     ]
   },
   "resources/js/reports-index.js": {

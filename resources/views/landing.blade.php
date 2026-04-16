@@ -67,10 +67,12 @@
                 </button>
                 <nav class="topbar-nav" id="portalNav">
                     <a href="#home" class="is-active">Home</a>
-                    <a href="#features">Features</a>
+                    <a href="#features">Platform</a>
                     <a href="#modules">Modules</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#about">About</a> <a href="#contact">Contact</a>
+                    <a href="#how-it-works">Workflow</a>
+                    <a href="#recruitment">Careers</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
                 </nav>
             </div>
             <nav class="topbar-actions">

@@ -29,8 +29,8 @@ use App\Http\Controllers\TravelOrderApprovalController;
 use App\Http\Controllers\TravelOrderController;
 use App\Http\Controllers\TravelOrderTransportationController;
 use App\Http\Controllers\AttendanceKpiController;
+use App\Http\Controllers\AIController;
 use App\Models\Employee;
-use App\Models\JobPosting;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -422,6 +422,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('rewards/titles/{reward_title}', [RewardController::class, 'destroyTitle'])->name('rewards.titles.destroy');
     Route::get('rewards/print/{employee}', [RewardController::class, 'print'])->whereNumber('employee')->name('rewards.print');
     Route::get('rewards/{employee}', [RewardController::class, 'show'])->whereNumber('employee')->name('rewards.show');
+
+    Route::get('/ai-test', [AIController::class, 'test'])->name('ai.test');
+    Route::post('/ai/chat', [AIController::class, 'chat'])->name('ai.chat');
 });
 
 Route::post('attendance/self', [AttendanceController::class, 'store'])
