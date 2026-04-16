@@ -9,7 +9,9 @@ use App\Services\AccessControl;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -27,6 +29,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $this->ensureTurnstileIsValid($request);
         $request->authenticate();
         $request->session()->regenerate();
         $request->session()->forget('tab_auth');
@@ -56,6 +59,66 @@ class AuthenticatedSessionController extends Controller
         }
 
         return redirect()->intended(route('dashboard'));
+    }
+
+    /**
+     * Validate the Cloudflare Turnstile token before password auth.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    private function ensureTurnstileIsValid(Request $request): void
+    {
+        $siteKey = config('services.turnstile.site_key');
+        $secretKey = config('services.turnstile.secret_key');
+
+        if (!filled($siteKey) || !filled($secretKey)) {
+            return;
+        }
+
+        $token = (string) $request->input('cf-turnstile-response', '');
+
+        if ($token === '') {
+            throw ValidationException::withMessages([
+                'cf-turnstile-response' => 'Please complete the human verification challenge.',
+            ]);
+        }
+
+        try {
+            $response = Http::asForm()
+                ->acceptJson()
+                ->timeout(10)
+                ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                    'secret' => $secretKey,
+                    'response' => $token,
+                    'remoteip' => $request->ip(),
+                ]);
+        } catch (\Throwable $exception) {
+            AuditLogger::logSystem('turnstile_verification_failed', [
+                'reason' => 'request_exception',
+                'message' => $exception->getMessage(),
+            ]);
+
+            throw ValidationException::withMessages([
+                'cf-turnstile-response' => 'Human verification is temporarily unavailable. Please try again.',
+            ]);
+        }
+
+        $payload = $response->json();
+        $verified = $response->successful() && is_array($payload) && ($payload['success'] ?? false) === true;
+
+        if ($verified) {
+            return;
+        }
+
+        AuditLogger::logSystem('turnstile_verification_failed', [
+            'reason' => 'verification_rejected',
+            'error_codes' => is_array($payload['error-codes'] ?? null) ? $payload['error-codes'] : [],
+            'hostname' => $payload['hostname'] ?? null,
+        ]);
+
+        throw ValidationException::withMessages([
+            'cf-turnstile-response' => 'Human verification failed. Please refresh the page and try again.',
+        ]);
     }
 
     /**
