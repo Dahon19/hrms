@@ -10,9 +10,6 @@ class WorkforceDemoSeeder extends Seeder
     {
         $this->call([
             TestEmployeeSeeder::class,
-            AttendanceSeeder::class,
-            LeaveSeeder::class,
-            TravelOrderSeeder::class,
         ]);
     }
 }
