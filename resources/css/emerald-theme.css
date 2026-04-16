@@ -775,6 +775,36 @@ body.app-shell .modal-backdrop.show {
     color: #f8fffb !important;
 }
 
+.app-shell .hrms-modal-head__main {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    min-width: 0;
+}
+
+.app-shell .hrms-modal-head__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border: 1px solid rgba(134, 239, 172, 0.12);
+    border-radius: 0.95rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    color: rgba(167, 243, 208, 0.95);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.app-shell .hrms-modal-head__icon i {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.app-shell .hrms-modal-head__copy {
+    min-width: 0;
+}
+
 .app-shell .modal-body,
 .app-shell .modal-body.bg-light,
 .app-shell .hrms-modal-surface .modal-body {
@@ -836,9 +866,15 @@ body.app-shell .modal-backdrop.show {
 .app-shell .modal-body .bg-white,
 .app-shell .modal-body .bg-light,
 .app-shell .modal-body .list-group-item,
-.app-shell .modal-body .border,
-.app-shell .modal-body [class*="stat"],
-.app-shell .modal-body [class*="panel"] {
+.app-shell .modal-body .border:not(.btn):not(button):not(a),
+.app-shell .modal-body .rounded-lg,
+.app-shell .modal-body .rounded-xl,
+.app-shell .modal-body .rounded-2xl,
+.app-shell .modal-body .profile-sidecard,
+.app-shell .modal-body .profile-maincard,
+.app-shell .modal-body .profile-avatar-panel,
+.app-shell .modal-body .profile-identity-card,
+.app-shell .modal-body .profile-stat {
     border-color: rgba(134, 239, 172, 0.08) !important;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)) !important;
     color: #e5efe8 !important;
@@ -903,6 +939,19 @@ body.app-shell .modal-backdrop.show {
 .app-shell .modal-footer .btn-outline-secondary:focus {
     background: #ffffff !important;
     color: #020617 !important;
+}
+
+.app-shell .modal-body .btn,
+.app-shell .modal-footer .btn,
+.app-shell .hrms-modal-head__close,
+.app-shell .modal .btn-close,
+.app-shell .modal .close,
+.app-shell .modal-body button,
+.app-shell .modal-footer button,
+.app-shell .modal-body a.btn {
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
 }
 
 .app-shell .profile-modal .modal-content {

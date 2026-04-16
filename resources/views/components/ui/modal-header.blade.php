@@ -1,6 +1,11 @@
 @props (['title', 'subtitle' => null, 'icon' => null, 'dismissible' => true, 'titleId' => null])
 <div {{ $attributes->merge(['class' => 'modal-header hrms-modal-head']) }}>
     <div class="hrms-modal-head__main">
+        @if (filled($icon))
+            <span class="hrms-modal-head__icon" aria-hidden="true">
+                <i class="{{ $icon }}"></i>
+            </span>
+        @endif
         <div class="hrms-modal-head__copy">
             <h5
                 class="modal-title font-weight-bold mb-0"
