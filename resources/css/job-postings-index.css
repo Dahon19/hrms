@@ -648,6 +648,34 @@
   margin-top: 0.35rem;
 }
 
+[data-page="job-postings.index"] .modal .job-form-section-title,
+[data-page="job-postings.index"] .modal .hrms-form-section__title,
+[data-page="job-postings.index"] .modal .job-posting-form label,
+[data-page="job-postings.index"] .modal .job-publishing-panel > h6 {
+  color: #f8fffb !important;
+}
+
+[data-page="job-postings.index"] .modal .job-posting-form .form-text,
+[data-page="job-postings.index"] .modal .job-posting-form .text-muted,
+[data-page="job-postings.index"] .modal .job-posting-form small {
+  color: rgba(226, 232, 240, 0.76) !important;
+}
+
+[data-page="job-postings.index"] .modal .job-posting-form .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+  color: #f8fffb !important;
+}
+
+[data-page="job-postings.index"] .modal .job-posting-form .select2-container--bootstrap4 .select2-selection__placeholder {
+  color: rgba(226, 232, 240, 0.58) !important;
+}
+
+[data-page="job-postings.index"] .modal .job-posting-form .form-control:disabled,
+[data-page="job-postings.index"] .modal .job-posting-form .form-control[disabled] {
+  background: rgba(15, 39, 26, 0.72) !important;
+  color: rgba(226, 232, 240, 0.7) !important;
+  border-color: rgba(134, 239, 172, 0.08) !important;
+}
+
 [data-page="job-postings.index"] .dataTables_wrapper .dataTables_filter,
 [data-page="job-postings.index"] .dataTables_wrapper .dataTables_length {
   display: none !important;
