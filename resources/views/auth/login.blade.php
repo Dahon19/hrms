@@ -57,6 +57,34 @@
         .animate-fade-slide {
             animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        .login-form-panel {
+            width: min(100%, 34rem);
+        }
+
+        .turnstile-shell {
+            border: 1px solid rgba(229, 231, 235, 0.95);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 250, 251, 0.98) 100%);
+            box-shadow: 0 16px 36px -28px rgba(15, 23, 42, 0.28);
+        }
+
+        .turnstile-shell .cf-turnstile {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .turnstile-shell iframe {
+            max-width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .turnstile-shell {
+                padding-left: 0.85rem;
+                padding-right: 0.85rem;
+            }
+        }
     </style>
 
     <div class="flex h-screen w-full overflow-hidden bg-neutral-50 font-sans text-neutral-900 selection:bg-green-500 selection:text-white" x-data="{ showPassword: false, isLoading: false }">
@@ -107,7 +135,7 @@
         </div>
 
         <div class="relative flex w-full flex-col items-center justify-center bg-white px-6 sm:px-12 lg:w-1/2">
-            <div class="animate-card-lift w-full max-w-sm xl:max-w-md" style="animation-delay: 0.2s; opacity: 0;">
+            <div class="login-form-panel animate-card-lift w-full" style="animation-delay: 0.2s; opacity: 0;">
                 <div class="mb-10 text-center lg:hidden">
                     <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 shadow-xl transition-transform duration-500 hover:scale-[1.04] hover:shadow-[0_24px_36px_-20px_rgba(22,163,74,0.5)]">
                         <img src="{{ asset('assets/img/Northeastern College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-10 w-10 object-contain brightness-0 invert" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
@@ -185,12 +213,16 @@
                         $turnstileSiteKey = config('services.turnstile.site_key');
                     @endphp
                     @if (filled($turnstileSiteKey))
-                        <div>
+                        <div class="space-y-2">
+                            <div class="turnstile-shell rounded-2xl px-4 py-3">
+                                <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">Security Check</p>
                             <div
                                 class="cf-turnstile"
                                 data-sitekey="{{ $turnstileSiteKey }}"
                                 data-theme="light"
+                                data-size="flexible"
                             ></div>
+                            </div>
                             @error('cf-turnstile-response')
                                 <p class="animate-fade-slide mt-1.5 text-sm font-medium text-red-500">{{ $message }}</p>
                             @enderror
