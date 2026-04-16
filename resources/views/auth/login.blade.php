@@ -192,7 +192,6 @@
                     @endphp
                     @if (filled($turnstileSiteKey))
                         <div class="space-y-2">
-                            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">Security Check</p>
                             <div
                                 class="cf-turnstile"
                                 data-sitekey="{{ $turnstileSiteKey }}"
