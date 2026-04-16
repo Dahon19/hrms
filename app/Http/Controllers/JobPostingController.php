@@ -23,6 +23,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -1022,6 +1023,15 @@ class JobPostingController extends Controller
                 ->with('warning', 'This posting has already reached the required number of hires.');
         }
 
+        try {
+            $this->ensureTurnstileIsValid($request, $jobPosting);
+        } catch (ValidationException $exception) {
+            return redirect()->to($redirectTarget)
+                ->with('error', 'Please complete the security check before submitting your application.')
+                ->withErrors($exception->errors())
+                ->withInput($request->except(['application_letter', 'resume', 'transcript']));
+        }
+
         $validator = Validator::make($request->all(), [
             'full_name' => ['required', 'string', 'max:255', 'regex:' . self::APPLICANT_NAME_REGEX],
             'email' => ['required', 'email', 'max:255'],
@@ -1123,6 +1133,66 @@ class JobPostingController extends Controller
 
         return redirect()->to($redirectTarget)
             ->with('success', 'Application submitted successfully.');
+    }
+
+    /**
+     * Validate the Cloudflare Turnstile token for public job applications.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    private function ensureTurnstileIsValid(Request $request, JobPosting $jobPosting): void
+    {
+        $siteKey = config('services.turnstile.site_key');
+        $secretKey = config('services.turnstile.secret_key');
+
+        if (!filled($siteKey) || !filled($secretKey)) {
+            return;
+        }
+
+        $token = (string) $request->input('cf-turnstile-response', '');
+
+        if ($token === '') {
+            throw ValidationException::withMessages([
+                'cf-turnstile-response' => 'Please complete the human verification challenge.',
+            ]);
+        }
+
+        try {
+            $response = Http::asForm()
+                ->acceptJson()
+                ->timeout(10)
+                ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                    'secret' => $secretKey,
+                    'response' => $token,
+                    'remoteip' => $request->ip(),
+                ]);
+        } catch (\Throwable $exception) {
+            AuditLogger::logSystem('job_application_turnstile_failed', [
+                'reason' => 'request_exception',
+                'message' => $exception->getMessage(),
+            ], null, 'JobPosting', $jobPosting->id);
+
+            throw ValidationException::withMessages([
+                'cf-turnstile-response' => 'Human verification is temporarily unavailable. Please try again.',
+            ]);
+        }
+
+        $payload = $response->json();
+        $verified = $response->successful() && is_array($payload) && ($payload['success'] ?? false) === true;
+
+        if ($verified) {
+            return;
+        }
+
+        AuditLogger::logSystem('job_application_turnstile_failed', [
+            'reason' => 'verification_rejected',
+            'error_codes' => is_array($payload['error-codes'] ?? null) ? $payload['error-codes'] : [],
+            'hostname' => $payload['hostname'] ?? null,
+        ], null, 'JobPosting', $jobPosting->id);
+
+        throw ValidationException::withMessages([
+            'cf-turnstile-response' => 'Human verification failed. Please refresh the page and try again.',
+        ]);
     }
 
 }

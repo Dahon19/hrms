@@ -677,6 +677,32 @@
                                                     </div>
                                                 </div>
                                             </section>
+                                            @php
+                                                $turnstileSiteKey = config('services.turnstile.site_key');
+                                            @endphp
+                                            @if (filled($turnstileSiteKey))
+                                                <section class="job-apply-section job-apply-security" aria-label="Security Check">
+                                                    <div class="job-apply-security__header">
+                                                        <div>
+                                                            <h6 class="section-title mb-1">Security Check</h6>
+                                                            <p class="job-apply-security__copy mb-0">
+                                                                Complete the quick verification before submitting your application.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="job-apply-security__widget">
+                                                        <div
+                                                            class="cf-turnstile"
+                                                            data-sitekey="{{ $turnstileSiteKey }}"
+                                                            data-theme="light"
+                                                            data-size="flexible"
+                                                        ></div>
+                                                    </div>
+                                                    @if ($isActiveApplicationModal && $errors->has('cf-turnstile-response'))
+                                                        <p class="job-apply-security__error mb-0">{{ $errors->first('cf-turnstile-response') }}</p>
+                                                    @endif
+                                                </section>
+                                            @endif
                                         </div>
                                         <div class="modal-footer">
                                             <button
@@ -774,5 +800,8 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    @if (filled(config('services.turnstile.site_key')))
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endif
 </body>
 </html>

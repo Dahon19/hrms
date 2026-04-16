@@ -193,15 +193,7 @@
                         @enderror
                     </div>
 
-                    <div class="mt-4 flex items-center justify-between">
-                        <label for="remember_me" class="group flex cursor-pointer items-center">
-                            <div class="relative mr-2 flex h-5 w-5 items-center justify-center">
-                                <input id="remember_me" type="checkbox" name="remember" class="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-neutral-300 transition-all duration-300 checked:border-green-600 checked:bg-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500/30" />
-                                <svg class="pointer-events-none absolute h-3 w-3 text-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                            </div>
-                            <span class="text-sm font-medium text-neutral-600 transition-colors group-hover:text-neutral-900">Remember me</span>
-                        </label>
-
+                    <div class="mt-4 flex items-center justify-end">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-sm font-semibold text-green-600 transition-colors hover:text-green-500">
                                 Forgot password?
