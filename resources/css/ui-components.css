@@ -69,6 +69,9 @@
     align-items: center;
     gap: 0.375rem;
     flex-wrap: nowrap;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
 }
 
 .app-shell .crud-actions > form,
@@ -76,6 +79,9 @@
     display: inline-flex;
     align-items: center;
     margin: 0;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
 }
 
 .app-shell .crud-btn-create,
@@ -95,6 +101,9 @@
     padding-inline: 0.5rem;
     color: #fff !important;
     box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
 }
 
 .app-shell .crud-btn-view,
