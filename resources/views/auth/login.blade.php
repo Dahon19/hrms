@@ -141,7 +141,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('login') }}" class="space-y-6" @submit="isLoading = true">
+                <form method="POST" action="{{ route('login') }}" class="space-y-6" data-skip-coreui-validation="1" @submit="isLoading = true">
                     @csrf
 
                     <div class="relative">
