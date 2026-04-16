@@ -78,7 +78,7 @@
     "src": "node_modules/@coreui/icons/fonts/CoreUI-Icons-Free.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BpWsgrAG.css",
+    "file": "assets/app-CNMVM6AP.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-UGU1Ydos.css",
+    "file": "assets/emerald-theme-DNAkncEz.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -195,7 +195,7 @@
     ]
   },
   "resources/css/job-portal.css": {
-    "file": "assets/job-portal-Cx6xI9qu.css",
+    "file": "assets/job-portal-DrEgW_QY.css",
     "src": "resources/css/job-portal.css",
     "isEntry": true,
     "name": "job-portal",

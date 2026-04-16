@@ -742,8 +742,167 @@ body.app-shell,
 .app-shell .modal-header:not(.border-0),
 .app-shell .hrms-modal-footer,
 .app-shell .modal-footer {
-    background: rgba(247, 251, 248, 0.78) !important;
-    border-color: rgba(15, 23, 42, 0.08) !important;
+    background: transparent !important;
+    border-color: rgba(134, 239, 172, 0.08) !important;
+}
+
+body.app-shell .modal-backdrop.show {
+    opacity: 0.78 !important;
+    background: rgba(3, 17, 11, 0.9) !important;
+    backdrop-filter: blur(6px);
+}
+
+.app-shell .modal-content,
+.app-shell .hrms-modal-surface,
+.app-shell .modal-dialog-scrollable .modal-content {
+    overflow: hidden;
+    border: 1px solid rgba(134, 239, 172, 0.08) !important;
+    border-radius: 1.35rem !important;
+    background:
+        radial-gradient(circle at top left, rgba(74, 222, 128, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(14, 29, 20, 0.985), rgba(10, 23, 16, 0.995)) !important;
+    color: #e5efe8 !important;
+    box-shadow: 0 30px 72px rgba(0, 0, 0, 0.34) !important;
+}
+
+.app-shell .modal-header,
+.app-shell .modal-footer,
+.app-shell .hrms-modal-head,
+.app-shell .hrms-modal-footer {
+    padding: 1rem 1.15rem !important;
+    background: transparent !important;
+    border-color: rgba(134, 239, 172, 0.08) !important;
+    color: #f8fffb !important;
+}
+
+.app-shell .modal-body,
+.app-shell .modal-body.bg-light,
+.app-shell .hrms-modal-surface .modal-body {
+    background: transparent !important;
+    color: #e5efe8 !important;
+}
+
+.app-shell .modal-title,
+.app-shell .modal-header .modal-title,
+.app-shell .hrms-modal-surface .modal-title,
+.app-shell .modal-body label,
+.app-shell .modal-body .form-label,
+.app-shell .modal-body h1,
+.app-shell .modal-body h2,
+.app-shell .modal-body h3,
+.app-shell .modal-body h4,
+.app-shell .modal-body h5,
+.app-shell .modal-body h6 {
+    color: #f8fffb !important;
+}
+
+.app-shell .modal-subtitle,
+.app-shell .hrms-modal-head__subtitle,
+.app-shell .modal-body p,
+.app-shell .modal-body small,
+.app-shell .modal-body .text-muted,
+.app-shell .modal-body .form-text,
+.app-shell .modal-body .small {
+    color: rgba(226, 232, 240, 0.74) !important;
+}
+
+.app-shell .hrms-modal-head__close,
+.app-shell .modal .btn-close,
+.app-shell .modal .close {
+    width: 2.15rem;
+    height: 2.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.96) !important;
+    color: #475569 !important;
+    box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+    opacity: 1 !important;
+}
+
+.app-shell .hrms-modal-head__close:hover,
+.app-shell .hrms-modal-head__close:focus,
+.app-shell .modal .btn-close:hover,
+.app-shell .modal .btn-close:focus,
+.app-shell .modal .close:hover,
+.app-shell .modal .close:focus {
+    background: #ffffff !important;
+    color: #0f172a !important;
+}
+
+.app-shell .modal-body .card,
+.app-shell .modal-body .bg-white,
+.app-shell .modal-body .bg-light,
+.app-shell .modal-body .list-group-item,
+.app-shell .modal-body .border,
+.app-shell .modal-body [class*="stat"],
+.app-shell .modal-body [class*="panel"] {
+    border-color: rgba(134, 239, 172, 0.08) !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)) !important;
+    color: #e5efe8 !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.app-shell .modal-body .form-control,
+.app-shell .modal-body .form-select,
+.app-shell .modal-body .custom-select,
+.app-shell .modal-body .input-group-text,
+.app-shell .hrms-modal-surface .form-control,
+.app-shell .hrms-modal-surface .form-select,
+.app-shell .hrms-modal-surface .custom-select,
+.app-shell .hrms-modal-surface .input-group-text,
+.app-shell .hrms-modal-surface .filepond--panel-root {
+    background: rgba(7, 23, 15, 0.82) !important;
+    border-color: rgba(134, 239, 172, 0.1) !important;
+    color: #f8fffb !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.16) !important;
+}
+
+.app-shell .modal-body .input-group-text,
+.app-shell .hrms-modal-surface .input-group-text {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.app-shell .modal-body .input-group-text i,
+.app-shell .hrms-modal-surface .input-group-text i {
+    color: rgba(167, 243, 208, 0.9) !important;
+}
+
+.app-shell .modal-body .form-control::placeholder,
+.app-shell .modal-body .form-select::placeholder,
+.app-shell .hrms-modal-surface .form-control::placeholder {
+    color: rgba(226, 232, 240, 0.42) !important;
+}
+
+.app-shell .modal-body .form-control:focus,
+.app-shell .modal-body .form-select:focus,
+.app-shell .modal-body .custom-select:focus,
+.app-shell .hrms-modal-surface .form-control:focus,
+.app-shell .hrms-modal-surface .form-select:focus,
+.app-shell .hrms-modal-surface .custom-select:focus {
+    border-color: rgba(74, 222, 128, 0.38) !important;
+    box-shadow: 0 0 0 0.2rem rgba(22, 163, 74, 0.12) !important;
+}
+
+.app-shell .modal-footer .btn-light,
+.app-shell .modal-footer .btn-secondary,
+.app-shell .modal-footer .btn-outline-secondary {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    color: #0f172a !important;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+.app-shell .modal-footer .btn-light:hover,
+.app-shell .modal-footer .btn-secondary:hover,
+.app-shell .modal-footer .btn-outline-secondary:hover,
+.app-shell .modal-footer .btn-light:focus,
+.app-shell .modal-footer .btn-secondary:focus,
+.app-shell .modal-footer .btn-outline-secondary:focus {
+    background: #ffffff !important;
+    color: #020617 !important;
 }
 
 .app-shell .profile-modal .modal-content {
