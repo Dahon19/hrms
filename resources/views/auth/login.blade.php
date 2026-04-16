@@ -147,7 +147,7 @@
                     <div class="relative">
                         <label for="login" class="mb-1.5 block text-sm font-medium text-neutral-700">Email / Employee ID</label>
                         <div class="group relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-all duration-300 pointer-events-none group-focus-within:scale-110 group-focus-within:text-green-500">
+                            <div class="absolute inset-y-0 left-0 z-10 flex items-center pl-3.5 text-neutral-400 transition-all duration-300 pointer-events-none group-focus-within:scale-110 group-focus-within:text-green-500">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" /></svg>
                             </div>
                             <input id="login" type="text" name="login" value="{{ old('login') }}" required autofocus
@@ -162,7 +162,7 @@
                     <div class="relative">
                         <label for="password" class="mb-1.5 block text-sm font-medium text-neutral-700">Password</label>
                         <div class="group relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-neutral-400 transition-all duration-300 pointer-events-none group-focus-within:scale-110 group-focus-within:text-green-500">
+                            <div class="absolute inset-y-0 left-0 z-10 flex items-center pl-3.5 text-neutral-400 transition-all duration-300 pointer-events-none group-focus-within:scale-110 group-focus-within:text-green-500">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
                             <input id="password" :type="showPassword ? 'text' : 'password'" name="password" required
