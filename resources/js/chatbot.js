@@ -7,7 +7,7 @@ const autoResize = (input) => {
 
 const sanitizeMessage = (value) => value.replace(/\s+/g, ' ').trim();
 const defaultAssistantPrompt =
-    'Ask about HRMS features, workflows, requests, approvals, or navigation.';
+    'Choose a preset or ask a short question about HRMS features, requests, attendance, or navigation.';
 
 const appendMessage = (container, role, text) => {
     const article = document.createElement('article');
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const endpoint = root.dataset.chatEndpoint;
     const userId = root.dataset.chatbotUser;
-    const toggle = root.querySelector('[data-chatbot-toggle]');
+    const toggles = Array.from(document.querySelectorAll('[data-chatbot-toggle]'));
     const panel = root.querySelector('[data-chatbot-panel]');
     const clear = root.querySelector('[data-chatbot-clear]');
     const close = root.querySelector('[data-chatbot-close]');
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const syncOpenState = () => {
         root.classList.toggle('is-open', open);
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggles.forEach(t => t.setAttribute('aria-expanded', open ? 'true' : 'false'));
         panel.setAttribute('aria-hidden', open ? 'false' : 'true');
 
         if (open) {
@@ -166,9 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
     autoResize(input);
     syncOpenState();
 
-    toggle.addEventListener('click', () => {
-        open = !open;
-        syncOpenState();
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            open = !open;
+            syncOpenState();
+        });
     });
 
     close.addEventListener('click', () => {

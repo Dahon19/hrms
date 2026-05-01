@@ -315,7 +315,8 @@ class AttendanceController extends Controller
         );
 
         $isHR = $user->isReadOnlyStaff();
-        return view('attendance.index', compact('attendance', 'positionName', 'isAdmin', 'isHR', 'isHrHead', 'employee'));
+        $attendanceSetting = \App\Models\AttendanceSetting::current();
+        return view('attendance.index', compact('attendance', 'positionName', 'isAdmin', 'isHR', 'isHrHead', 'employee', 'attendanceSetting'));
     }
 
     public function weekly(Request $request)
@@ -512,6 +513,7 @@ class AttendanceController extends Controller
             'departmentOptions' => $departmentOptions,
             'selectedEmployeeId' => $selectedEmployeeId,
             'employeeOptions' => $employeeOptions,
+            'attendanceSetting' => \App\Models\AttendanceSetting::current(),
         ];
     }
 
@@ -767,9 +769,20 @@ class AttendanceController extends Controller
 
     private function resolveSlotForTap(Attendance $attendance, string $date, Carbon $now): ?string
     {
-        $shiftEnd = Carbon::parse($date . ' ' . AttendancePolicyService::SHIFT_END);
-        $breakStart = Carbon::parse($date . ' ' . AttendancePolicyService::BREAK_START);
-        $afternoonInStart = Carbon::parse($date . ' 12:31:00');
+        $setting = \App\Models\AttendanceSetting::current();
+        if (!$setting->require_four_taps) {
+            if (!$attendance->morning_time_in) {
+                return 'morning_time_in';
+            }
+            if (!$attendance->afternoon_time_out) {
+                return 'afternoon_time_out';
+            }
+            return null;
+        }
+
+        $shiftEnd = Carbon::parse($date . ' ' . $setting->shift_end);
+        $breakStart = Carbon::parse($date . ' ' . $setting->break_start);
+        $afternoonInStart = Carbon::parse($date . ' ' . $setting->break_end);
 
         if ($now->lessThan($breakStart)) {
             if (!$attendance->morning_time_in) {

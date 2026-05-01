@@ -273,6 +273,17 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- Team conflict warning --}}
+                            <div
+                                id="leaveConflictBanner"
+                                class="alert alert-warning d-none mb-0 mt-2 py-2 px-3 small"
+                                role="alert"
+                            >
+                                <i class="cil-warning mr-1"></i>
+                                <strong>Heads-up:</strong>
+                                <span id="leaveConflictText"></span>
+                                <br><small class="text-muted">You may still submit — this is for planning awareness only.</small>
+                            </div>
                             <div class="form-group">
                                 <label for="modal_reason">Reason</label>
                                 <textarea
@@ -573,3 +584,53 @@
                 </div>
     </x-ui.modal>
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+    'use strict';
+
+    const conflictUrl = @json(route('leaves.team-conflicts'));
+    const banner      = document.getElementById('leaveConflictBanner');
+    const bannerText  = document.getElementById('leaveConflictText');
+    const startInput  = document.getElementById('modal_start_date');
+    const endInput    = document.getElementById('modal_end_date');
+
+    if (!banner || !startInput || !endInput) return;
+
+    let debounce = null;
+
+    function checkConflicts() {
+        const start = startInput.value;
+        const end   = endInput.value || start;
+        if (!start) {
+            banner.classList.add('d-none');
+            return;
+        }
+        clearTimeout(debounce);
+        debounce = setTimeout(function () {
+            fetch(conflictUrl + '?start=' + encodeURIComponent(start) + '&end=' + encodeURIComponent(end), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                const list = (data.conflicts || []);
+                if (list.length === 0) {
+                    banner.classList.add('d-none');
+                    return;
+                }
+                const names = list.map(function (c) {
+                    return '<strong>' + c.name + '</strong> (' + c.start + ' – ' + c.end + ')';
+                }).join(', ');
+                bannerText.innerHTML = ' ' + list.length + ' teammate(s) already on leave: ' + names + '.';
+                banner.classList.remove('d-none');
+            })
+            .catch(function () { banner.classList.add('d-none'); });
+        }, 400);
+    }
+
+    startInput.addEventListener('change', checkConflicts);
+    endInput.addEventListener('change', checkConflicts);
+}());
+</script>
+@endpush

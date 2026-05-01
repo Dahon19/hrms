@@ -212,7 +212,7 @@
             ></i>
         @endif
         @if ($hasLabel)
-            <span class="hrms-btn__label">{{ $resolvedLabel }}</span>
+            <span class="hrms-btn__label">{!! $resolvedLabel !!}</span>
         @endif
     </a>
 @else
@@ -230,7 +230,7 @@
             ></i>
         @endif
         @if ($hasLabel)
-            <span class="hrms-btn__label">{{ $resolvedLabel }}</span>
+            <span class="hrms-btn__label">{!! $resolvedLabel !!}</span>
         @endif
     </button>
 @endif

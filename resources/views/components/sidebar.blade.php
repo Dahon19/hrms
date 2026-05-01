@@ -10,7 +10,6 @@
     $brandLogo = asset('assets/img/Northeastern College.webp');
     $brandLogoFallback = asset('assets/dist/img/AdminLTELogo.png');
     $isAttendanceActive = request()->routeIs('attendance.*');
-    $isAttendanceKpiActive = request()->routeIs('attendance.kpi.*');
     $isTravelOrderActive = request()->routeIs('travel-orders.*');
     $isLeaveActive = request()->routeIs('leaves.*') || request()->routeIs('leave-balances.*') || request()->routeIs('leave-types.*');
     $isDocumentsActive = request()->routeIs('documents.*') || request()->routeIs('employee-documents.*');
@@ -19,9 +18,6 @@
     $isOrganizationActive = request()->routeIs('departments.*') || request()->routeIs('positions.*');
     $isOffboardingActive = request()->routeIs('offboarding.*');
     $isWorkforceActive = request()->routeIs('employees.*') || $isPdsActive || $isOrganizationActive || $isOffboardingActive;
-    $isSpmsTreeActive = request()->routeIs('spms.cycles.*') || request()->routeIs('spms.cycle.*') || request()->routeIs('spms.evaluations.*') || request()->routeIs('spms.evaluation.*') || request()->routeIs('spms.my-performance');
-    $isPerformanceActive = $isSpmsTreeActive || request()->routeIs('idp.*');
-    $isRewardsActive = request()->routeIs('eligibility.*') || request()->routeIs('rewards.*') || request()->routeIs('rewards.eligibility.*');
     $isReportsActive = request()->routeIs('reports.*');
     $isLogsActive = request()->routeIs('audit-logs.*');
     $canViewLeaveBalances = $user->isAdmin() || $isHrHead || $isPresidentApprover;
@@ -40,7 +36,6 @@
     $isHrRole = (bool) (($isHrStaff ?? false) || ($isHrHead ?? false));
     $canAccessAttendanceRecords = \Illuminate\Support\Facades\Gate::forUser($user)->allows('view-attendance-records');
     $canAccessAttendanceCalendar = \Illuminate\Support\Facades\Gate::forUser($user)->allows('view-attendance-calendar');
-    $canAccessAttendanceKpi = \Illuminate\Support\Facades\Gate::forUser($user)->allows('view-attendance-kpi');
 @endphp
     <div class="sidebar-header mt-2">
         <a href="{{ $brandRoute }}" class="sidebar-brand mb-2">
@@ -220,11 +215,11 @@
                 @endif
                 <li class="nav-header">Operations</li>
                 <li
-                    class="nav-group {{ $isAttendanceActive || $isAttendanceKpiActive ? 'show' : '' }}"
+                    class="nav-group {{ $isAttendanceActive ? 'show' : '' }}"
                 >
                     <a
                         href="#"
-                        class="nav-link nav-group-toggle {{ $isAttendanceActive || $isAttendanceKpiActive ? 'active' : '' }}"
+                        class="nav-link nav-group-toggle {{ $isAttendanceActive ? 'active' : '' }}"
                     >
                         <i class="nav-icon cil-clock"></i>
                         <span class="nav-label">Attendance</span>
@@ -262,17 +257,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if ($canAccessAttendanceKpi)
-                            <li class="nav-item">
-                                <a
-                                    href="{{ route('attendance.kpi.index') }}"
-                                    class="nav-link {{ request()->routeIs('attendance.kpi.*') ? 'active' : '' }}"
-                                >
-                                    <i class="nav-icon cil-chart-line"></i>
-                                    <span class="nav-label">KPI</span>
-                                </a>
-                            </li>
-                        @endif
+
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -360,84 +345,6 @@
                                 </li>
                             @endif
                         </ul>
-                    </li>
-                @endif
-                <li class="nav-header">Performance</li>
-                <li class="nav-group {{ $isSpmsTreeActive ? 'show' : '' }}">
-                    <a
-                        href="#"
-                        class="nav-link nav-group-toggle {{ $isSpmsTreeActive ? 'active' : '' }}"
-                    >
-                        <i class="nav-icon cil-calculator"></i>
-                        <span class="nav-label">SPMS</span>
-                        <span class="nav-group-chevron" aria-hidden="true"></span>
-                    </a>
-                    <ul class="nav-group-items">
-                        <li class="nav-item">
-                            <a
-                                href="{{ route('spms.cycles.index') }}"
-                                class="nav-link {{ request()->routeIs('spms.cycles.*') || request()->routeIs('spms.cycle.*') ? 'active' : '' }}"
-                            >
-                                <i class="nav-icon cil-loop-circular"></i>
-                                <span class="nav-label">Cycles</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                href="{{ route('spms.evaluations.index') }}"
-                                class="nav-link {{ request()->routeIs('spms.evaluations.*') || request()->routeIs('spms.evaluation.*') ? 'active' : '' }}"
-                            >
-                                <i class="nav-icon cil-list-rich"></i>
-                                <span class="nav-label">Evaluations</span>
-                            </a>
-                        </li>
-                        @if ($user->employee)
-                            <li class="nav-item">
-                                <a
-                                    href="{{ route('spms.my-performance') }}"
-                                    class="nav-link {{ request()->routeIs('spms.my-performance') ? 'active' : '' }}"
-                                >
-                                    <i class="nav-icon cil-user"></i>
-                                    <span class="nav-label">Performance</span>
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a
-                        href="{{ route('idp.index') }}"
-                        class="nav-link {{ request()->routeIs('idp.*') ? 'active' : '' }}"
-                    >
-                        <i class="nav-icon cil-layers"></i>
-                        <span class="nav-label"
-                            >Individual Development Plan</span
-                        >
-                    </a>
-                </li>
-                @if ($user->isAdmin() || $isHrHead || $isPresidentApprover)
-                    <li class="nav-header">Rewards &amp; Recognition</li>
-                @endif
-                @if ($user->isAdmin() || $isHrHead)
-                    <li class="nav-item">
-                        <a
-                            href="{{ route('rewards.eligibility.index') }}"
-                            class="nav-link {{ request()->routeIs('eligibility.*') || request()->routeIs('rewards.eligibility.*') ? 'active' : '' }}"
-                        >
-                            <i class="nav-icon cil-badge"></i>
-                            <span class="nav-label">Eligibility Dashboard</span>
-                        </a>
-                    </li>
-                @endif
-                @if ($user->isAdmin() || $isHrHead || $isPresidentApprover)
-                    <li class="nav-item">
-                        <a
-                            href="{{ route('rewards.index') }}"
-                            class="nav-link {{ request()->routeIs('rewards.index') || request()->routeIs('rewards.show') || request()->routeIs('rewards.print') ? 'active' : '' }}"
-                        >
-                            <i class="nav-icon cil-star"></i>
-                            <span class="nav-label">Rewards History</span>
-                        </a>
                     </li>
                 @endif
                 @if ($user->isAdmin() || $isHrHead || $isPresidentApprover)
@@ -549,27 +456,7 @@
                         </li>
                     @endif
                 @endif
-                <li class="nav-header">Performance</li>
-                <li class="nav-item">
-                    <a
-                        href="{{ route('spms.my-performance') }}"
-                        class="nav-link {{ request()->routeIs('spms.my-performance') || request()->routeIs('spms.evaluation.*') ? 'active' : '' }}"
-                    >
-                        <i class="nav-icon cil-user"></i>
-                        <span class="nav-label">Performance</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        href="{{ route('idp.index') }}"
-                        class="nav-link {{ request()->routeIs('idp.*') ? 'active' : '' }}"
-                    >
-                        <i class="nav-icon cil-layers"></i>
-                        <span class="nav-label"
-                            >Individual Development Plan</span
-                        >
-                    </a>
-                </li>
+
             @endif
         </ul>
     </div>

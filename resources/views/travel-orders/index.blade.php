@@ -37,8 +37,10 @@
                     <x-ui.button
                         variant="outline-primary"
                         size="sm"
-                        icon="cil-list"
-                        :href="route('travel-orders.transport-options.index')"
+                        data-toggle="modal"
+                        data-target="#manageTransportModal"
+                        data-coreui-toggle="modal"
+                        data-coreui-target="#manageTransportModal"
                     >
                         Manage Transport
                     </x-ui.button>
@@ -514,12 +516,182 @@
                     </div>
         </x-ui.modal>
     @endif
-    @if (($canCreate && $openCreateModal) || ($canCreate && $errors->any()))
+    @if (auth()->user()->isAdmin())
+        <x-ui.modal
+            id="manageTransportModal"
+            size="lg"
+            content-class="travel-order-modal"
+        >
+            <x-ui.modal-header
+                title="Manage Transport Options"
+                subtitle="Create and maintain the transportation list used in travel order filing."
+            />
+            <div class="modal-body p-0">
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0 hrms-table">
+                        <thead class="sticky-top bg-white shadow-sm">
+                            <tr>
+                                <th>Transportation</th>
+                                <th style="width: 110px;">Status</th>
+                                <th class="text-center" style="width: 180px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($transportations as $transportation)
+                                @php
+                                    $updateFormId = 'transport_update_' . $transportation->id;
+                                @endphp
+                                <tr>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value="{{ $transportation->name }}"
+                                            class="form-control form-control-sm"
+                                            form="{{ $updateFormId }}"
+                                            required
+                                        />
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="is_active" value="0" form="{{ $updateFormId }}" />
+                                        <div class="form-check m-0">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                name="is_active"
+                                                value="1"
+                                                id="transport_option_active_{{ $transportation->id }}"
+                                                form="{{ $updateFormId }}"
+                                                @checked($transportation->is_active)
+                                            />
+                                            <label class="form-check-label small" for="transport_option_active_{{ $transportation->id }}">
+                                                Active
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="crud-actions justify-content-center">
+                                            <form
+                                                method="POST"
+                                                id="{{ $updateFormId }}"
+                                                action="{{ route('travel-orders.transport-options.update', $transportation) }}"
+                                                class="d-inline"
+                                            >
+                                                @csrf
+                                                @method('PATCH')
+                                            </form>
+                                            <x-ui.button
+                                                type="submit"
+                                                variant="primary"
+                                                size="sm"
+                                                icon="cil-save"
+                                                form="{{ $updateFormId }}"
+                                            />
+                                            <form
+                                                method="POST"
+                                                action="{{ route('travel-orders.transport-options.destroy', $transportation) }}"
+                                                class="d-inline"
+                                                data-confirm-message="Delete {{ $transportation->name }}?"
+                                                data-confirm-title="Delete Transport Option"
+                                                data-confirm-label="Delete"
+                                                data-confirm-variant="danger"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <x-ui.button
+                                                    type="submit"
+                                                    variant="delete"
+                                                    size="sm"
+                                                    aria-label="Delete Transport Option"
+                                                    title="Delete Transport Option"
+                                                />
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-muted">
+                                        No transport options found.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tfoot class="bg-light">
+                            <form method="POST" action="{{ route('travel-orders.transport-options.store') }}" id="transport_store_form">
+                                @csrf
+                                <tr>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value="{{ old('name') }}"
+                                            class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                            placeholder="New transportation name"
+                                            form="transport_store_form"
+                                            required
+                                        />
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="is_active" value="0" form="transport_store_form" />
+                                        <div class="form-check m-0">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                name="is_active"
+                                                value="1"
+                                                id="transport_option_active_new"
+                                                form="transport_store_form"
+                                                @checked(old('is_active', true))
+                                            />
+                                            <label class="form-check-label small" for="transport_option_active_new">
+                                                Active
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <x-ui.button
+                                            type="submit"
+                                            variant="primary"
+                                            size="sm"
+                                            icon="cil-plus"
+                                            form="transport_store_form"
+                                            aria-label="Add Transport Option"
+                                            title="Add Transport Option"
+                                        >
+                                            Add
+                                        </x-ui.button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <x-ui.modal-footer>
+                <x-ui.button type="button" variant="light" data-coreui-dismiss="modal">
+                    Close
+                </x-ui.button>
+            </x-ui.modal-footer>
+        </x-ui.modal>
+    @endif
+    @if (($canCreate && $openCreateModal) || ($canCreate && $errors->any() && !session('open_transport_modal')))
         @push ('scripts')
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     if (window.jQuery) {
                         window.jQuery("#travelOrderCreateModal").modal("show");
+                    }
+                });
+            </script>
+        @endpush
+    @endif
+    @if (session('open_transport_modal') || (auth()->user()->isAdmin() && $errors->any() && session('open_transport_modal')))
+        @push ('scripts')
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    if (window.jQuery) {
+                        window.jQuery("#manageTransportModal").modal("show");
                     }
                 });
             </script>

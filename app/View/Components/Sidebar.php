@@ -39,7 +39,6 @@ class Sidebar extends Component
             || request()->routeIs('employee-documents.*')
             || request()->routeIs('documents.*')
             || request()->routeIs('pds.*')
-            || request()->routeIs('spms.*')
             || request()->routeIs('eligibility.*')
             || request()->routeIs('rewards.*');
 

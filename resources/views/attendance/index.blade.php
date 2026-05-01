@@ -9,6 +9,7 @@
         data-attendance-url="{{ route('attendance.self') }}"
         data-feed-url="{{ route('attendance.live') }}"
         data-today="{{ now()->toDateString() }}"
+        data-four-taps="{{ $attendanceSetting->require_four_taps ? '1' : '0' }}"
     >
         <div class="row justify-content-center">
             <div class="col-12">
@@ -110,10 +111,11 @@
                                             attendance.
                                         </div>
                                     @endif
-                                    <div
+                                    @if ($isHrHead) 
+                                        <div
                                         class="mt-3 text-muted small kiosk-status-message"
-                                        id="kioskStatusMessage"
-                                    ></div>
+                                        id="kioskStatusMessage"></div> 
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -128,12 +130,15 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase">Employee</th>
-                                    <th class="text-uppercase">Morning In</th>
-                                    <th class="text-uppercase">Morning Out</th>
-                                    <th class="text-uppercase">Afternoon In</th>
-                                    <th class="text-uppercase">
-                                        Afternoon Out
-                                    </th>
+                                    @if ($attendanceSetting->require_four_taps)
+                                        <th class="text-uppercase">Morning In</th>
+                                        <th class="text-uppercase">Morning Out</th>
+                                        <th class="text-uppercase">Afternoon In</th>
+                                        <th class="text-uppercase">Afternoon Out</th>
+                                    @else
+                                        <th class="text-uppercase">Time In</th>
+                                        <th class="text-uppercase">Time Out</th>
+                                    @endif
                                     <th class="text-uppercase">Status</th>
                                     <th class="d-none">Last Tap</th>
                                 </tr>
@@ -156,30 +161,45 @@
                                                 {{ $att->employee->first_name ?? 'Unknown' }} {{ $att->employee->last_name ?? '' }}
                                             </strong>
                                         </td>
-                                        <td
-                                            class="align-middle text-success font-weight-bold"
-                                            data-label="Morning In"
-                                        >
-                                            {{ $morningInLabel }}
-                                        </td>
-                                        <td
-                                            class="align-middle text-danger font-weight-bold"
-                                            data-label="Morning Out"
-                                        >
-                                            {{ $morningOutLabel }}
-                                        </td>
-                                        <td
-                                            class="align-middle text-success font-weight-bold"
-                                            data-label="Afternoon In"
-                                        >
-                                            {{ $afternoonInLabel }}
-                                        </td>
-                                        <td
-                                            class="align-middle text-danger font-weight-bold"
-                                            data-label="Afternoon Out"
-                                        >
-                                            {{ $afternoonOutLabel }}
-                                        </td>
+                                        @if ($attendanceSetting->require_four_taps)
+                                            <td
+                                                class="align-middle text-success font-weight-bold"
+                                                data-label="Morning In"
+                                            >
+                                                {{ $morningInLabel }}
+                                            </td>
+                                            <td
+                                                class="align-middle text-danger font-weight-bold"
+                                                data-label="Morning Out"
+                                            >
+                                                {{ $morningOutLabel }}
+                                            </td>
+                                            <td
+                                                class="align-middle text-success font-weight-bold"
+                                                data-label="Afternoon In"
+                                            >
+                                                {{ $afternoonInLabel }}
+                                            </td>
+                                            <td
+                                                class="align-middle text-danger font-weight-bold"
+                                                data-label="Afternoon Out"
+                                            >
+                                                {{ $afternoonOutLabel }}
+                                            </td>
+                                        @else
+                                            <td
+                                                class="align-middle text-success font-weight-bold"
+                                                data-label="Time In"
+                                            >
+                                                {{ $morningInLabel }}
+                                            </td>
+                                            <td
+                                                class="align-middle text-danger font-weight-bold"
+                                                data-label="Time Out"
+                                            >
+                                                {{ $afternoonOutLabel }}
+                                            </td>
+                                        @endif
                                         <td
                                             class="align-middle"
                                             data-label="Status"
@@ -199,7 +219,7 @@
                                     <tr
                                         class="text-center text-muted attendance-empty-row"
                                     >
-                                        <td class="py-5" colspan="7">
+                                        <td class="py-5" colspan="{{ $attendanceSetting->require_four_taps ? 7 : 5 }}">
                                             No attendance logs found today.
                                         </td>
                                     </tr>

@@ -26,7 +26,8 @@
         $heroTypewriterPhrases = [
             'recruitment workflows',
             'attendance oversight',
-            'performance reviews',
+            'leave management',
+            'employee records',
         ];
     @endphp
     <x-toast />
@@ -114,7 +115,7 @@
                                 aria-live="polite"
                             >recruitment workflows</span>
                         </p>
-                        <p>A centralized system for recruitment, employee records, leave processes, attendance monitoring, SPMS evaluation, and Recognition &amp; Rewards operations.</p>
+                        <p>A centralized system for recruitment, employee records, leave management, attendance monitoring, travel orders, and offboarding operations.</p>
                         <div class="hero-cta">
                             <a href="#recruitment" class="btn btn-primary"
                                 >View Open Roles</a
@@ -181,14 +182,14 @@
                         <p>Attendance logs, KPI trends, and punctuality insights for workforce compliance.</p>
                     </article>
                     <article class="feature-card">
-                        <i class="cil-clipboard"></i>
-                        <h3>SPMS Evaluation</h3>
-                        <p>Weighted criteria scoring and cycle-driven performance evaluation for supervisors.</p>
+                        <i class="cil-location-pin"></i>
+                        <h3>Travel Orders</h3>
+                        <p>File, track, and approve travel orders with budget proposals and attachment support.</p>
                     </article>
                     <article class="feature-card">
-                        <i class="cil-star"></i>
-                        <h3>Recognition &amp; Rewards</h3>
-                        <p>Identify and reward tenure, attendance, and performance excellence consistently.</p>
+                        <i class="cil-address-book"></i>
+                        <h3>Personal Data Sheet</h3>
+                        <p>CSC-compliant PDS with encrypted fields, section-level verification, and printable export.</p>
                     </article>
                 </div>
             </section>
@@ -226,14 +227,14 @@
                         <p>Track attendance logs, punctuality KPIs, and operational attendance trends.</p>
                     </article>
                     <article class="module-card">
-                        <i class="cil-clipboard"></i>
-                        <h3>SPMS Evaluation</h3>
-                        <p>Manage weighted cycle evaluations from setup to finalized results and cycle closure.</p>
+                        <i class="cil-location-pin"></i>
+                        <h3>Travel Orders</h3>
+                        <p>Submit and approve travel requests with multi-tier workflow and printable documents.</p>
                     </article>
                     <article class="module-card">
-                        <i class="cil-star"></i>
-                        <h3>Recognition &amp; Rewards</h3>
-                        <p>Recognize tenure, attendance, and performance-based achievements.</p>
+                        <i class="cil-user-x"></i>
+                        <h3>Offboarding</h3>
+                        <p>Manage clearance workflows and employee separation records from start to closure.</p>
                     </article>
                 </div>
             </section>
@@ -265,13 +266,13 @@
                     </article>
                     <article class="flow-card">
                         <span>03</span>
-                        <h3>Performance Evaluation</h3>
-                        <p>Supervisors complete SPMS weighted scoring and finalize evaluations per employee.</p>
+                        <h3>Leave &amp; Travel Processing</h3>
+                        <p>Employees file leave and travel requests that move through department and HR approvals automatically.</p>
                     </article>
                     <article class="flow-card">
                         <span>04</span>
-                        <h3>Rewards and Recognition</h3>
-                        <p>Generate recognition insights and reward qualified employees using system data.</p>
+                        <h3>Reporting &amp; Offboarding</h3>
+                        <p>HR generates reports, monitors compliance, and manages separation clearance for departing employees.</p>
                     </article>
                 </div>
             </section>
@@ -746,7 +747,7 @@
                     <h2>Purpose-Built for Institutional HR Governance</h2>
                 </div>
                 <div class="about-layout">
-                    <p>Northeastern College HRMS consolidates workforce data, approvals, performance management, and recognition programs into a secure, auditable platform. It helps HR teams and leadership make timely, data-informed decisions while keeping employee processes structured and transparent.</p>
+                    <p>Northeastern College HRMS consolidates workforce data, approvals, leave and travel management, attendance monitoring, and offboarding processes into a secure, auditable platform. It helps HR teams and leadership make timely, data-informed decisions while keeping employee processes structured and transparent.</p>
                 </div>
             </section>
             <section

@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
             FoundationSeeder::class,
             WorkforceDemoSeeder::class,
             RecruitmentDemoSeeder::class,
-            PerformanceAndRewardsSeeder::class,
         ]);
     }
 }

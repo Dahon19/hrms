@@ -33,6 +33,7 @@ class TravelOrderController extends Controller
         $canReview = $user->isAdmin() || AccessControl::isHrHead($user) || AccessControl::isHeadOrDean($user) || AccessControl::isPresidentHead($user);
         $travelOrdersAvailable = TravelOrder::tablesAvailable();
         $transportOptions = TravelOrderTransportation::activeNames();
+        $transportations = $user->isAdmin() ? TravelOrderTransportation::ordered()->get() : collect();
         $openCreateModal = $request->boolean('open_create') || $request->session()->getOldInput('destination') !== null;
         $prefill = [];
 
@@ -60,6 +61,7 @@ class TravelOrderController extends Controller
                 'canReview',
                 'travelOrdersAvailable',
                 'transportOptions',
+                'transportations',
                 'openCreateModal',
                 'openApprovals',
                 'prefill',
@@ -115,6 +117,7 @@ class TravelOrderController extends Controller
             'canReview',
             'travelOrdersAvailable',
             'transportOptions',
+            'transportations',
             'openCreateModal',
             'openApprovals',
             'prefill',

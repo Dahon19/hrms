@@ -242,6 +242,7 @@ function initAttendanceNfcKiosk() {
     const attendanceUrl = kioskCard.dataset.attendanceUrl || '';
     const feedUrl = kioskCard.dataset.feedUrl || '';
     const todayDate = kioskCard.dataset.today || '';
+    const fourTaps = kioskCard.dataset.fourTaps !== '0'; // true = 4-tap, false = 2-tap
     const attendanceTableEl = document.getElementById('attendanceTable');
     const jq = getAttendanceJq();
     const attendanceTableJq = jq && attendanceTableEl ? jq(attendanceTableEl) : null;
@@ -255,15 +256,9 @@ function initAttendanceNfcKiosk() {
     const minPollDelayMs = 1000;
     const maxIdlePollDelayMs = 5000;
     const maxErrorPollDelayMs = 8000;
-    const ATTENDANCE_CELL_LABELS = [
-        'Employee',
-        'Morning In',
-        'Morning Out',
-        'Afternoon In',
-        'Afternoon Out',
-        'Status',
-        'Last Tap',
-    ];
+    const ATTENDANCE_CELL_LABELS = fourTaps
+        ? ['Employee', 'Morning In', 'Morning Out', 'Afternoon In', 'Afternoon Out', 'Status', 'Last Tap']
+        : ['Employee', 'Time In', 'Time Out', 'Status', 'Last Tap'];
 
     const fallbackSvg = (letter) => {
         const safe = (letter || 'U').substring(0, 1).toUpperCase();
@@ -411,26 +406,46 @@ function initAttendanceNfcKiosk() {
     };
 
     const buildAttendanceRowData = (att) => {
+        if (fourTaps) {
+            return [
+                `<strong>${buildEmployeeName(att)}</strong>`,
+                buildTimeCell(att?.morning_time_in, 'text-success'),
+                buildTimeCell(att?.morning_time_out, 'text-danger'),
+                buildTimeCell(att?.afternoon_time_in, 'text-success'),
+                buildTimeCell(att?.afternoon_time_out, 'text-danger'),
+                buildStatusBadge(att?.status),
+                getLatestTapSort(att),
+            ];
+        }
         return [
             `<strong>${buildEmployeeName(att)}</strong>`,
             buildTimeCell(att?.morning_time_in, 'text-success'),
-            buildTimeCell(att?.morning_time_out, 'text-danger'),
-            buildTimeCell(att?.afternoon_time_in, 'text-success'),
             buildTimeCell(att?.afternoon_time_out, 'text-danger'),
             buildStatusBadge(att?.status),
             getLatestTapSort(att),
         ];
     };
 
-    const buildAttendanceRowCells = (att) => `
-        <td class="text-left align-middle employee-col" data-label="Employee"><strong>${buildEmployeeName(att)}</strong></td>
-        <td class="align-middle text-center" data-label="Morning In">${buildTimeCell(att?.morning_time_in, 'text-success')}</td>
-        <td class="align-middle text-center" data-label="Morning Out">${buildTimeCell(att?.morning_time_out, 'text-danger')}</td>
-        <td class="align-middle text-center" data-label="Afternoon In">${buildTimeCell(att?.afternoon_time_in, 'text-success')}</td>
-        <td class="align-middle text-center" data-label="Afternoon Out">${buildTimeCell(att?.afternoon_time_out, 'text-danger')}</td>
-        <td class="align-middle text-center" data-label="Status">${buildStatusBadge(att?.status)}</td>
-        <td class="d-none">${getLatestTapSort(att)}</td>
-    `;
+    const buildAttendanceRowCells = (att) => {
+        if (fourTaps) {
+            return `
+                <td class="text-left align-middle employee-col" data-label="Employee"><strong>${buildEmployeeName(att)}</strong></td>
+                <td class="align-middle text-center" data-label="Morning In">${buildTimeCell(att?.morning_time_in, 'text-success')}</td>
+                <td class="align-middle text-center" data-label="Morning Out">${buildTimeCell(att?.morning_time_out, 'text-danger')}</td>
+                <td class="align-middle text-center" data-label="Afternoon In">${buildTimeCell(att?.afternoon_time_in, 'text-success')}</td>
+                <td class="align-middle text-center" data-label="Afternoon Out">${buildTimeCell(att?.afternoon_time_out, 'text-danger')}</td>
+                <td class="align-middle text-center" data-label="Status">${buildStatusBadge(att?.status)}</td>
+                <td class="d-none">${getLatestTapSort(att)}</td>
+            `;
+        }
+        return `
+            <td class="text-left align-middle employee-col" data-label="Employee"><strong>${buildEmployeeName(att)}</strong></td>
+            <td class="align-middle text-center" data-label="Time In">${buildTimeCell(att?.morning_time_in, 'text-success')}</td>
+            <td class="align-middle text-center" data-label="Time Out">${buildTimeCell(att?.afternoon_time_out, 'text-danger')}</td>
+            <td class="align-middle text-center" data-label="Status">${buildStatusBadge(att?.status)}</td>
+            <td class="d-none">${getLatestTapSort(att)}</td>
+        `;
+    };
 
     const applyClasses = (rowNode, att) => {
         if (!rowNode) return;
@@ -440,16 +455,28 @@ function initAttendanceNfcKiosk() {
         if (dateKey) rowNode.dataset.date = dateKey;
 
         const cells = rowNode.querySelectorAll('td');
-        if (cells.length < 7) return;
-        [
-            'text-left align-middle employee-col',
-            'align-middle text-center',
-            'align-middle text-center',
-            'align-middle text-center',
-            'align-middle text-center',
-            'align-middle text-center',
-            'd-none',
-        ].forEach((cls, i) => {
+        const expectedCells = fourTaps ? 7 : 5;
+        if (cells.length < expectedCells) return;
+
+        const classMaps = fourTaps
+            ? [
+                'text-left align-middle employee-col',
+                'align-middle text-center',
+                'align-middle text-center',
+                'align-middle text-center',
+                'align-middle text-center',
+                'align-middle text-center',
+                'd-none',
+            ]
+            : [
+                'text-left align-middle employee-col',
+                'align-middle text-center',
+                'align-middle text-center',
+                'align-middle text-center',
+                'd-none',
+            ];
+
+        classMaps.forEach((cls, i) => {
             cells[i].className = cls;
             if (i < ATTENDANCE_CELL_LABELS.length - 1) {
                 cells[i].setAttribute('data-label', ATTENDANCE_CELL_LABELS[i]);
@@ -467,7 +494,9 @@ function initAttendanceNfcKiosk() {
             normalizedRows.forEach((att) => {
                 dt.row.add(buildAttendanceRowData(att));
             });
-            dt.order([6, 'desc']).draw(false);
+            // Last Tap sort column: index 6 in 4-tap (7 cols), index 4 in 2-tap (5 cols)
+            const sortColIndex = fourTaps ? 6 : 4;
+            dt.order([sortColIndex, 'desc']).draw(false);
             Array.from(dt.rows({ order: 'applied' }).nodes()).forEach((node, index) => {
                 applyClasses(node, normalizedRows[index]);
             });
@@ -479,10 +508,11 @@ function initAttendanceNfcKiosk() {
         if (!tbody.length) return;
 
         if (!normalizedRows.length) {
+            const colSpan = fourTaps ? 7 : 5;
             if (tbody.find('tr').not('.attendance-empty-row').length) {
                 return;
             }
-            tbody.html('<tr class="text-center text-muted attendance-empty-row"><td class="py-5" colspan="7">No attendance logs found today.</td></tr>');
+            tbody.html(`<tr class="text-center text-muted attendance-empty-row"><td class="py-5" colspan="${colSpan}">No attendance logs found today.</td></tr>`);
             return;
         }
 

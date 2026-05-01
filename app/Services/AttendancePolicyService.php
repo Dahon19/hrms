@@ -7,15 +7,10 @@ use App\Models\AttendanceAnomaly;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\AttendanceSetting;
+
 class AttendancePolicyService
 {
-    public const SHIFT_START = '08:00:00';
-    public const SHIFT_END = '17:00:00';
-    public const BREAK_START = '12:00:00';
-    public const BREAK_END = '13:00:00';
-    public const GRACE_MINUTES = 15;
-    public const OVERTIME_THRESHOLD_MINUTES = 60;
-    public const WEEKEND_OVERTIME = true;
 
     public function applyPolicy(Attendance $attendance): void
     {
@@ -63,12 +58,14 @@ class AttendancePolicyService
         $firstIn = $this->firstIn($attendance, $dateString);
         $lastOut = $this->lastOut($attendance, $dateString);
         $workedMinutes = $this->workedMinutes($attendance, $dateString);
-        $shiftStart = Carbon::parse($dateString . ' ' . self::SHIFT_START);
-        $shiftEnd = Carbon::parse($dateString . ' ' . self::SHIFT_END);
-        $breakStart = Carbon::parse($dateString . ' ' . self::BREAK_START);
-        $breakEnd = Carbon::parse($dateString . ' ' . self::BREAK_END);
-        $graceMinutes = self::GRACE_MINUTES;
-        $overtimeThreshold = self::OVERTIME_THRESHOLD_MINUTES;
+        $setting = AttendanceSetting::current();
+        
+        $shiftStart = Carbon::parse($dateString . ' ' . $setting->shift_start);
+        $shiftEnd = Carbon::parse($dateString . ' ' . $setting->shift_end);
+        $breakStart = Carbon::parse($dateString . ' ' . $setting->break_start);
+        $breakEnd = Carbon::parse($dateString . ' ' . $setting->break_end);
+        $graceMinutes = $setting->grace_minutes;
+        $overtimeThreshold = $setting->overtime_threshold_minutes;
 
         if (!$firstIn) {
             $anomalies[] = [
@@ -118,7 +115,7 @@ class AttendancePolicyService
         }
 
         $isWeekend = in_array(Carbon::parse($attendance->date)->dayOfWeekIso, [6, 7], true);
-        if ($isWeekend && self::WEEKEND_OVERTIME) {
+        if ($isWeekend && $setting->weekend_overtime) {
             $anomalies[] = [
                 'type' => 'weekend_overtime',
                 'minutes' => $workedMinutes,
@@ -189,6 +186,29 @@ class AttendancePolicyService
 
     private function workedMinutes(Attendance $attendance, string $date): int
     {
+        $setting = AttendanceSetting::current();
+        
+        if (!$setting->require_four_taps) {
+            $totalMins = $this->sessionMinutes($attendance->morning_time_in, $attendance->afternoon_time_out, $date);
+            if ($totalMins === 0) {
+                return 0;
+            }
+
+            $breakStart = Carbon::parse($date . ' ' . $setting->break_start);
+            $breakEnd = Carbon::parse($date . ' ' . $setting->break_end);
+            $clockIn = Carbon::parse($date . ' ' . $attendance->morning_time_in);
+            $clockOut = Carbon::parse($date . ' ' . $attendance->afternoon_time_out);
+            
+            $overlapStart = $clockIn->greaterThan($breakStart) ? $clockIn : $breakStart;
+            $overlapEnd = $clockOut->lessThan($breakEnd) ? $clockOut : $breakEnd;
+            
+            $breakMinutes = $overlapEnd->greaterThan($overlapStart)
+                ? $overlapStart->diffInMinutes($overlapEnd)
+                : 0;
+
+            return max(0, $totalMins - $breakMinutes);
+        }
+
         return $this->sessionMinutes($attendance->morning_time_in, $attendance->morning_time_out, $date)
             + $this->sessionMinutes($attendance->afternoon_time_in, $attendance->afternoon_time_out, $date);
     }
@@ -227,5 +247,14 @@ class AttendancePolicyService
             : 0;
 
         return max(0, $shiftMinutes - $breakMinutes);
+    }
+    public function getShiftEnd(): string
+    {
+        return AttendanceSetting::current()->shift_end;
+    }
+
+    public function getBreakStart(): string
+    {
+        return AttendanceSetting::current()->break_start;
     }
 }

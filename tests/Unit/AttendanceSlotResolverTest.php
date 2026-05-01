@@ -2,10 +2,25 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Models\Attendance;
+use App\Models\AttendanceSetting;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-uses(TestCase::class);
+uses(TestCase::class, RefreshDatabase::class);
+
+beforeEach(function () {
+    AttendanceSetting::current()->update([
+        'shift_start' => '08:00:00',
+        'shift_end' => '17:00:00',
+        'break_start' => '12:00:00',
+        'break_end' => '12:31:00',
+        'grace_minutes' => 15,
+        'overtime_threshold_minutes' => 60,
+        'weekend_overtime' => true,
+        'require_four_taps' => true,
+    ]);
+});
 
 test('noon taps before 12 31 pm still resolve to morning time out', function () {
     $controller = app(AttendanceController::class);

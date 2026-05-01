@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LeaveApprovalActionRequest;
+use App\Jobs\RecomputeLeaveBalanceJob;
 use App\Models\LeaveRequest;
 use App\Models\LeaveType;
 use App\Models\LeaveBalance;
@@ -662,6 +663,13 @@ class LeaveRequestController extends Controller
         ]);
 
         $this->consumeLeaveBalance($leave->fresh());
+
+        // Recompute balance in background to correct any rounding drift
+        RecomputeLeaveBalanceJob::dispatch(
+            $leave->employee_id,
+            (int) $leave->start_date->format('Y')
+        )->delay(now()->addSeconds(5));
+
         $this->notifyEmployeeStatus($leave, 'Leave Request: Updated');
         $this->notifyPresidentHeads($leave, Auth::user(), route('leaves.approvals', [], false));
 
@@ -779,6 +787,42 @@ class LeaveRequestController extends Controller
         $this->notifyEmployeeStatus($leave, 'Leave Request: Updated');
 
         return back()->with('success', 'Request updated.');
+    }
+
+    /**
+     * Return teammates with overlapping approved leave for conflict warning.
+     * Used client-side when filing a leave request.
+     */
+    public function teamConflicts(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = Auth::user();
+        $employee = $user?->employee;
+        if (! $employee) {
+            return response()->json(['conflicts' => []]);
+        }
+
+        $start = $request->query('start');
+        $end   = $request->query('end', $start);
+
+        if (! $start) {
+            return response()->json(['conflicts' => []]);
+        }
+
+        $conflicts = LeaveRequest::query()
+            ->with('employee')
+            ->whereIn('status', ['Approved', 'HR Approved'])
+            ->whereHas('employee', fn ($q) => $q->where('department_id', $employee->department_id)
+                ->where('id', '!=', $employee->id))
+            ->where('start_date', '<=', $end)
+            ->where('end_date', '>=', $start)
+            ->get()
+            ->map(fn ($l) => [
+                'name'  => trim(($l->employee?->first_name ?? '') . ' ' . ($l->employee?->last_name ?? '')),
+                'start' => optional($l->start_date)->toDateString(),
+                'end'   => optional($l->end_date)->toDateString(),
+            ]);
+
+        return response()->json(['conflicts' => $conflicts]);
     }
 
     private function hasConflict(LeaveRequest $leave): bool

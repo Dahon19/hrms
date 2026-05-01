@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use App\Models\Attendance;
 use App\Models\AttendanceAnomaly;
-use App\Models\AttendanceKpi;
-use App\Models\AttendanceMonthlyScore;
 use App\Models\Department;
 use App\Models\DepartmentMetric;
 use App\Models\Document;
@@ -15,8 +13,6 @@ use App\Models\Employee;
 use App\Models\EmployeeDocument;
 use App\Models\EmployeeNfc;
 use App\Models\EmployeePosition;
-use App\Models\EligibilityCache;
-use App\Models\IndividualDevelopmentPlan;
 use App\Models\PdsChild;
 use App\Models\PdsCivilServiceEligibility;
 use App\Models\PdsEducation;
@@ -33,14 +29,7 @@ use App\Models\LeaveType;
 use App\Models\ClearanceItem;
 use App\Models\OffboardingRecord;
 use App\Models\Position;
-use App\Models\PerformanceReview;
-use App\Models\RewardRecord;
-use App\Models\RewardTitle;
 use App\Models\ReportRun;
-use App\Models\SpmsCriterion;
-use App\Models\SpmsCycle;
-use App\Models\SpmsEvaluation;
-use App\Models\SpmsEvaluationDetail;
 use App\Models\TravelOrder;
 use App\Models\TravelOrderAttachment;
 use App\Models\TravelOrderTransportation;
@@ -71,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Pagination\Paginator::useBootstrapFour();
 
         Gate::before(function ($user, string $ability) {
-            if ($user->isAdmin() && !in_array($ability, ['approveItem', 'requestCancellation', 'view-attendance-kpi', 'manage-attendance-kpi'], true)) {
+            if ($user->isAdmin() && !in_array($ability, ['approveItem', 'requestCancellation'], true)) {
                 return true;
             }
 
@@ -99,8 +88,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-attendance-records', $canViewAttendanceRecords);
         Gate::define('view-attendance-calendar', $canViewAttendanceCalendar);
         Gate::define('manage-attendance', fn ($user) => $user->isAdmin() || AccessControl::isHrHead($user));
-        Gate::define('view-attendance-kpi', fn (User $user) => AccessControl::isHrStaff($user));
-        Gate::define('manage-attendance-kpi', fn (User $user) => AccessControl::isHrStaff($user));
         Gate::policy(PdsProfile::class, PdsProfilePolicy::class);
         Gate::define('manage-pds', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user));
         Gate::define('view-pds', function (User $user, ?Employee $employee = null) {
@@ -116,15 +103,6 @@ class AppServiceProvider extends ServiceProvider
         });
         Gate::define('verify-pds', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user));
         Gate::define('override-pds-lock', fn (User $user) => $user->isAdmin());
-        Gate::define('view-rewards', fn (User $user) => (bool) $user->employee || $user->canViewData());
-        Gate::define('manage-rewards', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user));
-        Gate::define('view-eligibility-list', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user));
-        Gate::define('view-eligibility', fn (User $user) => (bool) $user->employee || $user->isAdmin() || AccessControl::isHrHead($user));
-        Gate::define('view-spms', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user) || AccessControl::isHeadOrDean($user) || (bool) $user->employee);
-        Gate::define('evaluate-spms', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user) || AccessControl::isHeadOrDean($user));
-        Gate::define('manage-spms', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user));
-        Gate::define('view-idp', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user) || (bool) $user->employee);
-        Gate::define('manage-idp', fn (User $user) => $user->isAdmin() || AccessControl::isHrHead($user));
         Gate::policy(OffboardingRecord::class, OffboardingRecordPolicy::class);
         Gate::policy(ClearanceItem::class, OffboardingRecordPolicy::class);
         Gate::policy(TravelOrder::class, TravelOrderPolicy::class);
@@ -146,8 +124,6 @@ class AppServiceProvider extends ServiceProvider
         Document::observe($observer);
         Attendance::observe($observer);
         AttendanceAnomaly::observe($observer);
-        AttendanceKpi::observe($observer);
-        AttendanceMonthlyScore::observe($observer);
         ReportRun::observe($observer);
         PdsProfile::observe($observer);
         PdsPersonalInfo::observe($observer);
@@ -159,20 +135,11 @@ class AppServiceProvider extends ServiceProvider
         PdsVoluntaryWork::observe($observer);
         PdsTraining::observe($observer);
         PdsOtherInfo::observe($observer);
-        PerformanceReview::observe($observer);
-        RewardRecord::observe($observer);
-        RewardTitle::observe($observer);
-        EligibilityCache::observe($observer);
-        IndividualDevelopmentPlan::observe($observer);
         OffboardingRecord::observe($observer);
         ClearanceItem::observe($observer);
         TravelOrder::observe($observer);
         TravelOrderAttachment::observe($observer);
         TravelOrderTransportation::observe($observer);
-        SpmsCycle::observe($observer);
-        SpmsCriterion::observe($observer);
-        SpmsEvaluation::observe($observer);
-        SpmsEvaluationDetail::observe($observer);
     }
 }
 

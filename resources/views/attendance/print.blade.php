@@ -230,8 +230,15 @@
         <thead>
             <tr>
                 <th style="width: 30%">Employee</th>
-                <th style="width: 22%" class="text-center">Morning</th>
-                <th style="width: 22%" class="text-center">Afternoon</th>
+                @if ($attendanceSetting->require_four_taps)
+                    <th style="width: 11%" class="text-center">M-In</th>
+                    <th style="width: 11%" class="text-center">M-Out</th>
+                    <th style="width: 11%" class="text-center">A-In</th>
+                    <th style="width: 11%" class="text-center">A-Out</th>
+                @else
+                    <th style="width: 22%" class="text-center">Time In</th>
+                    <th style="width: 22%" class="text-center">Time Out</th>
+                @endif
                 <th style="width: 12%" class="text-center">Status</th>
                 <th style="width: 14%" class="text-center">Date</th>
             </tr>
@@ -248,12 +255,15 @@
                             #{{ $emp->employee_id ?? 'N/A' }} &middot; {{ $emp->department?->department ?? 'No Department' }}
                         </div>
                     </td>
-                    <td class="text-center">
-                        {{ $morningIn }} - {{ $morningOut }}
-                    </td>
-                    <td class="text-center">
-                        {{ $afternoonIn }} - {{ $afternoonOut }}
-                    </td>
+                    @if ($attendanceSetting->require_four_taps)
+                        <td class="text-center">{{ $morningIn }}</td>
+                        <td class="text-center">{{ $morningOut }}</td>
+                        <td class="text-center">{{ $afternoonIn }}</td>
+                        <td class="text-center">{{ $afternoonOut }}</td>
+                    @else
+                        <td class="text-center">{{ $morningIn }}</td>
+                        <td class="text-center">{{ $afternoonOut }}</td>
+                    @endif
                     <td class="text-center">
                         <span
                             class="status-badge {{ $statusClass }}"

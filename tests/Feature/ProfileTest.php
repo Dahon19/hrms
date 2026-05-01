@@ -49,6 +49,22 @@ test('email verification status is unchanged when the email address is unchanged
         ->assertRedirect('/');
 });
 
+test('profile can be updated from a plain post submission', function () {
+    $user = makeUserWithEmployee('profile-post-update');
+
+    $response = $this
+        ->actingAs($user)
+        ->post('/profile', [
+            'email' => 'post-profile@example.com',
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect('/');
+
+    $this->assertSame('post-profile@example.com', $user->fresh()->email);
+});
+
 test('account name cannot be updated directly from profile', function () {
     $user = makeUserWithEmployee('profile-name-locked');
     $originalName = $user->name;

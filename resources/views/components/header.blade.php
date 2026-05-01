@@ -44,10 +44,6 @@
         $breadcrumbHead = 'Operations';
         $breadcrumbTree = 'Attendance';
         $breadcrumbItem = 'Records';
-    } elseif (request()->routeIs('attendance.kpi.*')) {
-        $breadcrumbHead = 'Operations';
-        $breadcrumbTree = 'Attendance';
-        $breadcrumbItem = 'KPI';
     } elseif (request()->routeIs('travel-orders.transport-options.*')) {
         $breadcrumbHead = 'Operations';
         $breadcrumbTree = 'Travel Orders';
@@ -84,22 +80,6 @@
         $breadcrumbHead = 'Workforce';
         $breadcrumbTree = 'Personal Data Sheet';
         $breadcrumbItem = 'PDS';
-    } elseif (request()->routeIs('spms.cycles.*') || request()->routeIs('spms.cycle.*')) {
-        $breadcrumbHead = 'Performance';
-        $breadcrumbTree = 'SPMS';
-        $breadcrumbItem = 'Cycles';
-    } elseif (request()->routeIs('spms.evaluations.*') || request()->routeIs('spms.evaluation.*')) {
-        $breadcrumbHead = 'Performance';
-        $breadcrumbTree = 'SPMS';
-        $breadcrumbItem = 'Evaluations';
-    } elseif (request()->routeIs('spms.my-performance')) {
-        $breadcrumbHead = 'Performance';
-        $breadcrumbTree = 'SPMS';
-        $breadcrumbItem = 'Performance';
-    } elseif (request()->routeIs('idp.*')) {
-        $breadcrumbHead = 'Performance';
-        $breadcrumbTree = 'Individual Development Plan';
-        $breadcrumbItem = 'Individual Development Plan';
     } elseif (request()->routeIs('eligibility.*') || request()->routeIs('rewards.eligibility.*')) {
         $breadcrumbHead = 'Rewards & Recognition';
         $breadcrumbTree = 'Eligibility Dashboard';
@@ -122,6 +102,14 @@
         $breadcrumbItem = 'Profile';
     }
 @endphp
+    @php
+        $hour = now()->hour;
+        $greetingPrefix = 'Good day';
+        if ($hour < 12) $greetingPrefix = 'Good morning';
+        elseif ($hour < 18) $greetingPrefix = 'Good afternoon';
+        else $greetingPrefix = 'Good evening';
+        $firstName = $authUser->employee->first_name ?? (explode(' ', trim($authUser->name))[0] ?? 'User');
+    @endphp
     <div class="container-fluid px-4 border-bottom">
         <div class="navbar navbar-expand align-items-center min-h-auto w-100">
             <div class="app-header-start">
@@ -133,6 +121,9 @@
                 >
                     <i class="cil-menu"></i>
                 </button>
+                
+
+
                 <div class="app-header-breadcrumb-wrap">
                     <nav class="app-header-breadcrumb" aria-label="breadcrumb">
                         <ol class="breadcrumb my-0 py-0">

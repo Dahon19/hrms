@@ -59,9 +59,7 @@ Artisan::command('recruitment:close-expired-postings', function () {
 
 Schedule::command('reports:department-metrics')->dailyAt('01:00');
 Schedule::command('attendance:anomalies --date=yesterday')->dailyAt('02:00');
-Schedule::command('rewards:compute-eligibility')->dailyAt('03:00');
-Schedule::command('spms:sync-attendance-kpi')->dailyAt('04:00');
-Schedule::command('attendance:kpi-prepare')->monthlyOn(1, '05:00');
-Schedule::command('spms:send-cycle-reminders')->dailyAt('08:00');
+Schedule::command('documents:send-expiry-reminders')->dailyAt('07:00');
+
 Schedule::command('offboarding:deactivate-due')->dailyAt('00:10');
 Schedule::command('recruitment:close-expired-postings')->dailyAt('00:05');

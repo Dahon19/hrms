@@ -3,6 +3,7 @@
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\EmployeePosition;
+use App\Models\AttendanceSetting;
 use App\Models\LeaveRequest;
 use App\Models\LeaveType;
 use App\Models\Position;
@@ -116,23 +117,48 @@ test('employee cannot access attendance calendar pages', function () {
         ->assertForbidden();
 });
 
-test('only hr department users can access attendance kpi', function () {
-    [$hrUser] = makeAttendanceEmployee('HR Department');
-    [$headUser, $headEmployee] = makeAttendanceEmployee('Finance Office');
-    assignAttendancePosition($headEmployee, 'Head');
+test('attendance policy settings can switch between two tap and four tap modes', function () {
     [$adminUser] = makeAttendanceEmployee('Registrar Office', 'admin');
 
-    $this->actingAs($hrUser)
-        ->get(route('attendance.kpi.index'))
-        ->assertOk();
-
-    $this->actingAs($headUser)
-        ->get(route('attendance.kpi.index'))
-        ->assertForbidden();
+    AttendanceSetting::current()->update([
+        'shift_start' => '08:00:00',
+        'shift_end' => '17:00:00',
+        'break_start' => '12:00:00',
+        'break_end' => '13:00:00',
+        'grace_minutes' => 15,
+        'overtime_threshold_minutes' => 60,
+        'weekend_overtime' => true,
+        'require_four_taps' => true,
+    ]);
 
     $this->actingAs($adminUser)
-        ->get(route('attendance.kpi.index'))
-        ->assertForbidden();
+        ->put(route('attendance.settings.update'), [
+            'shift_start' => '08:00',
+            'shift_end' => '17:00',
+            'break_start' => '12:00',
+            'break_end' => '13:00',
+            'grace_minutes' => 15,
+            'overtime_threshold_minutes' => 60,
+            'weekend_overtime' => '1',
+        ])
+        ->assertRedirect();
+
+    expect(AttendanceSetting::current()->fresh()->require_four_taps)->toBeFalse();
+
+    $this->actingAs($adminUser)
+        ->put(route('attendance.settings.update'), [
+            'shift_start' => '08:00',
+            'shift_end' => '17:00',
+            'break_start' => '12:00',
+            'break_end' => '13:00',
+            'grace_minutes' => 15,
+            'overtime_threshold_minutes' => 60,
+            'weekend_overtime' => '1',
+            'require_four_taps' => '1',
+        ])
+        ->assertRedirect();
+
+    expect(AttendanceSetting::current()->fresh()->require_four_taps)->toBeTrue();
 });
 
 test('department head can monitor only own department attendance history', function () {

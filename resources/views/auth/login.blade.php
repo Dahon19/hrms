@@ -86,7 +86,7 @@
             <div class="relative z-10 animate-fade-scale" style="animation-delay: 0.1s; opacity: 0;">
                 <a href="{{ route('landing') }}" class="group mb-8 inline-flex items-center gap-4 focus:outline-none" aria-label="Return to landing page">
                     <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-xl backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20">
-                        <img src="{{ asset('assets/img/Northeastern College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-8 w-8 object-contain" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
+                        <img src="{{ asset('assets/img/Northeastern%20College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-8 w-8 object-contain" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
                     </div>
                     <div>
                         <span class="block text-sm font-medium uppercase tracking-widest text-green-300">System Hub</span>
@@ -123,8 +123,8 @@
         <div class="relative flex w-full flex-col items-center justify-center bg-white px-6 sm:px-12 lg:w-1/2">
             <div class="login-form-panel animate-card-lift w-full" style="animation-delay: 0.2s; opacity: 0;">
                 <div class="mb-10 text-center lg:hidden">
-                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 shadow-xl transition-transform duration-500 hover:scale-[1.04] hover:shadow-[0_24px_36px_-20px_rgba(22,163,74,0.5)]">
-                        <img src="{{ asset('assets/img/Northeastern College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-10 w-10 object-contain brightness-0 invert" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
+                    <div class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-neutral-100 shadow-xl transition-transform duration-500 hover:scale-[1.04] hover:shadow-[0_24px_36px_-20px_rgba(22,163,74,0.3)]">
+                        <img src="{{ asset('assets/img/Northeastern%20College.webp') }}" data-fallback="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="Logo" class="h-10 w-10 object-contain" onerror="this.onerror=null;this.src=this.dataset.fallback;" />
                     </div>
                     <h2 class="text-3xl font-extrabold tracking-tight text-neutral-900">NC HRMS</h2>
                     <p class="mt-2 text-sm text-neutral-500">Sign in to your account</p>

@@ -40,8 +40,6 @@ The application is organized into several major functional domains:
 
 #### **C. Specialized Systems**
 - **Travel Orders** - Business travel management with transportation options
-- **Individual Development Plans (IDP)** - Career development tracking
-- **Rewards Management** - Employee recognition and reward tracking
 - **Personal Data Sheet (PDS)** - Government compliance forms with encrypted sensitive data
 
 #### **D. Analytics & Reporting**
@@ -81,8 +79,7 @@ Organizational Structure
 Attendance & KPI
 ├── Attendance (Clock in/out records)
 ├── AttendanceAnomaly (Irregular patterns)
-├── AttendanceKpi (Performance criteria)
-├── AttendanceMonthlyScore (Monthly aggregate)
+├── AttendanceSetting (Attendance configuration)
 └── Holiday (Public holidays calendar)
 
 Leave Management
@@ -90,13 +87,6 @@ Leave Management
 ├── LeaveRequest (Time-off requests)
 ├── LeaveBalance (Current balance tracking)
 └── LeaveBalanceYearSetting (Year configurations)
-
-Performance Management
-├── SpmsProfile (Employee evaluation profile)
-├── SpmsCycle (Evaluation periods)
-├── SpmsCriterion (Evaluation criteria)
-├── SpmsEvaluation (Evaluation records)
-└── SpmsEvaluationDetail (Line-item scores)
 
 Recruitment
 ├── JobPosting (Job openings)
@@ -121,11 +111,12 @@ Other
 ├── Document, DocumentCategory, DocumentSubcategory
 ├── AuditLog (System audit trail)
 ├── Notification (User notifications)
-└── RewardRecord, RewardTitle
+├── ReportRun (Report execution tracking)
+└── User (Authentication)
 ```
 
 ### Database Characteristics
-- **90+ tables** with proper indexing for performance
+- **70+ tables** with proper indexing for performance
 - **Encrypted sensitive fields** (PDS data uses EncryptedValueCast)
 - **Soft deletes** for data retention and audit trail
 - **Polymorphic relationships** for flexible attachments
@@ -135,7 +126,7 @@ Other
 
 ## Service Layer
 
-### Business Logic Services (12+ services)
+### Business Logic Services
 
 | Service | Purpose |
 |---------|---------|
@@ -143,18 +134,15 @@ Other
 | `AuditLogger` | Centralized audit logging for compliance tracking |
 | `AttendanceCalendarService` | Holiday management and calendar operations |
 | `AttendancePolicyService` | Attendance validation and policy enforcement |
-| `AttendanceKpiScoringService` | Performance scoring and KPI computation |
 | `DashboardService` | Dashboard metrics aggregation |
 | `DashboardMetricsService` | Real-time metric calculations |
+| `DashboardActivityService` | Activity feed and recent events |
 | `DepartmentMetricsService` | Department-level analytics |
 | `HrmsNotificationService` | Notification creation and management |
 | `OffboardingWorkflowService` | Separation process orchestration |
 | `RecruitmentActionService` | Recruitment workflow operations |
 | `RecruitmentApprovalService` | Approval chain management |
 | `ReportExportService` | Report generation and export |
-| `RewardEligibilityService` | Reward qualification logic |
-| `SpmsScoringService` | Performance evaluation scoring |
-| `IndividualDevelopmentPlanService` | IDP lifecycle management |
 | `GeminiService` | AI-powered features (Google Gemini integration) |
 
 ---
@@ -205,15 +193,6 @@ GET    /leave-balance          - View balance
 POST   /leave-balance/reset    - Annual reset
 ```
 
-### Performance Management (SPMS)
-```
-GET    /spms                   - Evaluation list
-POST   /spms                   - Create evaluation
-PUT    /spms/{id}              - Update evaluation
-POST   /spms/{id}/submit       - Submit for review
-POST   /spms/{id}/approve      - Approve evaluation
-```
-
 ### Recruitment
 ```
 GET    /jobs                   - Job postings portal
@@ -259,9 +238,6 @@ POST   /notifications/read-all - Mark all read
 | `JobApplicationSubmitted` | Job application creation | Email notifications, audit logging |
 | `AttendanceRecorded` | Clock in/out | KPI updates, anomaly detection |
 | `HrmsNotificationCreated` | System events | Push notifications, email |
-| `OffboardingInitiated` | Offboarding request | Notification dispatch, clearance checklist |
-| `LeaveRequested` | Leave application | Manager notification, balance check |
-| `PerformanceReviewSubmitted` | SPMS submission | Workflow progression, approval queue |
 
 ### Event Listeners
 - `SendJobApplicationNotifications` - Email notifications on job applications
@@ -291,17 +267,7 @@ Employee Submits Leave Request
   → Update leave balance
 ```
 
-### 3. **Performance Evaluation Workflow**
-```
-Evaluation Cycle Starts 
-  → Employee submits self-assessment 
-  → Manager scores performance 
-  → Director reviews 
-  → HR finalizes 
-  → Results locked for auditing
-```
-
-### 4. **Recruitment Workflow**
+### 3. **Recruitment Workflow**
 ```
 Job Posting Created 
   → Applicants submit applications 
@@ -313,7 +279,7 @@ Job Posting Created
   → Onboarding initiated
 ```
 
-### 5. **Offboarding Workflow**
+### 4. **Offboarding Workflow**
 ```
 Separation Initiated 
   → Generate clearance checklist 
@@ -324,7 +290,7 @@ Separation Initiated
   → Record archived
 ```
 
-### 6. **Travel Order Workflow**
+### 5. **Travel Order Workflow**
 ```
 Employee Requests Travel 
   → Department head approves 
@@ -357,27 +323,26 @@ Employee Requests Travel
 
 ### Integration Capabilities
 - **NFC/RFID Card Assignment** - Hardware integration for attendance
-- **Google Gemini AI** - Potential AI-powered features (assistant/analysis)
+- **Google Gemini AI** - AI-powered features (assistant/analysis)
 - **Third-party APIs** - Via Guzzle HTTP client
 - **Event Broadcasting** - Pusher integration for real-time features
 
 ---
 
-## Controllers (34 main controllers)
+## Controllers (37 main controllers)
 
 | Category | Controllers |
 |----------|-------------|
-| **Attendance** | AttendanceController, AttendanceCalendarController, AttendanceKpiController |
+| **Attendance** | AttendanceController, AttendanceCalendarController, AttendanceSettingsController, AttendanceKpiController |
 | **Employee** | EmployeeController, EmployeeSearchController, EmployeeNfcController, EmployeeDocumentController |
 | **Organizations** | DepartmentController, DepartmentTypeController, PositionController |
 | **Leave** | LeaveRequestController, LeaveTypeController, LeaveBalanceController |
-| **Performance** | SpmsController, PerformanceReviewController (via SPMS) |
 | **Recruitment** | JobPostingController, RecruitmentApprovalController |
 | **Travel** | TravelOrderController, TravelOrderApprovalController, TravelOrderTransportationController |
 | **Offboarding** | OffboardingController |
-| **Administration** | DocumentController, DepartmentTypeController, AuditLogController, UserController |
+| **Administration** | DocumentController, AuditLogController, UserController |
 | **Analytics** | DashboardController, ReportController |
-| **Other** | NotificationController, PdsController, IdpController, EligibilityController, RewardController, ProfileController, AIController |
+| **Other** | NotificationController, PdsController, ProfileController, AIController |
 
 ---
 
@@ -397,11 +362,10 @@ The application uses DDD principles with specialized domain packages:
 ```
 App\Domain\
 ├── Offboarding/
-│   └── Orchestrates separation workflows
-├── Spms/
-│   └── Manages performance evaluation cycles
+│   └── OffboardingWorkflowService
 └── TravelOrders/
-    └── Handles business travel request workflows
+    ├── TravelOrderWorkflowService
+    └── TravelOrderAttendanceService
 ```
 
 ---
@@ -428,6 +392,26 @@ App\Domain\
 
 ---
 
+## Middleware
+
+| Middleware | Purpose |
+|-----------|---------|
+| `RequireDeviceToken` | Device token validation for API access |
+| `Role` | Role-based request filtering |
+| `SecurityHeaders` | HTTP security headers |
+
+---
+
+## Policies
+
+| Policy | Purpose |
+|--------|---------|
+| `OffboardingRecordPolicy` | Authorization for offboarding records |
+| `PdsProfilePolicy` | Authorization for PDS access |
+| `TravelOrderPolicy` | Authorization for travel orders |
+
+---
+
 ## File Structure Summary
 
 ```
@@ -435,19 +419,19 @@ hrms/
 ├── app/                          # Application code
 │   ├── Casts/                   # Eloquent casts (EncryptedValueCast)
 │   ├── Console/                 # Artisan commands
-│   ├── Domain/                  # DDD domains (Offboarding, SPMS, TravelOrders)
+│   ├── Domain/                  # DDD domains (Offboarding, TravelOrders)
 │   ├── Events/                  # System events
 │   ├── Http/                    # Controllers, middleware, requests
 │   ├── Listeners/               # Event listeners
 │   ├── Mail/                    # Mailable classes
-│   ├── Models/                  # Eloquent models (48 models)
+│   ├── Models/                  # Eloquent models (39 models)
 │   ├── Observers/               # Model observers
 │   ├── Policies/                # Authorization policies
 │   ├── Providers/               # Service providers
 │   ├── Services/                # Business logic (12+ services)
 │   └── Support/                 # Helper utilities
 ├── database/
-│   ├── migrations/              # 100+ schema migrations
+│   ├── migrations/              # 76+ schema migrations
 │   ├── seeders/                 # Database seeders
 │   └── factories/               # Model factories
 ├── routes/
@@ -546,10 +530,10 @@ hrms/
 
 The HRMS is a comprehensive, enterprise-grade HR management system built with modern Laravel practices. It features:
 
-✅ **48 Eloquent Models** covering all HR functions  
+✅ **39 Eloquent Models** covering all HR functions  
 ✅ **12+ Service Classes** for business logic  
-✅ **34 Controllers** handling diverse operations  
-✅ **100+ Database Migrations** tracking schema evolution  
+✅ **37 Controllers** handling diverse operations  
+✅ **76+ Database Migrations** tracking schema evolution  
 ✅ **Event-Driven Architecture** for loose coupling  
 ✅ **Domain-Driven Design** for complex workflows  
 ✅ **Real-time Capabilities** via WebSocket broadcasting  

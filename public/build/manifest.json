@@ -78,7 +78,7 @@
     "src": "node_modules/@coreui/icons/fonts/CoreUI-Icons-Free.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CNMVM6AP.css",
+    "file": "assets/app-xyTEY6Es.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -114,7 +114,7 @@
     ]
   },
   "resources/css/coreui-shell.css": {
-    "file": "assets/coreui-shell--mbRV58o.css",
+    "file": "assets/coreui-shell-DCee8y1L.css",
     "src": "resources/css/coreui-shell.css",
     "isEntry": true,
     "name": "coreui-shell",
@@ -168,7 +168,7 @@
     ]
   },
   "resources/css/emerald-theme.css": {
-    "file": "assets/emerald-theme-w_P43FLC.css",
+    "file": "assets/emerald-theme-DJFqkt80.css",
     "src": "resources/css/emerald-theme.css",
     "isEntry": true,
     "name": "emerald-theme",
@@ -183,15 +183,6 @@
     "name": "employees-index",
     "names": [
       "employees-index.css"
-    ]
-  },
-  "resources/css/idp-index.css": {
-    "file": "assets/idp-index-CYHC1Zc6.css",
-    "src": "resources/css/idp-index.css",
-    "isEntry": true,
-    "name": "idp-index",
-    "names": [
-      "idp-index.css"
     ]
   },
   "resources/css/job-portal.css": {
@@ -240,7 +231,7 @@
     ]
   },
   "resources/css/mobile-responsive.css": {
-    "file": "assets/mobile-responsive-CPx9nlt7.css",
+    "file": "assets/mobile-responsive-5pO0TgjI.css",
     "src": "resources/css/mobile-responsive.css",
     "isEntry": true,
     "name": "mobile-responsive",
@@ -291,15 +282,6 @@
     "name": "reports-index",
     "names": [
       "reports-index.css"
-    ]
-  },
-  "resources/css/spms-index.css": {
-    "file": "assets/spms-index-O59At6hO.css",
-    "src": "resources/css/spms-index.css",
-    "isEntry": true,
-    "name": "spms-index",
-    "names": [
-      "spms-index.css"
     ]
   },
   "resources/css/toasts.css": {
@@ -377,7 +359,7 @@
     ]
   },
   "resources/js/attendance.js": {
-    "file": "assets/attendance-CVQi1eF_.js",
+    "file": "assets/attendance-Dkk-pfPU.js",
     "name": "attendance",
     "src": "resources/js/attendance.js",
     "isEntry": true,
@@ -397,7 +379,7 @@
     ]
   },
   "resources/js/chatbot.js": {
-    "file": "assets/chatbot-COa7aPt0.js",
+    "file": "assets/chatbot-Xd0L3W9m.js",
     "name": "chatbot",
     "src": "resources/js/chatbot.js",
     "isEntry": true
@@ -483,15 +465,6 @@
     "src": "resources/js/form-validation.js",
     "isDynamicEntry": true
   },
-  "resources/js/idp.js": {
-    "file": "assets/idp-LMzjmWBC.js",
-    "name": "idp",
-    "src": "resources/js/idp.js",
-    "isEntry": true,
-    "imports": [
-      "_utils-BZmljrvr.js"
-    ]
-  },
   "resources/js/job-portal.js": {
     "file": "assets/job-portal-vkMD48Ko.js",
     "name": "job-portal",
@@ -576,7 +549,7 @@
     ]
   },
   "resources/js/profile.js": {
-    "file": "assets/profile-BhbvApyO.js",
+    "file": "assets/profile-pZF1GBAW.js",
     "name": "profile",
     "src": "resources/js/profile.js",
     "isEntry": true,
@@ -600,15 +573,6 @@
     "file": "assets/rewards-DBRSAM8y.js",
     "name": "rewards",
     "src": "resources/js/rewards.js",
-    "isEntry": true,
-    "imports": [
-      "_utils-BZmljrvr.js"
-    ]
-  },
-  "resources/js/spms.js": {
-    "file": "assets/spms-BKgPlcyO.js",
-    "name": "spms",
-    "src": "resources/js/spms.js",
     "isEntry": true,
     "imports": [
       "_utils-BZmljrvr.js"

@@ -126,8 +126,6 @@
                                         size="sm"
                                         icon="cil-save"
                                         form="{{ $updateFormId }}"
-                                        aria-label="Save Transport Option"
-                                        title="Save Transport Option"
                                     >
                                         Save
                                     </x-ui.button>

@@ -6,7 +6,6 @@ function initProfileAvatarPreview() {
     const avatarInput = document.getElementById('avatarInput');
     const avatarPreviewMain = document.getElementById('avatar-preview-main');
     const avatarPreviewEditor = document.getElementById('avatar-preview-editor');
-    const avatarShell = avatarPreviewEditor?.closest('.profile-avatar-shell');
     const openAvatarEditorButton = document.getElementById('openAvatarEditorButton');
     const avatarEditButton = document.getElementById('profileAvatarEditButton');
     const avatarPicker = document.getElementById('profileAvatarPicker');
@@ -18,11 +17,17 @@ function initProfileAvatarPreview() {
     const avatarCancelButton = document.getElementById('profileAvatarCancelButton');
     const avatarApplyButton = document.getElementById('profileAvatarApplyButton');
 
-    if (!avatarInput || !avatarPreviewMain || !avatarPreviewEditor || !avatarShell || !$) {
+    const profileMainHeader = document.getElementById('profileMainHeader');
+    const profileAvatarHeader = document.getElementById('profileAvatarHeader');
+    const profileMainFooter = document.getElementById('profileMainFooter');
+    const profileAvatarFooter = document.getElementById('profileAvatarFooter');
+    const profileMainView = document.getElementById('profileMainView');
+    const profileAvatarView = document.getElementById('profileAvatarView');
+
+    if (!avatarInput || !avatarPreviewMain || !avatarPreviewEditor || !$) {
         return;
     }
 
-    const $avatarModal = $('#avatarEditModal');
     const defaultPreviewSrc = avatarPreviewMain.dataset.originalSrc || avatarPreviewMain.src;
     const state = {
         committedPreviewSrc: defaultPreviewSrc,
@@ -30,6 +35,36 @@ function initProfileAvatarPreview() {
         pendingObjectUrl: null,
         pendingFilename: 'avatar.jpg',
     };
+
+    const modalDialog = document.querySelector('#profileEditModal .modal-dialog');
+
+    function showAvatarView() {
+        if (modalDialog) {
+            modalDialog.classList.remove('modal-lg');
+            modalDialog.classList.add('modal-md');
+        }
+        profileMainHeader?.classList.add('d-none');
+        profileAvatarHeader?.classList.remove('d-none');
+        profileMainFooter?.classList.add('d-none');
+        profileAvatarFooter?.classList.remove('d-none');
+        profileMainView?.classList.add('d-none');
+        profileAvatarView?.classList.remove('d-none');
+        initCropperWithCurrentPreview();
+    }
+
+    function showMainView() {
+        if (modalDialog) {
+            modalDialog.classList.remove('modal-md');
+            modalDialog.classList.add('modal-lg');
+        }
+        profileMainHeader?.classList.remove('d-none');
+        profileAvatarHeader?.classList.add('d-none');
+        profileMainFooter?.classList.remove('d-none');
+        profileAvatarFooter?.classList.add('d-none');
+        profileMainView?.classList.remove('d-none');
+        profileAvatarView?.classList.add('d-none');
+        destroyCropper({ restoreCommittedPreview: true });
+    }
 
     function revokePendingObjectUrl() {
         if (!state.pendingObjectUrl) {
@@ -135,7 +170,7 @@ function initProfileAvatarPreview() {
                 background: false,
                 responsive: true,
                 guides: false,
-                center: false,
+                center: true,
                 highlight: false,
                 movable: true,
                 scalable: true,
@@ -175,7 +210,7 @@ function initProfileAvatarPreview() {
                 background: false,
                 responsive: true,
                 guides: false,
-                center: false,
+                center: true,
                 highlight: false,
                 movable: true,
                 scalable: true,
@@ -212,7 +247,7 @@ function initProfileAvatarPreview() {
             const src = canvas.toDataURL('image/jpeg', 0.92);
             setCommittedPreview(src);
             destroyCropper();
-            $avatarModal.modal('hide');
+            showMainView();
         } catch (error) {
             console.error('Unable to apply avatar crop.', error);
         }
@@ -227,17 +262,6 @@ function initProfileAvatarPreview() {
         setCommittedPreview(defaultPreviewSrc);
         destroyCropper({ restoreCommittedPreview: true });
     });
-
-    if (avatarPicker) {
-        avatarPicker.addEventListener('change', function () {
-            const file = this.files && this.files[0];
-            if (file) {
-                openCropper(file);
-            }
-
-            this.value = '';
-        });
-    }
 
     if (avatarZoom) {
         avatarZoom.addEventListener('input', function () {
@@ -277,7 +301,7 @@ function initProfileAvatarPreview() {
     });
 
     avatarCancelButton?.addEventListener('click', function () {
-        destroyCropper({ restoreCommittedPreview: true });
+        showMainView();
     });
 
     avatarApplyButton?.addEventListener('click', function () {
@@ -285,8 +309,20 @@ function initProfileAvatarPreview() {
     });
 
     openAvatarEditorButton?.addEventListener('click', function () {
-        $avatarModal.modal('show');
+        avatarPicker?.click();
     });
+
+    if (avatarPicker) {
+        avatarPicker.addEventListener('change', function () {
+            const file = this.files && this.files[0];
+            if (file) {
+                showAvatarView();
+                openCropper(file);
+            }
+
+            this.value = '';
+        });
+    }
 
     avatarEditButton?.addEventListener('keydown', function (event) {
         if (!avatarPicker) {
@@ -301,12 +337,8 @@ function initProfileAvatarPreview() {
         avatarPicker.click();
     });
 
-    $avatarModal.on('show.bs.modal', function () {
-        initCropperWithCurrentPreview();
-    });
-
-    $avatarModal.on('hidden.bs.modal', function () {
-        destroyCropper({ restoreCommittedPreview: true });
+    $('#profileEditModal').on('hidden.bs.modal', function () {
+        showMainView();
     });
 }
 

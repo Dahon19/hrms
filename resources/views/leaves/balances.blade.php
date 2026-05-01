@@ -206,23 +206,6 @@
                         This fixed amount overrides the default computed leave balance for the selected year.
                     </small>
                 </div>
-                <div class="form-group mt-3 mb-0">
-                    <label for="leaveBalanceConfigEligibilityMonths">Eligibility Waiting Period (months)</label>
-                    <input
-                        id="leaveBalanceConfigEligibilityMonths"
-                        type="number"
-                        name="eligibility_months"
-                        class="form-control"
-                        min="0"
-                        max="24"
-                        step="1"
-                        value="{{ old('eligibility_months', $configuredEligibilityMonths ?? 3) }}"
-                        required
-                    />
-                    <small class="form-text text-muted">
-                        New employees earn no leave balance until this many months after hire date.
-                    </small>
-                </div>
             </div>
             <x-ui.modal-footer>
                 <x-ui.button type="button" variant="cancel" data-coreui-dismiss="modal">

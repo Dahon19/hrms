@@ -63,35 +63,7 @@ class Employee extends Model
         return $this->hasOne(PdsProfile::class);
     }
 
-    public function rewardRecords()
-    {
-        return $this->hasMany(RewardRecord::class);
-    }
 
-    public function eligibilityCaches()
-    {
-        return $this->hasMany(EligibilityCache::class);
-    }
-
-    public function performanceReviews()
-    {
-        return $this->hasMany(PerformanceReview::class);
-    }
-
-    public function spmsEvaluations()
-    {
-        return $this->hasMany(SpmsEvaluation::class, 'employee_id');
-    }
-
-    public function spmsProfile()
-    {
-        return $this->hasOne(SpmsProfile::class, 'employee_id');
-    }
-
-    public function individualDevelopmentPlans()
-    {
-        return $this->hasMany(IndividualDevelopmentPlan::class, 'employee_id');
-    }
 
     public function attendanceMonthlyScores()
     {

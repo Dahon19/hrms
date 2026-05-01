@@ -11,7 +11,6 @@ use App\Http\Controllers\EmployeeDocumentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentTypeController;
-use App\Http\Controllers\IdpController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
@@ -22,13 +21,10 @@ use App\Http\Controllers\OffboardingController;
 use App\Http\Controllers\PdsController;
 use App\Http\Controllers\EmployeeSearchController;
 use App\Http\Controllers\EmployeeNfcController;
-use App\Http\Controllers\EligibilityController;
-use App\Http\Controllers\RewardController;
-use App\Http\Controllers\SpmsController;
+
 use App\Http\Controllers\TravelOrderApprovalController;
 use App\Http\Controllers\TravelOrderController;
 use App\Http\Controllers\TravelOrderTransportationController;
-use App\Http\Controllers\AttendanceKpiController;
 use App\Http\Controllers\AIController;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Route;
@@ -141,7 +137,11 @@ Route::middleware('auth')->group(function () {
     Route::post('notifications/read-all', [NotificationController::class, 'markAllRead'])
         ->name('notifications.mark-all-read');
 
-    Route::resource('attendance', AttendanceController::class)->only(['index', 'store', 'update']);
+    Route::put('attendance/settings', [\App\Http\Controllers\AttendanceSettingsController::class, 'update'])
+        ->name('attendance.settings.update');
+    Route::resource('attendance', AttendanceController::class)
+        ->only(['index', 'store', 'update'])
+        ->where(['attendance' => '[0-9]+']);
     Route::get('attendance/live', [AttendanceController::class, 'getAttendance'])
         ->name('attendance.live');
     Route::post('attendance/rfid', [EmployeeNfcController::class, 'assign'])
@@ -162,16 +162,6 @@ Route::middleware('auth')->group(function () {
         ->name('attendance.calendar.destroy');
     Route::get('attendance/weekly', [AttendanceController::class, 'weekly'])
         ->name('attendance.weekly');
-    Route::get('attendance/kpi', [AttendanceKpiController::class, 'index'])
-        ->name('attendance.kpi.index');
-    Route::post('attendance/kpi', [AttendanceKpiController::class, 'store'])
-        ->name('attendance.kpi.store');
-    Route::post('attendance/kpi/compute', [AttendanceKpiController::class, 'compute'])
-        ->name('attendance.kpi.compute');
-    Route::post('attendance/kpi/lock', [AttendanceKpiController::class, 'lock'])
-        ->name('attendance.kpi.lock');
-    Route::get('attendance/kpi/export', [AttendanceKpiController::class, 'export'])
-        ->name('attendance.kpi.export');
     Route::resource('employees', EmployeeController::class)->except(['create', 'edit']);
     Route::post('employees/{employee}/reset-password', [EmployeeController::class, 'resetPassword'])
         ->name('employees.reset-password');
@@ -382,46 +372,6 @@ Route::middleware('auth')->group(function () {
     Route::post('pds/{employee}/verify', [PdsController::class, 'verify'])->whereNumber('employee')->name('pds.verify');
     Route::post('pds/{employee}/request-correction', [PdsController::class, 'requestCorrection'])->whereNumber('employee')->name('pds.request-correction');
     Route::get('pds/{employee}/print', [PdsController::class, 'print'])->whereNumber('employee')->name('pds.print');
-
-    Route::get('rewards/eligibility', [EligibilityController::class, 'index'])->name('rewards.eligibility.index');
-    Route::get('rewards/eligibility/print', [EligibilityController::class, 'print'])->name('rewards.eligibility.print');
-    Route::get('rewards/eligibility/{employee}', [EligibilityController::class, 'show'])->whereNumber('employee')->name('rewards.eligibility.show');
-    Route::get('eligibility', [EligibilityController::class, 'index'])->name('eligibility.index');
-    Route::get('eligibility/print', [EligibilityController::class, 'print'])->name('eligibility.print');
-    Route::get('eligibility/{employee}', [EligibilityController::class, 'show'])->whereNumber('employee')->name('eligibility.show');
-
-    Route::get('spms/cycles', [SpmsController::class, 'cycles'])->name('spms.cycles.index');
-    Route::post('spms/cycles', [SpmsController::class, 'storeCycle'])->name('spms.cycles.store');
-    Route::get('spms/evaluations', [SpmsController::class, 'evaluations'])->name('spms.evaluations.index');
-    Route::get('spms/my-performance', [SpmsController::class, 'myPerformance'])->name('spms.my-performance');
-    Route::get('spms/cycle/{id}', [SpmsController::class, 'cycleShow'])->whereNumber('id')->name('spms.cycle.show');
-    Route::get('spms/cycles/{id}', [SpmsController::class, 'cycleShow'])->whereNumber('id')->name('spms.cycles.show');
-    Route::post('spms/cycles/{cycle}/transition', [SpmsController::class, 'transitionCycle'])->whereNumber('cycle')->name('spms.cycles.transition');
-    Route::post('spms/cycle/{cycle}/status', [SpmsController::class, 'updateCycleStatus'])->whereNumber('cycle')->name('spms.cycle.status');
-    Route::post('spms/evaluation', [SpmsController::class, 'saveEvaluation'])->name('spms.evaluation.save');
-    Route::get('spms/evaluation/{employee}/{cycle}', [SpmsController::class, 'evaluationShow'])->whereNumber('employee')->whereNumber('cycle')->name('spms.evaluation.show');
-    Route::get('spms/evaluations/{evaluation}', [SpmsController::class, 'evaluationShowById'])->whereNumber('evaluation')->name('spms.evaluations.show');
-    Route::post('spms/evaluations/{evaluation}/submit', [SpmsController::class, 'submitEvaluation'])->whereNumber('evaluation')->name('spms.evaluations.submit');
-    Route::post('spms/evaluations/{evaluation}/finalize', [SpmsController::class, 'finalizeEvaluation'])->whereNumber('evaluation')->name('spms.evaluations.finalize');
-    Route::post('spms/evaluation/{evaluation}/review', [SpmsController::class, 'finalizeEvaluation'])->whereNumber('evaluation')->name('spms.evaluation.review');
-    Route::post('spms/evaluation/{evaluation}/verify', [SpmsController::class, 'finalizeEvaluation'])->whereNumber('evaluation')->name('spms.evaluation.verify');
-    Route::post('spms/cycles/{cycle}/sync-evaluators', [SpmsController::class, 'syncEvaluators'])->whereNumber('cycle')->name('spms.cycles.sync-evaluators');
-    Route::post('spms/cycles/{cycle}/remind-pending', [SpmsController::class, 'remindPending'])->whereNumber('cycle')->name('spms.cycles.remind-pending');
-    Route::post('spms/cycles/{cycle}/finalize-submitted', [SpmsController::class, 'finalizeSubmitted'])->whereNumber('cycle')->name('spms.cycles.finalize-submitted');
-    Route::post('spms/cycles/{cycle}/close', [SpmsController::class, 'closeCycle'])->whereNumber('cycle')->name('spms.cycles.close');
-    Route::post('spms/cycle/{cycle}/lock', [SpmsController::class, 'closeCycle'])->whereNumber('cycle')->name('spms.cycle.lock');
-    Route::get('spms/report/{cycle}', [SpmsController::class, 'report'])->whereNumber('cycle')->name('spms.report');
-    Route::get('spms/report/{cycle}/excel', [SpmsController::class, 'reportExcel'])->whereNumber('cycle')->name('spms.report.excel');
-    Route::get('idp', [IdpController::class, 'index'])->name('idp.index');
-    Route::patch('idp/{idp}', [IdpController::class, 'update'])->whereNumber('idp')->name('idp.update');
-
-    Route::get('rewards', [RewardController::class, 'index'])->name('rewards.index');
-    Route::post('rewards', [RewardController::class, 'store'])->name('rewards.store');
-    Route::post('rewards/titles', [RewardController::class, 'storeTitle'])->name('rewards.titles.store');
-    Route::patch('rewards/titles/{reward_title}', [RewardController::class, 'updateTitle'])->name('rewards.titles.update');
-    Route::delete('rewards/titles/{reward_title}', [RewardController::class, 'destroyTitle'])->name('rewards.titles.destroy');
-    Route::get('rewards/print/{employee}', [RewardController::class, 'print'])->whereNumber('employee')->name('rewards.print');
-    Route::get('rewards/{employee}', [RewardController::class, 'show'])->whereNumber('employee')->name('rewards.show');
 
     Route::get('/ai-test', [AIController::class, 'test'])->name('ai.test');
     Route::post('/ai/chat', [AIController::class, 'chat'])->name('ai.chat');

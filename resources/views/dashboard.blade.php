@@ -195,6 +195,68 @@
             </div>
         </div>
 
+        @php
+            $expiringDocs = [];
+            if (Auth::user()?->canViewData()) {
+                $expiringDocs = \App\Models\EmployeeDocument::query()
+                    ->with('employee')
+                    ->whereNotNull('expires_at')
+                    ->whereDate('expires_at', '>=', today())
+                    ->whereDate('expires_at', '<=', now()->addDays(30))
+                    ->orderBy('expires_at')
+                    ->limit(6)
+                    ->get()
+                    ->map(fn ($d) => [
+                        'name'      => $d->document_name ?? 'Document',
+                        'employee'  => trim(($d->employee?->first_name ?? '') . ' ' . ($d->employee?->last_name ?? '')),
+                        'days_left' => (int) now()->diffInDays($d->expires_at, false),
+                        'expires'   => $d->expires_at?->format('M d, Y'),
+                    ])->all();
+            }
+        @endphp
+
+        @if (!empty($expiringDocs))
+        <div class="row g-4 mb-4">
+            <div class="col-12">
+                <div class="card dashboard-panel border-warning" style="border-left: 4px solid #f6c23e !important;">
+                    <div class="card-header bg-white border-0 pb-0 d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="dashboard-eyebrow text-warning">Document Monitoring</div>
+                            <h2 class="dashboard-card-title mb-0">
+                                <i class="cil-file mr-2 text-warning"></i>
+                                Documents Expiring Within 30 Days
+                            </h2>
+                        </div>
+                        <a href="{{ route('employee-documents.index') }}" class="btn btn-sm btn-outline-warning">
+                            View All
+                        </a>
+                    </div>
+                    <div class="card-body pt-3">
+                        <div class="row g-2">
+                            @foreach ($expiringDocs as $doc)
+                                @php
+                                    $urgency = $doc['days_left'] <= 7 ? 'danger' : ($doc['days_left'] <= 14 ? 'warning' : 'info');
+                                @endphp
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="p-2 border rounded d-flex align-items-start gap-2 bg-light h-100">
+                                        <span class="badge badge-{{ $urgency }} mt-1" style="min-width:42px;text-align:center;">
+                                            {{ $doc['days_left'] }}d
+                                        </span>
+                                        <div>
+                                            <div class="font-weight-bold small text-dark">{{ $doc['name'] }}</div>
+                                            <div class="text-muted" style="font-size:0.78rem;">{{ $doc['employee'] }}</div>
+                                            <div class="text-muted" style="font-size:0.75rem;">Expires {{ $doc['expires'] }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row g-4 mb-4">
             @if ($recruitment !== [])
                 <div class="col-xxl-7">

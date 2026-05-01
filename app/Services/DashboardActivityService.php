@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Applicant;
 use App\Models\EmployeeDocument;
 use App\Models\LeaveRequest;
-use App\Models\SpmsEvaluation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\DatabaseNotification;
@@ -28,7 +27,6 @@ class DashboardActivityService
             ->merge($this->leaveActivities($user))
             ->merge($this->documentActivities($user))
             ->merge($this->recruitmentActivities($user))
-            ->merge($this->spmsActivities($user))
             ->sortByDesc('timestamp')
             ->take(10)
             ->map(function (array $activity) {
@@ -128,33 +126,6 @@ class DashboardActivityService
             });
     }
 
-    private function spmsActivities(User $user): Collection
-    {
-        if (!Schema::hasTable('spms_evaluations')) {
-            return collect();
-        }
-
-        $query = SpmsEvaluation::query()
-            ->with('employee')
-            ->latest('updated_at')
-            ->limit(3);
-
-        if (!$user->canViewData()) {
-            $query->where('employee_id', $user->employee?->id);
-        }
-
-        return $query->get()->map(function (SpmsEvaluation $evaluation) use ($user) {
-            $employeeName = trim(($evaluation->employee?->first_name ?? '') . ' ' . ($evaluation->employee?->last_name ?? ''));
-
-            return [
-                'title' => 'SPMS ' . ucfirst((string) $evaluation->status),
-                'message' => ($employeeName !== '' ? $employeeName : 'Employee') . ' evaluation updated',
-                'timestamp' => optional($evaluation->updated_at)->timestamp ?? 0,
-                'date' => optional($evaluation->updated_at)->format('M d, Y h:i A'),
-                'href' => $user->canViewData() ? route('spms.evaluations.index') : route('spms.my-performance'),
-            ];
-        });
-    }
 
     private function visibleLeaveQuery(User $user): Builder
     {

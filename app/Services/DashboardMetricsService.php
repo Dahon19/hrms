@@ -6,14 +6,11 @@ use App\Models\Applicant;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\EmployeeDocument;
-use App\Models\IndividualDevelopmentPlan;
 use App\Models\JobPosting;
 use App\Models\LeaveBalance;
 use App\Models\LeaveRequest;
 use App\Models\OffboardingRecord;
 use App\Models\RecruitmentApproval;
-use App\Models\SpmsCycle;
-use App\Models\SpmsEvaluation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -126,14 +123,7 @@ class DashboardMetricsService
                 'icon' => 'cil-cloud-upload',
                 'visible' => true,
             ],
-            [
-                'label' => 'Start Evaluation',
-                'href' => $this->isEmployeeDashboard($user)
-                    ? route('spms.my-performance')
-                    : route('spms.evaluations.index'),
-                'icon' => 'cil-notes',
-                'visible' => true,
-            ],
+
         ];
 
         return collect($actions)
@@ -167,30 +157,6 @@ class DashboardMetricsService
                     route('employee-documents.index', ['employee_id' => $user->employee?->id]),
                     'cil-warning',
                     'Action required'
-                ),
-                $this->buildActionItem(
-                    'Pending SPMS Tasks',
-                    Schema::hasTable('spms_evaluations')
-                        ? SpmsEvaluation::query()
-                            ->where('employee_id', $user->employee?->id)
-                            ->where('status', SpmsEvaluation::STATUS_PENDING)
-                            ->count()
-                        : 0,
-                    route('spms.my-performance'),
-                    'cil-notes',
-                    'Assigned work'
-                ),
-                $this->buildActionItem(
-                    'Active IDP Items',
-                    Schema::hasTable('individual_development_plans')
-                        ? IndividualDevelopmentPlan::query()
-                            ->where('employee_id', $user->employee?->id)
-                            ->whereIn('status', ['draft', 'submitted', 'reviewed', 'active'])
-                            ->count()
-                        : 0,
-                    route('idp.index'),
-                    'cil-layers',
-                    'Assigned work'
                 ),
                 $this->buildActionItem(
                     'Offboarding Workflow',
@@ -300,26 +266,6 @@ class DashboardMetricsService
             );
         }
 
-        if (Schema::hasTable('spms_evaluations')) {
-            $items[] = $this->buildActionItem(
-                'SPMS Pending',
-                $this->spmsActionQuery($user)->count(),
-                route('spms.evaluations.index'),
-                'cil-notes',
-                'Queue awaiting action'
-            );
-        }
-
-        if (Schema::hasTable('individual_development_plans')) {
-            $items[] = $this->buildActionItem(
-                'IDP Active Plans',
-                $this->idpActionQuery($user)->count(),
-                route('idp.index'),
-                'cil-layers',
-                'Items still open'
-            );
-        }
-
         return array_values(array_filter($items));
     }
 
@@ -347,32 +293,18 @@ class DashboardMetricsService
                 ->whereIn('status', ['Pending', 'Approved', 'HR Approved', 'Needs Revision'])
                 ->count();
 
-            $assignedTasks = (
-                (Schema::hasTable('spms_evaluations')
-                    ? SpmsEvaluation::query()
-                        ->where('employee_id', $employeeId)
-                        ->where('status', SpmsEvaluation::STATUS_PENDING)
-                        ->count()
-                    : 0)
-                + (Schema::hasTable('individual_development_plans')
-                    ? IndividualDevelopmentPlan::query()
-                        ->where('employee_id', $employeeId)
-                        ->whereIn('status', ['draft', 'submitted', 'reviewed', 'active'])
-                        ->count()
-                    : 0)
-                + (Schema::hasTable('employee_documents')
+            $assignedTasks = (Schema::hasTable('employee_documents')
                     ? EmployeeDocument::query()
                         ->where('employee_id', $employeeId)
                         ->where('status', 'reupload')
                         ->count()
-                    : 0)
-            );
+                    : 0);
 
             return [
                 $this->metric('Today', $todayAttendance ? 'Present' : 'No Log', 'Personal attendance status', 'cil-check-circle'),
                 $this->metric('Leave Balance', $leaveBalance, 'Available leave days this year', 'cil-balance-scale'),
                 $this->metric('Active Requests', $activeRequests, 'Requests still moving through workflow', 'cil-calendar'),
-                $this->metric('Assigned Tasks', $assignedTasks, 'SPMS, IDP, and document actions', 'cil-task'),
+                $this->metric('Assigned Tasks', $assignedTasks, 'Document reupload actions', 'cil-task'),
                 $this->metric('Unread Alerts', (int) $user->unreadNotifications()->count(), 'Personal notifications awaiting review', 'cil-bell'),
             ];
         }
@@ -467,8 +399,6 @@ class DashboardMetricsService
 
         $taskLabels = [
             'Leave Requests',
-            'SPMS Pending',
-            'IDP Active',
             'Docs Reupload',
             'Unread Alerts',
         ];
@@ -477,18 +407,6 @@ class DashboardMetricsService
                 ->where('employee_id', $employeeId)
                 ->whereIn('status', ['Pending', 'Approved', 'HR Approved', 'Needs Revision'])
                 ->count(),
-            Schema::hasTable('spms_evaluations')
-                ? SpmsEvaluation::query()
-                    ->where('employee_id', $employeeId)
-                    ->where('status', SpmsEvaluation::STATUS_PENDING)
-                    ->count()
-                : 0,
-            Schema::hasTable('individual_development_plans')
-                ? IndividualDevelopmentPlan::query()
-                    ->where('employee_id', $employeeId)
-                    ->whereIn('status', ['draft', 'submitted', 'reviewed', 'active'])
-                    ->count()
-                : 0,
             Schema::hasTable('employee_documents')
                 ? EmployeeDocument::query()
                     ->where('employee_id', $employeeId)
@@ -774,20 +692,7 @@ class DashboardMetricsService
                     ->count()
                 : 0;
 
-            $activeTaskCount = (
-                (Schema::hasTable('spms_evaluations')
-                    ? SpmsEvaluation::query()
-                        ->where('employee_id', $employeeId)
-                        ->where('status', SpmsEvaluation::STATUS_PENDING)
-                        ->count()
-                    : 0)
-                + (Schema::hasTable('individual_development_plans')
-                    ? IndividualDevelopmentPlan::query()
-                        ->where('employee_id', $employeeId)
-                        ->whereIn('status', ['draft', 'submitted', 'reviewed', 'active'])
-                        ->count()
-                    : 0)
-            );
+            $activeTaskCount = 0;
 
             return [
                 [
@@ -809,7 +714,7 @@ class DashboardMetricsService
                 [
                     'label' => 'Open Personal Tasks',
                     'value' => $activeTaskCount + $documentReuploadCount,
-                    'meta' => 'SPMS, IDP, and documents',
+                    'meta' => 'Document reupload actions',
                     'percent' => min(100, ($activeTaskCount + $documentReuploadCount) * 10),
                     'icon' => 'cil-task',
                     'color' => 'info',
@@ -1009,24 +914,7 @@ class DashboardMetricsService
             );
         }
 
-        if (Schema::hasTable('spms_cycles')) {
-            $deadlines = $deadlines->merge(
-                SpmsCycle::query()
-                    ->whereNotNull('period_end')
-                    ->whereDate('period_end', '>=', today())
-                    ->whereDate('period_end', '<=', now()->addDays(30))
-                    ->orderBy('period_end')
-                    ->limit(2)
-                    ->get()
-                    ->map(function (SpmsCycle $cycle) {
-                        return [
-                            'title' => 'SPMS Deadline',
-                            'meta' => $cycle->title ?? 'Cycle',
-                            'date' => optional($cycle->period_end)->format('M d, Y'),
-                        ];
-                    })
-            );
-        }
+
 
         $events = $upcomingLeaves->map(function (LeaveRequest $leave) {
             $name = trim(($leave->employee?->first_name ?? '') . ' ' . ($leave->employee?->last_name ?? ''));
@@ -1257,36 +1145,6 @@ class DashboardMetricsService
             });
     }
 
-    private function spmsActionQuery(User $user): Builder
-    {
-        $query = SpmsEvaluation::query()->where('status', SpmsEvaluation::STATUS_SUBMITTED);
-
-        if (Gate::forUser($user)->allows('manage-spms')) {
-            return $query;
-        }
-
-        if (Gate::forUser($user)->allows('evaluate-spms') && AccessControl::isDepartmentLeader($user)) {
-            return $query->whereHas('employee', function (Builder $employeeQuery) use ($user) {
-                $employeeQuery->where('department_id', $user->employee?->department_id);
-            });
-        }
-
-        return SpmsEvaluation::query()
-            ->where('status', SpmsEvaluation::STATUS_PENDING)
-            ->where('employee_id', $user->employee?->id);
-    }
-
-    private function idpActionQuery(User $user): Builder
-    {
-        $query = IndividualDevelopmentPlan::query()
-            ->whereIn('status', ['draft', 'submitted', 'reviewed', 'active']);
-
-        if (Gate::forUser($user)->allows('manage-idp')) {
-            return $query;
-        }
-
-        return $query->where('employee_id', $user->employee?->id);
-    }
 
     private function monthKeyExpression(string $column): string
     {
