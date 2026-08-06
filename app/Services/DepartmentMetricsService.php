@@ -10,11 +10,18 @@ use App\Models\Employee;
 use App\Models\EmployeeDocument;
 use App\Models\LeaveRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class DepartmentMetricsService
 {
     public function generateForDate(Carbon $date): int
     {
+        $cacheKey = 'department_metrics.generated.' . $date->toDateString();
+        
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
         $metricDate = $date->toDateString();
         $departments = Department::all();
         $totalDocs = Document::count();
@@ -66,6 +73,8 @@ class DepartmentMetricsService
             $created++;
         }
 
+        Cache::put($cacheKey, $created, now()->addHours(6));
+        
         return $created;
     }
 }

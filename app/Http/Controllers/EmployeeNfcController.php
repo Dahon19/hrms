@@ -20,7 +20,18 @@ class EmployeeNfcController extends Controller
             && ($user->isAdmin() || AccessControl::isHrHead($user));
     }
 
+    /**
+     * Assign NFC card to employee
+     *
+     * @group NFC
+     * @bodyParam employee_id int required The ID of the employee. Example: 1
+     * @bodyParam nfc_uid string required The NFC card UID. Example: "A1B2C3D4"
+     * @response {
+     *   "message": "ID card registered successfully."
+     * }
+     */
     public function assign(Request $request)
+
     {
         $user = $request->user();
         abort_unless($this->canManageNfc($user), 403);
@@ -52,7 +63,19 @@ class EmployeeNfcController extends Controller
         return back()->with('success', 'ID card registered successfully.');
     }
 
+    /**
+     * Scan NFC card
+     *
+     * Accepts an NFC card scan and records the presence event.
+     *
+     * @group NFC
+     * @bodyParam nfc_uid string required The NFC card UID. Example: "A1B2C3D4"
+     * @response {
+     *   "status": "success"
+     * }
+     */
     public function scan(Request $request)
+
     {
         $request->validate([
             'nfc_uid' => 'required|string',
@@ -62,7 +85,20 @@ class EmployeeNfcController extends Controller
             'status'       => 'success',
         ]);
     }
+    /**
+     * Receive NFC data
+     *
+     * Receives NFC card data from hardware devices and stores it in cache.
+     *
+     * @group NFC
+     * @bodyParam nfc_uid string required The NFC card UID. Example: "A1B2C3D4"
+     * @response {
+     *   "status": "ok",
+     *   "nfc_uid": "A1B2C3D4"
+     * }
+     */
     public function receiveNfc(Request $request)
+
     {
         $request->validate([
             'nfc_uid' => 'required|string',
@@ -84,7 +120,25 @@ class EmployeeNfcController extends Controller
         ]);
     }
 
+    /**
+     * Get latest NFC scan
+     *
+     * Retrieves the most recent NFC scan from cache.
+     *
+     * @group NFC
+     * @queryParam clear boolean Optional. Clear the cached NFC data. Example: true
+     * @queryParam after string Optional. ISO 8601 timestamp to filter scans after. Example: "2024-01-01T00:00:00Z"
+     * @response {
+     *   "nfc_uid": "A1B2C3D4",
+     *   "exists": true,
+     *   "captured": true,
+     *   "timestamp": "2024-01-01T12:00:00+00:00",
+     *   "scan_id": "uuid-here",
+     *   "assigned": true
+     * }
+     */
     public function latestNfc(Request $request)
+
     {
         abort_unless($this->canManageNfc($request->user()), 403);
 

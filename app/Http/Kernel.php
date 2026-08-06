@@ -35,7 +35,9 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'query.log' => \App\Http\Middleware\QueryLogMiddleware::class,
     ];
+
 
     protected $commands = [
         \App\Console\Commands\InitializeLeaveCredits::class,

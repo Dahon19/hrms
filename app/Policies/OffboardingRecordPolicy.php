@@ -136,11 +136,14 @@ class OffboardingRecordPolicy
         }
 
         return match ($ownerRole) {
-            'department_head' => AccessControl::isHeadOrDean($user)
-                || (
-                    $employeeDepartmentId
-                    && $employeeDepartmentId === $userDepartmentId
-                    && AccessControl::headApproversForDepartment($employeeDepartmentId)->contains('id', $user->id)
+            'department_head' => !$user->canManageOffboarding()
+                && (
+                    AccessControl::isHeadOrDean($user)
+                    || (
+                        $employeeDepartmentId
+                        && $employeeDepartmentId === $userDepartmentId
+                        && AccessControl::headApproversForDepartment($employeeDepartmentId)->contains('id', $user->id)
+                    )
                 ),
             'hr' => $user->canManageOffboarding() || AccessControl::isHrHead($user),
             'finance' => $this->isFinanceParticipant($user),

@@ -1,0 +1,194 @@
+/* Futuristic Theme CSS
+   Implements a modern, premium look using glassmorphism, gradients, and subtle animations.
+   Applies to the HRMS admin layout and core UI components.
+ */
+
+/* Import Google Font 'Inter' */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Primary palette (deep cyan to electric blue) */
+  --color-primary-h: 190;   /* hue */
+  --color-primary-s: 80%;
+  --color-primary-l: 45%;
+  --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  --color-primary-dark: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) - 10%));
+  --color-primary-light: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) + 15%));
+
+  /* Accent palette */
+  --color-accent-h: 280;   /* purple */
+  --color-accent-s: 70%;
+  --color-accent-l: 55%;
+  --color-accent: hsl(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l));
+
+  /* Backgrounds */
+  --bg-dark: #0e0e1a;
+  --bg-dark-translucent: rgba(14, 14, 26, 0.85);
+  --bg-light: #f4f7ff;
+
+  /* Glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.18);
+
+  /* Shadows */
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.25);
+
+  /* Typography */
+  --font-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Global resets */
+body {
+  font-family: var(--font-base);
+  background: var(--bg-dark);
+  color: #e0e6ff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism containers */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px) saturate(150%);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+}
+
+/* Buttons with futuristic feel */
+.futuristic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.futuristic-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+.futuristic-btn:active {
+  transform: translateY(1px);
+}
+
+/* Card component */
+.futuristic-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.futuristic-card-header {
+  background: linear-gradient(to right, var(--color-primary-dark), var(--color-primary));
+  color: #fff;
+  padding: 1rem;
+  font-weight: 600;
+}
+.futuristic-card-body {
+  padding: 1rem;
+}
+
+/* Table styling – modern, minimal */
+.table-futuristic {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+.table-futuristic thead {
+  background: var(--bg-dark-translucent);
+  color: #aab4ff;
+}
+.table-futuristic th,
+.table-futuristic td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: none;
+}
+.table-futuristic tbody tr {
+  background: var(--glass-bg);
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease;
+}
+.table-futuristic tbody tr:hover {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+}
+
+/* Modal backdrop and surface */
+.modal-futuristic .modal-dialog {
+  max-width: 800px;
+}
+.modal-futuristic .modal-content {
+  background: var(--glass-bg);
+  border: none;
+  border-radius: 1rem;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-lg);
+}
+.modal-futuristic .modal-header {
+  border-bottom: 1px solid var(--glass-border);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+}
+.modal-futuristic .modal-footer {
+  border-top: 1px solid var(--glass-border);
+}
+
+/* Sidebar – futuristic gradient */
+.app-sidebar {
+  background: linear-gradient(180deg, #111133, #0a0a1f);
+  color: #cfd4ff;
+}
+.app-sidebar .nav-link {
+  color: #cfd4ff;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.app-sidebar .nav-link:hover {
+  background: var(--glass-bg);
+  color: #fff;
+}
+
+/* Topbar – subtle glow */
+.app-header {
+  background: rgba(10, 10, 30, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Utility classes */
+.text-primary {
+  color: var(--color-primary) !important;
+}
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+/* Hover micro‑animation for icons */
+.futuristic-icon {
+  transition: transform 0.2s ease;
+}
+.futuristic-icon:hover {
+  transform: scale(1.12);
+}
+
+/* Ensure dark mode consistency */
+.dark-mode body {
+  background: var(--bg-dark);
+  color: #d1d8ff;
+}
+.dark-mode .glass-panel,
+.dark-mode .futuristic-card {
+  background: rgba(30, 30, 55, 0.6);
+  border-color: rgba(255, 255, 255, 0.12);
+}

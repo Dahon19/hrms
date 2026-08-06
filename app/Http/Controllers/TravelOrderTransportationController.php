@@ -40,7 +40,7 @@ class TravelOrderTransportationController extends Controller
         ]);
 
         return redirect()
-            ->route('travel-orders.index')
+            ->route('travel-orders.transport-options.index')
             ->with('open_transport_modal', true)
             ->with('success', 'Transport option added.');
     }
@@ -60,7 +60,7 @@ class TravelOrderTransportationController extends Controller
         ]);
 
         return redirect()
-            ->route('travel-orders.index')
+            ->route('travel-orders.transport-options.index')
             ->with('open_transport_modal', true)
             ->with('success', 'Transport option updated.');
     }
@@ -75,7 +75,7 @@ class TravelOrderTransportationController extends Controller
 
         if ($isUsed) {
             return redirect()
-                ->route('travel-orders.index')
+                ->route('travel-orders.transport-options.index')
                 ->with('open_transport_modal', true)
                 ->with('error', 'Transport option is already used by travel orders. Set it inactive instead of deleting.');
         }
@@ -83,7 +83,7 @@ class TravelOrderTransportationController extends Controller
         $transportation->delete();
 
         return redirect()
-            ->route('travel-orders.index')
+            ->route('travel-orders.transport-options.index')
             ->with('open_transport_modal', true)
             ->with('success', 'Transport option deleted.');
     }

@@ -1,602 +1,277 @@
 # HRMS Developer Quick Reference
 
-## File Organization & Navigation Quick Map
+Last reviewed: 2026-05-02
 
-### Core Application Structure
-```
+## Stack
+
+- Laravel 12, PHP 8.2+
+- Blade + Vite + Alpine + jQuery
+- CoreUI/Bootstrap styling, DataTables, Select2, FilePond
+- Reverb/Pusher through Laravel Echo
+- Pest for tests
+- Scribe for API documentation
+- DomPDF for PDF exports
+
+## Directory Map
+
+```text
 app/
-├── Http/Controllers/          ← Web request handlers
-│   ├── AttendanceController.php        → Attendance logic
-│   ├── EmployeeController.php          → Employee CRUD
-│   ├── OffboardingController.php       → Employee separation
-│   ├── SpmsController.php              → Performance reviews
-│   ├── TravelOrderController.php       → Travel requests
-│   ├── LeaveRequestController.php      → Leave management
-│   └── [...33 other controllers]
-│
-├── Models/                    ← Eloquent ORM models (48 total)
-│   ├── Employee.php                    → Primary employee model
-│   ├── User.php                        → Authentication + profile
-│   ├── Attendance.php                  → Clock in/out records
-│   ├── LeaveRequest.php                → Leave request workflow
-│   ├── SpmsProfile.php                 → Performance evaluations
-│   ├── OffboardingRecord.php           → Separation tracking
-│   ├── TravelOrder.php                 → Travel management
-│   ├── JobPosting.php & Applicant.php  → Recruitment
-│   ├── PdsProfile.php & Relations      → Personal data (encrypted)
-│   └── [...40 more models]
-│
-├── Services/                  ← Business logic layer (12+ services)
-│   ├── AttendanceKpiScoringService.php → KPI computation
-│   ├── OffboardingWorkflowService.php  → Separation orchestration
-│   ├── SpmsScoringService.php          → Performance evaluation
-│   ├── RecruitmentActionService.php    → Hiring workflow
-│   ├── HrmsNotificationService.php     → Notification dispatch
-│   ├── DashboardService.php            → Analytics aggregation
-│   └── [More services...]
-│
-├── Domain/                    ← Domain-driven design (DDD)
-│   ├── Offboarding/                    → Separation domain logic
-│   ├── Spms/                           → Performance domain logic
-│   └── TravelOrders/                   → Travel domain logic
-│
-├── Events/                    ← Event classes
-│   ├── JobApplicationSubmitted.php
-│   ├── AttendanceRecorded.php
-│   └── HrmsNotificationCreated.php
-│
-├── Listeners/                 ← Event handlers
-│   └── SendJobApplicationNotifications.php
-│
-├── Policies/                  ← Authorization rules
-│   └── [Model-based policies]
-│
-├── Mail/                      ← Mailable classes
-│   └── PasswordResetRequestAdminMail.php
-│
-└── Casts/                     ← Custom Eloquent casts
-    └── EncryptedValueCast.php         → Encrypts sensitive data
+  Domain/
+    Offboarding/Services/OffboardingWorkflowService.php
+    TravelOrders/Services/TravelOrderWorkflowService.php
+    TravelOrders/Services/TravelOrderAttendanceService.php
+  Http/
+    Controllers/          Web, workflow, report, and API/device controllers
+    Controllers/Api/      BaseApiController
+    Middleware/           role, security headers, device token, query logging
+    Requests/             extracted validation classes
+    Resources/            JSON API resources
+  Models/                 40 Eloquent models
+  Observers/              AuditObserver
+  Policies/               OffboardingRecordPolicy, PdsProfilePolicy, TravelOrderPolicy
+  Services/               shared business/application services
 
 database/
-├── migrations/                ← 100+ schema migrations
-│   ├── create_employees_table.php
-│   ├── create_attendance_table.php
-│   ├── create_leave_requests_table.php
-│   ├── create_spms_*.php               → Performance tables
-│   └── [...100+ migrations in chronological order]
-│
-└── seeders/                   ← Database population
-
-routes/
-├── web.php                    ← User-facing web routes
-├── api.php                    ← API endpoints
-├── auth.php                   ← Authentication routes
-└── channels.php               ← Broadcasting channels
-
-config/
-├── app.php                    ← Application configuration
-├── database.php               ← DB connection settings
-├── mail.php                   ← Email configuration
-├── cache.php                  ← Cache driver settings
-├── auth.php                   ← Authentication settings
-├── services.php               ← Third-party service configs
-└── rewards.php                ← Custom reward configuration
+  migrations/
+  seeders/
+  factories/              broad factory coverage for current models
 
 resources/
-├── views/                     ← Blade templates
-│   ├── layouts/
-│   ├── components/
-│   └── [Module-specific views]
-├── js/                        ← Vue.js components
-└── css/                       ← Tailwind CSS styles
+  views/                  Blade UI
+  css/                    Vite CSS entries
+  js/                     Vite JS entries
 
-tests/                         ← Pest test suites
-├── Feature/                   ← Integration tests
-├── Unit/                      ← Unit tests
-├── TestCase.php               ← Test base class
-└── Pest.php                   ← Pest configuration
+routes/
+  web.php                 main application routes
+  api.php                 NFC/user API routes
+  auth.php                auth scaffolding
+  channels.php            broadcast channels
+
+public/
+  build/                  Vite production output
+  docs/                   generated Scribe docs
 ```
 
----
+## Current Counts
+
+- Models: 40
+- Controllers in `app/Http/Controllers`: 29 plus API base controller
+- Services in `app/Services`: 14
+- Domain services: 3
+- API resources: 9
+- Form requests: 7
+- Factories: 39
+- Routes: 176
+
+## Common Commands
 
-## Quick Navigation Guide
-
-### Finding a Feature
-
-**Need to understand how Attendance works?**
-- Models: `app/Models/Attendance.php`, `AttendanceKpi.php`, `AttendanceMonthlyScore.php`
-- Controller: `app/Http/Controllers/AttendanceController.php`
-- Service: `app/Services/AttendanceKpiScoringService.php`
-- Routes: `routes/web.php` (search "attendance")
-- Tests: `tests/Feature/AttendanceTest.php`
-
-**Need to understand Leave Management?**
-- Models: `app/Models/LeaveRequest.php`, `LeaveBalance.php`, `LeaveType.php`, `LeaveBalanceYearSetting.php`
-- Controller: `app/Http/Controllers/LeaveRequestController.php`
-- Service: Look in `DashboardService` or core controller logic
-- Routes: `routes/web.php` (search "leave")
-- Workflow: See `ARCHITECTURE_DIAGRAMS.md` - "Leave Request Workflow"
-
-**Need to understand SPMS (Performance Evaluations)?**
-- Models: `SpmsProfile.php`, `SpmsCycle.php`, `SpmsEvaluation.php`, `SpmsCriterion.php`
-- Controller: `app/Http/Controllers/SpmsController.php`
-- Service: `app/Services/SpmsScoringService.php`
-- Domain: `app/Domain/Spms/`
-- Routes: `routes/web.php` (search "spms")
-
-**Need to understand Recruitment?**
-- Models: `JobPosting.php`, `Applicant.php`, `RecruitmentApproval.php`, `EligibilityCache.php`
-- Controller: `app/Http/Controllers/JobPostingController.php`, `RecruitmentApprovalController.php`
-- Services: `RecruitmentActionService.php`, `RecruitmentApprovalService.php`
-- Routes: `routes/web.php` (search "jobs" or "applicants")
-
-**Need to understand Offboarding?**
-- Models: `OffboardingRecord.php`, `ClearanceItem.php`
-- Controller: `app/Http/Controllers/OffboardingController.php`
-- Service: `app/Services/OffboardingWorkflowService.php`
-- Domain: `app/Domain/Offboarding/`
-- Routes: `routes/web.php` (search "offboarding")
-
----
-
-## Model Relationships Cheat Sheet
-
-### Common Relationships
-
-```php
-// Employee relationships
-Employee::with('user', 'positions', 'department', 'documents', 'attendance')
-
-// User relationships
-User::with('employee', 'notifications', 'auditLogs')
-
-// Attendance relationships
-Attendance::with('employee', 'nfc')
-AttendanceAnomaly::with('attendance')
-AttendanceKpi::with('employee') // Usually for department-wide
-
-// Leave relationships
-LeaveRequest::with('employee', 'leaveType', 'approver')
-LeaveBalance::with('employee', 'leaveType')
-
-// Performance relationships
-SpmsProfile::with('employee', 'cycle', 'evaluations')
-SpmsEvaluation::with('profile', 'details', 'evaluator')
-SpmsCriterion::with('cycle')
-
-// Recruitment relationships
-JobPosting::with('position', 'applicants', 'approvals')
-Applicant::with('jobPosting', 'documents', 'approvals')
-
-// Travel relationships
-TravelOrder::with('employee', 'attachments', 'transportations', 'approvals')
-
-// Offboarding relationships
-OffboardingRecord::with('employee', 'clearanceItems', 'approvals')
-ClearanceItem::with('offboarding', 'assignedTo')
-
-// PDS relationships
-PdsProfile::with('employee', 'personalInfo', 'education', 'workExperience', 'familyBackground')
-```
-
----
-
-## Key Service Methods Quick Reference
-
-### AttendanceKpiScoringService
-```php
-// Compute monthly scores for employees
-$service->computeMonthlyScores($month, $year);
-
-// Calculate individual score
-$service->calculateEmployeeScore($employee, $month);
-
-// Get criteria-based scores
-$service->getCriteriaScores($attendance);
-```
-
-### OffboardingWorkflowService
-```php
-// Initialize offboarding process
-$service->initiate($employee);
-
-// Route to next approval step
-$service->routeForApproval($offboarding);
-
-// Complete clearance
-$service->completeClearance($offboarding);
-```
-
-### HrmsNotificationService
-```php
-// Send notification to user
-$service->notify($user, $type, $relatedModel);
-
-// Broadcast real-time update
-$service->broadcast($channel, $event);
-```
-
-### RecruitmentActionService
-```php
-// Screen applicant
-$service->screen($applicant, $decision);
-
-// Route to approval
-$service->routeForApproval($applicant);
-
-// Generate offer
-$service->generateOffer($applicant);
-```
-
-### SpmsScoringService
-```php
-// Calculate evaluation score
-$service->calculateScore($evaluation);
-
-// Validate ratings
-$service->validateRatings($evaluationDetails);
-
-// Lock evaluation
-$service->lockEvaluation($profile);
-```
-
----
-
-## Common Patterns
-
-### Adding a New Feature
-
-1. **Create Model** (if needed)
-   ```bash
-   php artisan make:model FeatureName -m
-   ```
-   Edit: `app/Models/FeatureName.php` with relationships
-
-2. **Create Migration**
-   ```bash
-   php artisan make:migration create_feature_table
-   ```
-   Edit: `database/migrations/XXXX_create_feature_table.php`
-
-3. **Create Controller**
-   ```bash
-   php artisan make:controller FeatureController
-   ```
-   Edit: `app/Http/Controllers/FeatureController.php` with CRUD methods
-
-4. **Create Service** (if business logic needed)
-   ```php
-   // Create app/Services/FeatureService.php
-   ```
-
-5. **Create Events** (if workflow needed)
-   ```bash
-   php artisan make:event FeatureCreated
-   ```
-   Edit: `app/Events/FeatureCreated.php`
-
-6. **Create Listeners**
-   ```bash
-   php artisan make:listener ReactToFeatureCreated --event=FeatureCreated
-   ```
-
-7. **Add Routes**
-   Edit: `routes/web.php` or `routes/api.php`
-
-8. **Add Tests**
-   ```bash
-   php artisan make:test FeatureTest
-   ```
-
-### Creating a Workflow
-
-1. **Define States**: Use enums or model status fields
-2. **Create Service**: Class to orchestrate workflow
-3. **Create Events**: Dispatch on state transitions
-4. **Create Listeners**: Handle next steps
-5. **Add Audit**: Log state changes via `AuditLogger::log()`
-6. **Notify**: Use `HrmsNotificationService::notify()`
-
-### Adding Authorization
-
-1. **Create Policy**
-   ```bash
-   php artisan make:policy FeaturePolicy --model=Feature
-   ```
-
-2. **Define Methods in Policy**
-   ```php
-   public function view(User $user, Feature $feature) { ... }
-   public function create(User $user) { ... }
-   ```
-
-3. **Use in Controller**
-   ```php
-   $this->authorize('view', $feature);
-   ```
-
-4. **Use in Routes**
-   ```php
-   Route::middleware('auth')->group(function () {
-       Route::resource('features', FeatureController::class)->middleware('verified');
-   });
-   ```
-
----
-
-## Database Query Tips
-
-### Eager Loading (Prevent N+1 queries)
-```php
-// ✅ Good - Load relationships upfront
-$employees = Employee::with('positions', 'department', 'attendance')->get();
-
-// ❌ Bad - Creates N+1 queries
-$employees = Employee::all();
-foreach ($employees as $emp) {
-    echo $emp->positions->count();
-}
-```
-
-### Filtering by Status/State
-```php
-// Use model scopes for common queries
-Employee::active()->with('attendance')->get();
-LeaveRequest::pending()->approved()->get();
-SpmsProfile::under_review()->get();
-```
-
-### Aggregations
-```php
-// Count by department
-$bydept = Attendance::groupBy('employee.department_id')
-    ->selectRaw('count(*) as total')
-    ->get();
-
-// Sum leave balance
-$balance = LeaveBalance::where('employee_id', $id)->sum('balance');
-```
-
-### Pagination
-```php
-// Always paginate large result sets
-$employees = Employee::with('attendance')
-    ->paginate(15);
-
-// Use in view: {{ $employees->links() }}
-```
-
----
-
-## Event Broadcasting
-
-### Real-time Updates
-```php
-// Broadcast event to channel
-broadcast(new EmployeeUpdated($employee))->toOthers();
-
-// In Blade/JS: Listen and react
-Echo.channel('employee.updated')
-    .listen('EmployeeUpdated', (data) => {
-        // Update UI
-    });
-```
-
-### Triggering Events
-```php
-// In Model
-event(new AttendanceRecorded($attendance));
-
-// Listener receives event
-class SendNotificationListener {
-    public function handle(AttendanceRecorded $event) {
-        // Send notification
-    }
-}
-```
-
----
-
-## Testing Quick Start
-
-### Running Tests
 ```bash
-# Run all tests
 php artisan test
-
-# Run specific test file
-php artisan test tests/Feature/EmployeeTest.php
-
-# Run with coverage
-php artisan test --coverage
-
-# Watch mode
-php artisan test --watch
+npm.cmd run build
+php artisan route:list
+php artisan migrate
+php artisan db:seed
+php artisan cache:clear
+php artisan config:clear
+php artisan scribe:generate
 ```
 
-### API Testing Template
-```php
-public function test_can_create_employee()
-{
-    $response = $this->post('/employees', [
-        'first_name' => 'John',
-        'last_name' => 'Doe',
-        'email' => 'john@example.com',
-    ]);
-    
-    $response->assertStatus(201);
-    $this->assertDatabaseHas('employees', [
-        'first_name' => 'John'
-    ]);
-}
+Use `npm.cmd` from PowerShell if script execution policy blocks `npm`.
+
+## Key Routes
+
+```text
+GET  /dashboard
+GET  /employees
+GET  /attendance
+GET  /attendance/history
+GET  /attendance/calendar
+GET  /leaves
+GET  /leaves/approvals
+GET  /job-postings
+GET  /jobs
+GET  /employee-documents
+GET  /documents
+GET  /departments
+GET  /positions
+GET  /offboarding
+GET  /travel-orders
+GET  /travel-orders/approvals
+GET  /pds
+GET  /reports
+GET  /audit-logs
 ```
 
----
+API/device routes:
 
-## Debugging Tips
+```text
+POST /api/nfc/receive
+POST /api/nfc/scan
+GET  /api/user
+GET  /api/employees/search
+GET  /api/nfc/latest
+```
 
-### Enable Query Logging
+## Core Services
+
 ```php
-// In service/controller
-DB::listen(function ($query) {
-    Log::debug($query->sql, $query->bindings);
+App\Services\AccessControl
+App\Services\AttendanceCalendarService
+App\Services\AttendancePolicyService
+App\Services\AuditLogger
+App\Services\DashboardActivityService
+App\Services\DashboardMetricsService
+App\Services\DashboardService
+App\Services\DepartmentMetricsService
+App\Services\GeminiService
+App\Services\HrmsNotificationService
+App\Services\OffboardingWorkflowService
+App\Services\RecruitmentActionService
+App\Services\RecruitmentApprovalService
+App\Services\ReportExportService
+```
+
+Domain workflow services:
+
+```php
+App\Domain\Offboarding\Services\OffboardingWorkflowService
+App\Domain\TravelOrders\Services\TravelOrderWorkflowService
+App\Domain\TravelOrders\Services\TravelOrderAttendanceService
+```
+
+## Validation Pattern
+
+Use a form request when adding or changing mutating endpoints.
+
+Existing examples:
+
+```php
+StoreEmployeeRequest
+UpdateEmployeeRequest
+StoreLeaveRequestRequest
+UpdateLeaveRequestRequest
+LeaveApprovalActionRequest
+PdsSectionRequest
+ProfileUpdateRequest
+```
+
+Still-good candidates for extraction:
+
+- Travel order mutations and decisions
+- Offboarding mutations and decisions
+- Document/category/subcategory mutations
+- Department and position mutations
+- Recruitment mutations
+
+## API Pattern
+
+The API foundation exists but is not fully applied across the app.
+
+Use these pieces for new JSON endpoints:
+
+```php
+App\Http\Controllers\Api\BaseApiController
+App\Http\Resources\EmployeeResource
+App\Http\Resources\UserResource
+App\Http\Resources\DepartmentResource
+App\Http\Resources\DepartmentTypeResource
+App\Http\Resources\PositionResource
+App\Http\Resources\EmployeeNfcResource
+App\Http\Resources\LeaveRequestResource
+App\Http\Resources\LeaveTypeResource
+App\Http\Resources\AttendanceResource
+```
+
+If the API grows, add versioned routing before exposing broad resources:
+
+```php
+Route::prefix('v1')->group(function () {
+    // API resources here
 });
 ```
 
-### Dump Data
+## Authorization
+
+Gates are registered in `AppServiceProvider`.
+
+Policies:
+
 ```php
-dd($variable);        // Dump and die
-dump($variable);      // Dump without dying
-Log::debug('Key', ['data' => $variable]);
+OffboardingRecordPolicy
+PdsProfilePolicy
+TravelOrderPolicy
 ```
 
-### Test Email Sending
+Route middleware aliases are registered in `bootstrap/app.php`:
+
 ```php
-Mail::fake();
-// ... run code that sends email
-Mail::assertSent(PasswordReset::class);
+role
+device.token
 ```
 
-### Check Active Queries
-```php
-// In tinker (php artisan tinker)
->>> DB::getQueryLog()
->>> DB::enableQueryLog()
-```
+`query.log` exists in `app/Http/Kernel.php`, but Laravel 12 uses `bootstrap/app.php` for active middleware registration.
 
----
+## Security
 
-## Deployment Checklist
+Implemented:
 
-- [ ] Run migrations: `php artisan migrate --force`
-- [ ] Clear cache: `php artisan cache:clear`
-- [ ] Build assets: `npm run build`
-- [ ] Set encryption key: `php artisan key:generate`
-- [ ] Configure `.env` file
-- [ ] Set file permissions: `chmod -R 755 storage bootstrap/cache`
-- [ ] Generate API documentation (if applicable)
-- [ ] Run test suite: `php artisan test`
-- [ ] Check seed data: `php artisan db:seed`
+- Global `SecurityHeadersMiddleware`
+- HSTS on secure requests
+- `X-Frame-Options: SAMEORIGIN`
+- `X-Content-Type-Options: nosniff`
+- Secure file serving route for private uploads
+- Device-token middleware for NFC ingestion
+- PDS encryption with tests
+- Audit observer for core models
 
----
+Not implemented as of this review:
 
-## Useful Artisan Commands
+- Two-factor authentication
+- OAuth/SAML SSO
+- Broad scoped API token management
+- Password history/expiration policy
+
+## Testing
+
+Run:
 
 ```bash
-# Database
-php artisan migrate              # Run migrations
-php artisan migrate:rollback     # Rollback last migration
-php artisan migrate:refresh      # Rollback and re-run
-php artisan db:seed             # Run seeders
-php artisan tinker              # PHP interactive shell
-
-# Code Generation
-php artisan make:model Model -m -f  # Model + migration + factory
-php artisan make:controller ControllerName --model=ModelName
-php artisan make:service ServiceName
-php artisan make:event EventName
-php artisan make:listener ListenerName --event=EventName
-
-# Maintenance
-php artisan cache:clear         # Clear cache
-php artisan config:cache        # Cache configurations
-php artisan view:clear          # Clear view cache
-php artisan optimize            # Optimize autoloader
-
-# Testing
-php artisan test               # Run tests
-php artisan test --coverage    # Generate coverage report
-
-# Utility
-php artisan route:list         # List all routes
-php artisan queue:work         # Process queued jobs
-php artisan schedule:work      # Run scheduled tasks
+php artisan test
 ```
 
----
+Current feature coverage includes:
 
-## Commonly Used Models & Their Key Methods
+- Attendance workflow and attendance settings
+- Auth/profile
+- Dashboard access
+- Employee documents
+- Leave approval workflow
+- Offboarding workflow
+- PDS autosave/encryption/access
+- Recruitment workflow
+- Travel order workflow and transport options
 
-```php
-// Employee - Main employee record
-Employee::find($id)->load('positions', 'department', 'user')
-Employee::whereActive(true)
-$employee->hasMany('attendance')
+## CI Notes
 
-// User - Authentication
-User::whereEmail($email)->first()
-Auth::user()->load('employee')
+`.github/workflows/ci.yml` has:
 
-// Attendance - Daily records
-Attendance::where('date', $date)->where('employee_id', $empId)
-$attendance->whereNfc($rfidCode)
+- Pest test job with MySQL
+- Pint code style job
+- PHPStan static-analysis job
 
-// LeaveRequest - Leave workflow
-LeaveRequest::whereStatus('pending')->whereDepartment($deptId)
-$leaveRequest->approve()    // Custom method
+Before depending on the PHPStan job, add a direct PHPStan/Larastan dev dependency and a config file.
 
-// SpmsProfile - Performance evaluation
-SpmsProfile::whereCycleId($id)->load('evaluations')
-$profile->calculateFinalScore()
+## Asset Pipeline
 
-// OffboardingRecord - Employee separation
-OffboardingRecord::whereStatus('pending')->load('clearanceItems')
-```
+Use Vite entries in `vite.config.js`.
 
----
+The app uses dynamic Blade arrays in `resources/views/layouts/admin.blade.php` and `resources/views/layouts/embedded.blade.php` to load module-specific CSS/JS. Avoid reintroducing large public template distributions; install frontend packages through npm and import them from `resources/js` or `resources/css`.
 
-## System Constants & Enums
+## Documentation
 
-### Status Values
-```php
-// Attendance Anomaly Status
-'present', 'absent', 'late', 'early_out'
-
-// Leave Request Status
-'pending', 'approved', 'rejected', 'cancelled'
-
-// SPMS Status
-'pending_self_assessment', 'employee_submitted', 'manager_reviewed', 
-'director_approved', 'finalized'
-
-// Offboarding Status
-'pending', 'submitted', 'approved', 'finalized', 'cancelled'
-
-// Travel Order Status
-'pending', 'approved', 'rejected', 'completed'
-```
-
----
-
-## External Services Integration
-
-### Pusher/Reverb (Real-time)
-```php
-// Broadcasting events
-broadcast(new NotificationSent($user, $message))->toOthers();
-```
-
-### Google Gemini (AI)
-```php
-// Access via GeminiService
-$service = new GeminiService();
-$response = $service->analyze($data);
-```
-
-### DOMPDF (PDF Generation)
-```php
-// Generate PDF reports
-$pdf = PDF::loadView('reports.spms', $data);
-return $pdf->download('spms_report.pdf');
-```
-
-### Guzzle HTTP (API Calls)
-```php
-// Make external API requests
-$client = new Client();
-$response = $client->get('https://api.example.com/data');
-```
-
----
-
-This quick reference should help you navigate and extend the HRMS system efficiently. Refer to `SYSTEM_OVERVIEW.md` for comprehensive documentation and `ARCHITECTURE_DIAGRAMS.md` for visual workflow diagrams.
+- `SYSTEM_OVERVIEW.md`: high-level architecture and modules
+- `ARCHITECTURE_DIAGRAMS.md`: text diagrams and workflows
+- `DEVELOPER_QUICK_REFERENCE.md`: operational developer reference
+- `TODO.md`: implementation status
+- `IMPROVEMENT_RECOMMENDATIONS.md`: prioritized improvement roadmap
+- `public/docs`: generated Scribe API docs

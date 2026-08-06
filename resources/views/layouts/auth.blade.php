@@ -23,7 +23,11 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
     />
     <link rel="stylesheet" href="{{ asset('assets/css/coreui.min.css') }}" />
-    @vite ([ 'resources/css/toasts.css', 'resources/js/flash-toasts.js', ])
+    @vite ([
+        'resources/css/toasts.css',
+        'resources/css/futuristic-theme.css',
+        'resources/js/flash-toasts.js',
+    ])
     @stack ('styles')
 </head>
 <body class="bg-light" data-page="{{ request()->route()?->getName() }}">

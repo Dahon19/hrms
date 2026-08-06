@@ -78,7 +78,7 @@
     "src": "node_modules/@coreui/icons/fonts/CoreUI-Icons-Free.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-xyTEY6Es.css",
+    "file": "assets/app-DPX_kjPZ.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -158,15 +158,6 @@
       "documents-index.css"
     ]
   },
-  "resources/css/eligibility-index.css": {
-    "file": "assets/eligibility-index-7--IO7Sp.css",
-    "src": "resources/css/eligibility-index.css",
-    "isEntry": true,
-    "name": "eligibility-index",
-    "names": [
-      "eligibility-index.css"
-    ]
-  },
   "resources/css/emerald-theme.css": {
     "file": "assets/emerald-theme-DJFqkt80.css",
     "src": "resources/css/emerald-theme.css",
@@ -237,15 +228,6 @@
     "name": "mobile-responsive",
     "names": [
       "mobile-responsive.css"
-    ]
-  },
-  "resources/css/module-overrides.css": {
-    "file": "assets/module-overrides-R8ThksF0.css",
-    "src": "resources/css/module-overrides.css",
-    "isEntry": true,
-    "name": "module-overrides",
-    "names": [
-      "module-overrides.css"
     ]
   },
   "resources/css/offboarding.css": {
@@ -426,15 +408,6 @@
       "_utils-BZmljrvr.js"
     ]
   },
-  "resources/js/eligibility.js": {
-    "file": "assets/eligibility-t5xkC1l5.js",
-    "name": "eligibility",
-    "src": "resources/js/eligibility.js",
-    "isEntry": true,
-    "imports": [
-      "_utils-BZmljrvr.js"
-    ]
-  },
   "resources/js/employees.js": {
     "file": "assets/employees-BLZ_eQ3b.js",
     "name": "employees",
@@ -564,15 +537,6 @@
     "file": "assets/reports-index-D0-RVJsN.js",
     "name": "reports-index",
     "src": "resources/js/reports-index.js",
-    "isEntry": true,
-    "imports": [
-      "_utils-BZmljrvr.js"
-    ]
-  },
-  "resources/js/rewards.js": {
-    "file": "assets/rewards-DBRSAM8y.js",
-    "name": "rewards",
-    "src": "resources/js/rewards.js",
     "isEntry": true,
     "imports": [
       "_utils-BZmljrvr.js"

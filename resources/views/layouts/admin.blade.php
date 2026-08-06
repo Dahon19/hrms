@@ -236,7 +236,35 @@
             }
         }
     </style>
-    @php $viteCss = [ 'resources/css/coreui-shell.css', 'resources/css/ui-components.css', 'resources/css/ui-tables.css', 'resources/css/ui-hero.css', 'resources/css/mobile-responsive.css', 'resources/css/module-overrides.css', 'resources/css/emerald-theme.css', 'resources/css/toasts.css', ]; if (request()->routeIs('dashboard')) { $viteCss[] = 'resources/css/dashboard.css'; } if (request()->routeIs('attendance.*')) { $viteCss[] = 'resources/css/attendance-kiosk.css'; } if (request()->routeIs('attendance.calendar')) { $viteCss[] = 'resources/css/attendance-calendar.css'; } if (request()->routeIs('leaves.*') || request()->routeIs('leave-types.*')) { $viteCss[] = 'resources/css/leaves-index.css'; } if (request()->routeIs('leave-balances.*')) { $viteCss[] = 'resources/css/leave-balances.css'; } if (request()->routeIs('documents.*') || request()->routeIs('employee-documents.*')) { $viteCss[] = 'resources/css/documents-index.css'; } if (request()->routeIs('employees.*')) { $viteCss[] = 'resources/css/employees-index.css'; } if (request()->routeIs('departments.*')) { $viteCss[] = 'resources/css/departments-index.css'; } if (request()->routeIs('positions.*')) { $viteCss[] = 'resources/css/positions-index.css'; } if (request()->routeIs('job-postings.*')) { $viteCss[] = 'resources/css/job-postings-index.css'; } if (request()->routeIs('reports.*')) { $viteCss[] = 'resources/css/reports-index.css'; } if (request()->routeIs('audit-logs.*')) { $viteCss[] = 'resources/css/audit-logs.css'; } if (request()->routeIs('offboarding.*')) { $viteCss[] = 'resources/css/offboarding.css'; } if (request()->routeIs('travel-orders.*')) { $viteCss[] = 'resources/css/travel-orders.css'; } if (request()->routeIs('pds.*')) { $viteCss[] = 'resources/css/pds.css'; } $viteCss[] = 'resources/css/dark-mode-consistency.css'; @endphp
+    @php
+        $viteCss = [
+            'resources/css/coreui-shell.css',
+            'resources/css/ui-components.css',
+            'resources/css/ui-tables.css',
+            'resources/css/ui-hero.css',
+            'resources/css/mobile-responsive.css',
+            'resources/css/emerald-theme.css',
+            'resources/css/toasts.css',
+        ];
+        if (request()->routeIs('dashboard')) { $viteCss[] = 'resources/css/dashboard.css'; }
+        if (request()->routeIs('attendance.*')) { $viteCss[] = 'resources/css/attendance-kiosk.css'; }
+        if (request()->routeIs('attendance.calendar')) { $viteCss[] = 'resources/css/attendance-calendar.css'; }
+        if (request()->routeIs('leaves.*') || request()->routeIs('leave-types.*')) { $viteCss[] = 'resources/css/leaves-index.css'; }
+        if (request()->routeIs('leave-balances.*')) { $viteCss[] = 'resources/css/leave-balances.css'; }
+        if (request()->routeIs('documents.*') || request()->routeIs('employee-documents.*')) { $viteCss[] = 'resources/css/documents-index.css'; }
+        if (request()->routeIs('employees.*')) { $viteCss[] = 'resources/css/employees-index.css'; }
+        if (request()->routeIs('departments.*')) { $viteCss[] = 'resources/css/departments-index.css'; }
+        if (request()->routeIs('positions.*')) { $viteCss[] = 'resources/css/positions-index.css'; }
+        if (request()->routeIs('job-postings.*')) { $viteCss[] = 'resources/css/job-postings-index.css'; }
+        if (request()->routeIs('reports.*')) { $viteCss[] = 'resources/css/reports-index.css'; }
+        if (request()->routeIs('audit-logs.*')) { $viteCss[] = 'resources/css/audit-logs.css'; }
+        if (request()->routeIs('offboarding.*')) { $viteCss[] = 'resources/css/offboarding.css'; }
+        if (request()->routeIs('travel-orders.*')) { $viteCss[] = 'resources/css/travel-orders.css'; }
+        if (request()->routeIs('pds.*')) { $viteCss[] = 'resources/css/pds.css'; }
+        // Add futuristic theme CSS for modern look
+        $viteCss[] = 'resources/css/futuristic-theme.css';
+        $viteCss[] = 'resources/css/dark-mode-consistency.css';
+    @endphp
     @vite ($viteCss)
     @stack ('styles')
 </head>
